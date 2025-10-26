@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kínai-Magyar-Angol Szókincs Fejlesztő</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        
+        header {
+            background: linear-gradient(to right, #e52d27, #b31217);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            margin: 0 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .lang-btn.active {
+            background: white;
+            color: #e52d27;
+        }
+        
+        .visitor-counter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .intro-section {
+            padding: 40px;
+            text-align: center;
+            background-color: #f8f9fa;
+        }
+        
+        .intro-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #555;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .feature {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #e52d27;
+        }
+        
+        .feature h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .feature p {
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .cta-section {
+            padding: 40px;
+            text-align: center;
+            background: linear-gradient(to right, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .cta-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-text {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #3d8b40;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+        
+        .contact-section {
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .contact-text {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #666;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .email-link {
+            color: #e52d27;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        
+        .email-link:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f1f1f1;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .language-content {
+            display: none;
+        }
+        
+        .language-content.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .feature {
+                min-width: 100%;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .visitor-counter {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 15px;
+                display: inline-block;
+            }
+            
+            .language-switcher {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="visitor-counter">
+                <!-- Magyar -->
+                <span class="language-content active" data-lang="hu">Látogatók: <span id="visit-count">1000</span></span>
+                <!-- Kínai -->
+                <span class="language-content" data-lang="zh">訪客: <span id="visit-count-zh">1000</span></span>
+                <!-- Angol -->
+                <span class="language-content" data-lang="en">Visitors: <span id="visit-count-en">1000</span></span>
+            </div>
+            
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="hu">HU</button>
+                <button class="lang-btn" data-lang="zh">中文</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+            </div>
+            
+            <!-- Magyar tartalom -->
+            <div class="language-content active" data-lang="hu">
+                <h1>Kínai-Magyar-Angol Szókincs Fejlesztő</h1>
+                <div class="subtitle">Fejleszd nyelvtudásod interaktív gyakorlóalkalmazással. Tanulj kínai, magyar és angol szavakat szórakoztató módon!</div>
+            </div>
+            
+            <!-- Kínai tartalom -->
+            <div class="language-content" data-lang="zh">
+                <h1>中文-匈牙利文-英文詞彙開發工具</h1>
+                <div class="subtitle">通過互動練習應用提升您的語言技能。以有趣的方式學習中文、匈牙利文和英文單字！</div>
+            </div>
+            
+            <!-- Angol tartalom -->
+            <div class="language-content" data-lang="en">
+                <h1>Chinese-Hungarian-English Vocabulary Developer</h1>
+                <div class="subtitle">Enhance your language skills with an interactive practice application. Learn Chinese, Hungarian, and English words in a fun way!</div>
+            </div>
+        </header>
+        
+        <div class="intro-section">
+            <!-- Magyar tartalom -->
+            <div class="language-content active" data-lang="hu">
+                <p class="intro-text">Üdvözöljük a Kínai-Magyar-Angol Szókincs Fejlesztő alkalmazás honlapján! Itt egy innovatív nyelvtanulási eszközzel ismerkedhet meg, amely segít gyarapítani szókincsét három nyelven egyszerre.</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">📚</div>
+                        <h3>900+ Szó</h3>
+                        <p>Átfogó szótár kínai, magyar és angol szavakkal különböző kategóriákban</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Interaktív Gyakorlás</h3>
+                        <p>Válaszolj magyarul vagy angolul, az alkalmazás mindkét nyelvet elfogadja</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🔊</div>
+                        <h3>Hangos Kiejtés</h3>
+                        <p>Hallgasd meg a szavak kiejtését mindhárom nyelven</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kínai tartalom -->
+            <div class="language-content" data-lang="zh">
+                <p class="intro-text">歡迎來到中文-匈牙利文-英文詞彙開發工具網站！在這裡，您將認識一款創新的語言學習工具，幫助您同時擴展三種語言的詞彙量。</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">📚</div>
+                        <h3>900+ 單字</h3>
+                        <p>包含不同類別的中文、匈牙利文和英文單字的全面詞典</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🎯</div>
+                        <h3>互動練習</h3>
+                        <p>用匈牙利文或英文回答，應用程式接受兩種語言</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🔊</div>
+                        <h3>語音發音</h3>
+                        <p>聆聽三種語言的單字發音</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Angol tartalom -->
+            <div class="language-content" data-lang="en">
+                <p class="intro-text">Welcome to the Chinese-Hungarian-English Vocabulary Developer website! Here you'll get acquainted with an innovative language learning tool that helps you expand your vocabulary in three languages simultaneously.</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">📚</div>
+                        <h3>900+ Words</h3>
+                        <p>Comprehensive dictionary with Chinese, Hungarian and English words in various categories</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Interactive Practice</h3>
+                        <p>Answer in Hungarian or English, the application accepts both languages</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🔊</div>
+                        <h3>Voice Pronunciation</h3>
+                        <p>Listen to word pronunciations in all three languages</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <!-- Magyar tartalom -->
+            <div class="language-content active" data-lang="hu">
+                <h2 class="cta-title">Próbáld Ki Most!</h2>
+                <p class="cta-text">Ismerd meg az alkalmazás minden funkcióját ingyenes demóverzióval. Fedezd fel, mennyire hatékony és szórakoztató lehet a nyelvtanulás!</p>
+                <div class="buttons">
+                  <!--  <a href="szokincs-gyakorlo.html" class="btn btn-primary">Alkalmazás Kipróbálása</a> -->
+                </div>
+            </div>
+            
+            <!-- Kínai tartalom -->
+            <div class="language-content" data-lang="zh">
+                <h2 class="cta-title">立即試用！</h2>
+                <p class="cta-text">通過免費演示版本了解應用程式的所有功能。探索語言學習可以多麼有效和有趣！</p>
+                <div class="buttons">
+                 <!--   <a href="szokincs-gyakorlo.html" class="btn btn-primary">試用應用程式</a> -->
+                </div>
+            </div>
+            
+            <!-- Angol tartalom -->
+            <div class="language-content" data-lang="en">
+                <h2 class="cta-title">Try It Now!</h2>
+                <p class="cta-text">Discover all the features of the application with a free demo version. Explore how effective and fun language learning can be!</p>
+                <div class="buttons">
+                 <!--   <a href="szokincs-gyakorlo.html" class="btn btn-primary">Try the Application</a> -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="contact-section">
+            <!-- Magyar tartalom -->
+            <div class="language-content active" data-lang="hu">
+                <h2 class="contact-title">További Információkért</h2>
+                <p class="contact-text">Érdekel a teljes verzió, vagy kérdésed van az alkalmazással kapcsolatban? Küldj e-mailt nekünk, és szívesen válaszolunk!</p>
+                <a href="mailto:mj62@windowslive.com" class="email-link">info@szokincsfejleszto</a>
+            </div>
+            
+            <!-- Kínai tartalom -->
+            <div class="language-content" data-lang="zh">
+                <h2 class="contact-title">獲取更多資訊</h2>
+                <p class="contact-text">對完整版本感興趣或有關於應用程式的問題嗎？給我們發送電子郵件，我們樂意為您解答！</p>
+                <a href="mailto:info@szokincsfejleszto.hu" class="email-link">info@szokincsfejleszto.hu</a>
+            </div>
+            
+            <!-- Angol tartalom -->
+            <div class="language-content" data-lang="en">
+                <h2 class="contact-title">For More Information</h2>
+                <p class="contact-text">Interested in the full version or have questions about the application? Send us an email and we'll be happy to help!</p>
+                <a href="mailto:info@szokincsfejleszto.hu" class="email-link">info@szokincsfejleszto.hu</a>
+            </div>
+        </div>
+        
+        <footer>
+            <!-- Magyar tartalom -->
+            <div class="language-content active" data-lang="hu">
+                <p>Kínai-Magyar-Angol Szókincs Fejlesztő &copy; 2024 - Minden jog fenntartva</p>
+            </div>
+            
+            <!-- Kínai tartalom -->
+            <div class="language-content" data-lang="zh">
+                <p>中文-匈牙利文-英文詞彙開發工具 &copy; 2024 - 版權所有</p>
+            </div>
+            
+            <!-- Angol tartalom -->
+            <div class="language-content" data-lang="en">
+                <p>Chinese-Hungarian-English Vocabulary Developer &copy; 2024 - All rights reserved</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Látogatásszámláló funkció
+        function updateVisitorCounter() {
+            // Ellenőrizzük, hogy a localStorage támogatott-e
+            if (typeof(Storage) !== "undefined") {
+                // Megnézzük, van-e már mentett érték
+                let visitCount = localStorage.getItem('visitCount');
+                
+                if (visitCount === null) {
+                    // Ha első látogatás, beállítjuk 1-re
+                    visitCount = 1;
+                } else {
+                    // Ha nem első látogatás, növeljük 1-gyel
+                    visitCount = parseInt(visitCount) + 1;
+                }
+                
+                // Elmentjük az új értéket
+                localStorage.setItem('visitCount', visitCount);
+                
+                // Frissítjük a megjelenítést mindhárom nyelven
+                document.getElementById('visit-count').textContent = visitCount;
+                document.getElementById('visit-count-zh').textContent = visitCount;
+                document.getElementById('visit-count-en').textContent = visitCount;
+                
+                // Naplózzuk a látogatást (opcionális)
+                console.log(`Látogatások száma: ${visitCount}`);
+            } else {
+                // Ha a localStorage nem támogatott
+                console.log("A böngésző nem támogatja a localStorage-t");
+                document.getElementById('visit-count').textContent = "N/A";
+                document.getElementById('visit-count-zh').textContent = "N/A";
+                document.getElementById('visit-count-en').textContent = "N/A";
+            }
+        }
+
+        // Nyelvváltás funkció
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializáljuk a látogatásszámlálót
+            updateVisitorCounter();
+            
+            const langButtons = document.querySelectorAll('.lang-btn');
+            const langContents = document.querySelectorAll('.language-content');
+            
+            langButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const selectedLang = this.getAttribute('data-lang');
+                    
+                    // Frissítsd az aktív gombot
+                    langButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Frissítsd a tartalmat
+                    langContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.getAttribute('data-lang') === selectedLang) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

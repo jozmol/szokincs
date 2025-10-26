@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kínai-Magyar-Angol Szókincs Gyakorló</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        
+        header {
+            background: linear-gradient(to right, #e52d27, #b31217);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .menu-container {
+            padding: 15px 20px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .category-select {
+            width: 50%;
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: white;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        
+        .category-select:focus {
+            border-color: #e52d27;
+            outline: none;
+        }
+        
+        .language-info {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .content {
+            display: flex;
+            padding: 20px;
+            min-height: 400px;
+        }
+        
+        .left-panel, .right-panel {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .left-panel {
+            border-right: 1px dashed #ddd;
+            text-align: center;
+        }
+        
+        .word-display {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+        
+        .pinyin {
+            font-size: 1.5rem;
+            color: #e52d27;
+            margin-bottom: 10px;
+        }
+        
+        .hint {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        .input-container {
+            margin-bottom: 20px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            border-color: #e52d27;
+            outline: none;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        #check-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        #check-btn:hover {
+            background-color: #3d8b40;
+        }
+        
+        #speak-btn {
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        #speak-btn:hover {
+            background-color: #0b7dda;
+        }
+        
+        #next-btn {
+            background-color: #FF9800;
+            color: white;
+        }
+        
+        #next-btn:hover {
+            background-color: #e68900;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .correct {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .incorrect {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        @media (max-width: 600px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .left-panel {
+                border-right: none;
+                border-bottom: 1px dashed #ddd;
+            }
+            
+            .word-display {
+                font-size: 2.5rem;
+            }
+            
+            .pinyin {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Kínai → Magyar → Angol Szókincs Gyakorló v3.1</h1>
+            <div class="subtitle">Gyakorold a kínai szavakat magyar és angol megfelelőjükkel!<br>
+练习中文单词及其匈牙利语和英语对应词！
+<br>Practice Chinese words with Hungarian and English equivalents!</div>
+        </header>
+        
+        <div class="menu-container"><p align="left"> Válassz kategóriát / 选择类别 / Select Category</p><br>
+            <select id="category-select" class="category-select">
+	        <option value="nul"></option>
+                <option value="all">Összes kategória / 所有类别 / All Categories</option>
+		<option value="altalanos">Általános szavak / 常用词汇 / General Words</option>
+		<option value="allatok">Állatok / 动物 / Animals</option>
+                <option value="csalad">Család / 家庭 / Family</option>
+		<option value="utazas">Utazás / 旅行 / Travel</option>
+		<option value="ruhazat">Ruházat / 服装 / Clothing</option>
+                <option value="tarsalgas">Társalgás / 谈话 / Conversation</option>
+		<option value="otthon">Otthon / 家 / Home</option>
+                <option value="etterem">Étterem / 餐馆 / Restaurant</option>
+		<option value="etelek">Ételek-italok / 食品饮料 / Food & Drinks</option>
+                <option value="szemelyes_nevmasok">Személyes névmások / 人称代词 / Personal Pronouns</option>
+                <option value="szamok">Számok / 数字 / Numbers</option>
+		<option value="testreszek">Testrészek / 身体部位 / Body Parts</option>
+                <option value="szinek">Színek-formák / 颜色形状 / Colors & Shapes</option>
+            </select>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="content">
+            <div class="left-panel">
+                <div class="word-display" id="chinese-word">...</div>
+                <div class="pinyin" id="pinyin">...</div>
+                <div class="hint">Írd be a magyar vagy angol megfelelőjét!</div>
+                <div class="hint">在右侧栏中填写匈牙利语或英语对应词！</div>
+                <div class="hint">Enter the Hungarian or English equivalent in the right panel!</div>
+            </div>
+            
+            <div class="right-panel">
+                <div class="input-container">
+		            <p><u><b>在这里写下匈牙利语或英语的对应词...<br>Write the Hungarian or English equivalent here...</b></u></p><br>
+                    <input type="text" id="answer-input" placeholder="Írd ide a magyar vagy angol szót...">
+                </div>
+                
+                <div class="feedback" id="feedback"></div>
+                
+                 <div class="buttons">
+                    <button id="check-btn">[Ellenőrzés] - [检查] - [Check]</button>
+                    <button id="speak-btn">[Felolvasás] - [朗读] - [Speak]</button>
+                    <button id="next-btn">[Következő] - [下一个] - [Next]</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div>Helyes válaszok / 正确答案 / Correct Answers: <span id="correct-count">0</span></div>
+            <div>Összes szó / 总字数 / Total Words: <span id="total-count">0</span></div>
+        </div>
+        
+        <footer>
+            Nyelvtani oktató - Kínai-Magyar-Angol szókincs gyakorló
+            <br>语法练习者 - 中匈英词汇练习者
+            <br>Grammar Trainer - Chinese-Hungarian-English Vocabulary Practice
+            <br> Created by jozmol
+        </footer>
+    </div>
+
+    <script>
+        // Globális változók
+        let wordPairs = [];
+        let currentWordIndex = 0;
+        let correctAnswers = 0;
+        let totalAttempts = 0;
+        let currentCategory = "nul";
+        let filteredWordPairs = [];
+
+        // DOM elemek
+        const chineseWordElement = document.getElementById('chinese-word');
+        const pinyinElement = document.getElementById('pinyin');
+        const answerInputElement = document.getElementById('answer-input');
+        const checkButton = document.getElementById('check-btn');
+        const speakButton = document.getElementById('speak-btn');
+        const nextButton = document.getElementById('next-btn');
+        const feedbackElement = document.getElementById('feedback');
+        const correctCountElement = document.getElementById('correct-count');
+        const totalCountElement = document.getElementById('total-count');
+        const progressBar = document.getElementById('progress-bar');
+        const categorySelect = document.getElementById('category-select');
+
+        // Szótár betöltése JSON fájlból
+        async function loadDictionary() {
+            try {
+                const response = await fetch('szótár.json');
+                if (!response.ok) {
+                    throw new Error('Hiba a szótár betöltése során');
+                }
+                const data = await response.json();
+                wordPairs = data.wordPairs;
+                filteredWordPairs = [...wordPairs];
+                init();
+            } catch (error) {
+                console.error('Hiba:', error);
+                // Ha nem sikerül betölteni a fájlt, használjuk a beépített adatokat
+                wordPairs = [
+    
+// Nul
+    { chinese: "Válassz kategóriát", hungarian: "válassz kategóriát", pinyin: "", english: "select category", category: "nul" },
+
+    // Utazás (25 szó)
+    { chinese: "機場", hungarian: "repülőtér", pinyin: "jīchǎng", english: "airport", category: "utazas" },
+    { chinese: "地圖", hungarian: "térkép", pinyin: "dìtú", english: "map", category: "utazas" },
+    { chinese: "護照", hungarian: "útlevél", pinyin: "hùzhào", english: "passport", category: "utazas" },
+    { chinese: "国家", hungarian: "ország", pinyin: "guójiā", english: "country", category: "utazas" },
+    { chinese: "城市", hungarian: "város", pinyin: "chéngshì", english: "city", category: "utazas" },
+    { chinese: "村庄", hungarian: "falu", pinyin: "cūnzhuāng", english: "village", category: "utazas" },
+    { chinese: "街道", hungarian: "utca", pinyin: "jiēdào", english: "street", category: "utazas" },
+    { chinese: "死胡同", hungarian: "zsákutca", pinyin: "sǐhútòng", english: "dead-end street", category: "utazas" },
+    { chinese: "屋邨", hungarian: "lakótelep", pinyin: "wū cūn", english: "housing estate", category: "utazas" },
+    { chinese: "酒店", hungarian: "szálloda", pinyin: "jiǔdiàn", english: "hotel", category: "utazas" },
+    { chinese: "火车站", hungarian: "vasútállomás", pinyin: "huǒchē zhàn", english: "train station", category: "utazas" },
+    { chinese: "汽车站", hungarian: "buszmegálló", pinyin: "qìchē zhàn", english: "bus station", category: "utazas" },
+    { chinese: "地铁", hungarian: "metró", pinyin: "dìtiě", english: "subway", category: "utazas" },
+    { chinese: "出租车", hungarian: "taxi", pinyin: "chūzū chē", english: "taxi", category: "utazas" },
+    { chinese: "飞机", hungarian: "repülőgép", pinyin: "fēijī", english: "airplane", category: "utazas" },
+    { chinese: "火车", hungarian: "vonat", pinyin: "huǒchē", english: "train", category: "utazas" },
+    { chinese: "汽车", hungarian: "autó", pinyin: "qìchē", english: "car", category: "utazas" },
+    { chinese: "自行车", hungarian: "kerékpár", pinyin: "zìxíngchē", english: "bicycle", category: "utazas" },
+    { chinese: "船", hungarian: "hajó", pinyin: "chuán", english: "ship", category: "utazas" },
+    { chinese: "桥", hungarian: "híd", pinyin: "qiáo", english: "bridge", category: "utazas" },
+    { chinese: "方向", hungarian: "irány", pinyin: "fāngxiàng", english: "direction", category: "utazas" },
+    { chinese: "北", hungarian: "észak", pinyin: "běi", english: "north", category: "utazas" },
+    { chinese: "南", hungarian: "dél", pinyin: "nán", english: "south", category: "utazas" },
+    { chinese: "东", hungarian: "kelet", pinyin: "dōng", english: "east", category: "utazas" },
+    { chinese: "西", hungarian: "nyugat", pinyin: "xī", english: "west", category: "utazas" },
+
+    // Társalgás (20 szó)
+    { chinese: "你好", hungarian: "szia", pinyin: "nǐ hǎo", english: "hello", category: "tarsalgas" },
+    { chinese: "謝謝", hungarian: "köszönöm", pinyin: "xièxiè", english: "thank you", category: "tarsalgas" },
+    { chinese: "對不起", hungarian: "bocsánat", pinyin: "duìbuqǐ", english: "sorry", category: "tarsalgas" },
+    { chinese: "再見", hungarian: "viszlát", pinyin: "zàijiàn", english: "goodbye", category: "tarsalgas" },
+    { chinese: "請", hungarian: "kérlek", pinyin: "qǐng", english: "please", category: "tarsalgas" },
+    { chinese: "是", hungarian: "igen", pinyin: "shì", english: "yes", category: "tarsalgas" },
+    { chinese: "不是", hungarian: "nem", pinyin: "bù shì", english: "no", category: "tarsalgas" },
+    { chinese: "好", hungarian: "jó", pinyin: "hǎo", english: "good", category: "tarsalgas" },
+    { chinese: "不好", hungarian: "rossz", pinyin: "bù hǎo", english: "bad", category: "tarsalgas" },
+    { chinese: "多少錢?", hungarian: "Mennyibe kerül?", pinyin: "duōshǎo qián?", english: "How much does it cost?", category: "tarsalgas" },
+    { chinese: "我叫...", hungarian: "A nevem...", pinyin: "wǒ jiào...", english: "My name is...", category: "tarsalgas" },
+    { chinese: "你叫什么名字?", hungarian: "Hogy hívnak?", pinyin: "nǐ jiào shénme míngzì?", english: "What's your name?", category: "tarsalgas" },
+    { chinese: "我來自匈牙利", hungarian: "Magyarországról jövök", pinyin: "wǒ láizì xiōngyálì", english: "I come from Hungary", category: "tarsalgas" },
+    { chinese: "你會說英語嗎?", hungarian: "Beszélsz angolul?", pinyin: "nǐ huì shuō yīngyǔ ma?", english: "Do you speak English?", category: "tarsalgas" },
+    { chinese: "我不明白", hungarian: "Nem értem", pinyin: "wǒ bù míngbái", english: "I don't understand", category: "tarsalgas" },
+    { chinese: "請再說一遍", hungarian: "Kérem, ismételje meg", pinyin: "qǐng zàishuō yībiàn", english: "Please say it again", category: "tarsalgas" },
+    { chinese: "我愛你", hungarian: "Szeretlek", pinyin: "wǒ ài nǐ", english: "I love you", category: "tarsalgas" },
+    { chinese: "生日快樂", hungarian: "Boldog születésnapot", pinyin: "shēngrì kuàilè", english: "Happy birthday", category: "tarsalgas" },
+    { chinese: "恭喜", hungarian: "Gratulálok", pinyin: "gōngxǐ", english: "Congratulations", category: "tarsalgas" },
+    { chinese: "祝你好運", hungarian: "Sok szerencsét", pinyin: "zhù nǐ hǎo yùn", english: "Good luck", category: "tarsalgas" },
+
+    // Étterem (15 szó)
+    { chinese: "餐館", hungarian: "étterem", pinyin: "cānguǎn", english: "restaurant", category: "etterem" },
+    { chinese: "菜單", hungarian: "étlap", pinyin: "càidān", english: "menu", category: "etterem" },
+    { chinese: "水", hungarian: "víz", pinyin: "shuǐ", english: "water", category: "etterem" },
+    { chinese: "咖啡", hungarian: "kávé", pinyin: "kāfēi", english: "coffee", category: "etterem" },
+    { chinese: "茶", hungarian: "tea", pinyin: "chá", english: "tea", category: "etterem" },
+    { chinese: "啤酒", hungarian: "sör", pinyin: "píjiǔ", english: "beer", category: "etterem" },
+    { chinese: "葡萄酒", hungarian: "bor", pinyin: "pútáo jiǔ", english: "wine", category: "etterem" },
+    { chinese: "牛肉", hungarian: "marhahús", pinyin: "niúròu", english: "beef", category: "etterem" },
+    { chinese: "猪肉", hungarian: "sertéshús", pinyin: "zhūròu", english: "pork", category: "etterem" },
+    { chinese: "鸡肉", hungarian: "csirkehús", pinyin: "jīròu", english: "chicken", category: "etterem" },
+    { chinese: "鱼", hungarian: "hal", pinyin: "yú", english: "fish", category: "etterem" },
+    { chinese: "蔬菜", hungarian: "zöldség", pinyin: "shūcài", english: "vegetables", category: "etterem" },
+    { chinese: "水果", hungarian: "gyümölcs", pinyin: "shuǐguǒ", english: "fruit", category: "etterem" },
+    { chinese: "米饭", hungarian: "rizs", pinyin: "mǐfàn", english: "rice", category: "etterem" },
+    { chinese: "面包", hungarian: "kenyér", pinyin: "miànbāo", english: "bread", category: "etterem" },
+
+// ==================== SZÁMOK (30 szó) ====================
+    { chinese: "一", hungarian: "egy", pinyin: "yī", english: "one", category: "szamok" },
+    { chinese: "二", hungarian: "kettő", pinyin: "èr", english: "two", category: "szamok" },
+    { chinese: "三", hungarian: "három", pinyin: "sān", english: "three", category: "szamok" },
+    { chinese: "四", hungarian: "négy", pinyin: "sì", english: "four", category: "szamok" },
+    { chinese: "五", hungarian: "öt", pinyin: "wǔ", english: "five", category: "szamok" },
+    { chinese: "六", hungarian: "hat", pinyin: "liù", english: "six", category: "szamok" },
+    { chinese: "七", hungarian: "hét", pinyin: "qī", english: "seven", category: "szamok" },
+    { chinese: "八", hungarian: "nyolc", pinyin: "bā", english: "eight", category: "szamok" },
+    { chinese: "九", hungarian: "kilenc", pinyin: "jiǔ", english: "nine", category: "szamok" },
+    { chinese: "十", hungarian: "tíz", pinyin: "shí", english: "ten", category: "szamok" },
+    { chinese: "十一", hungarian: "tizenegy", pinyin: "shíyī", english: "eleven", category: "szamok" },
+    { chinese: "十二", hungarian: "tizenkettő", pinyin: "shí'èr", english: "twelve", category: "szamok" },
+    { chinese: "十三", hungarian: "tizenhárom", pinyin: "shísān", english: "thirteen", category: "szamok" },
+    { chinese: "二十", hungarian: "húsz", pinyin: "èrshí", english: "twenty", category: "szamok" },
+    { chinese: "三十", hungarian: "harminc", pinyin: "sānshí", english: "thirty", category: "szamok" },
+    { chinese: "四十", hungarian: "negyven", pinyin: "sìshí", english: "forty", category: "szamok" },
+    { chinese: "五十", hungarian: "ötven", pinyin: "wǔshí", english: "fifty", category: "szamok" },
+    { chinese: "六十", hungarian: "hatvan", pinyin: "liùshí", english: "sixty", category: "szamok" },
+    { chinese: "七十", hungarian: "hetven", pinyin: "qīshí", english: "seventy", category: "szamok" },
+    { chinese: "八十", hungarian: "nyolcvan", pinyin: "bāshí", english: "eighty", category: "szamok" },
+    { chinese: "九十", hungarian: "kilencven", pinyin: "jiǔshí", english: "ninety", category: "szamok" },
+    { chinese: "一百", hungarian: "száz", pinyin: "yībǎi", english: "one hundred", category: "szamok" },
+    { chinese: "一千", hungarian: "ezer", pinyin: "yīqiān", english: "one thousand", category: "szamok" },
+    { chinese: "零", hungarian: "nulla", pinyin: "líng", english: "zero", category: "szamok" },
+    { chinese: "第一", hungarian: "első", pinyin: "dì yī", english: "first", category: "szamok" },
+    { chinese: "第二", hungarian: "második", pinyin: "dì èr", english: "second", category: "szamok" },
+    { chinese: "第三", hungarian: "harmadik", pinyin: "dì sān", english: "third", category: "szamok" },
+    { chinese: "一半", hungarian: "fél", pinyin: "yībàn", english: "half", category: "szamok" },
+    { chinese: "双", hungarian: "dupla", pinyin: "shuāng", english: "double", category: "szamok" },
+    { chinese: "几个", hungarian: "néhány", pinyin: "jǐ gè", english: "a few", category: "szamok" },
+
+ // ==================== ÁLLATOK (40 szó) ====================
+    { chinese: "狗", hungarian: "kutya", pinyin: "gǒu", english: "dog", category: "allatok" },
+    { chinese: "猫", hungarian: "macska", pinyin: "māo", english: "cat", category: "allatok" },
+    { chinese: "鸟", hungarian: "madár", pinyin: "niǎo", english: "bird", category: "allatok" },
+    { chinese: "鱼", hungarian: "hal", pinyin: "yú", english: "fish", category: "allatok" },
+    { chinese: "马", hungarian: "ló", pinyin: "mǎ", english: "horse", category: "allatok" },
+    { chinese: "牛", hungarian: "tehén", pinyin: "niú", english: "cow", category: "allatok" },
+    { chinese: "猪", hungarian: "sertés", pinyin: "zhū", english: "pig", category: "allatok" },
+    { chinese: "羊", hungarian: "juh", pinyin: "yáng", english: "sheep", category: "allatok" },
+    { chinese: "鸡", hungarian: "csirke", pinyin: "jī", english: "chicken", category: "allatok" },
+    { chinese: "鸭", hungarian: "kacsa", pinyin: "yā", english: "duck", category: "allatok" },
+    { chinese: "鹅", hungarian: "liba", pinyin: "é", english: "goose", category: "allatok" },
+    { chinese: "兔子", hungarian: "nyúl", pinyin: "tùzi", english: "rabbit", category: "allatok" },
+    { chinese: "老鼠", hungarian: "egér", pinyin: "lǎoshǔ", english: "mouse", category: "allatok" },
+    { chinese: "老虎", hungarian: "tigris", pinyin: "lǎohǔ", english: "tiger", category: "allatok" },
+    { chinese: "狮子", hungarian: "oroszlán", pinyin: "shīzi", english: "lion", category: "allatok" },
+    { chinese: "大象", hungarian: "elefánt", pinyin: "dà xiàng", english: "elephant", category: "allatok" },
+    { chinese: "熊", hungarian: "medve", pinyin: "xióng", english: "bear", category: "allatok" },
+    { chinese: "狼", hungarian: "farkas", pinyin: "láng", english: "wolf", category: "allatok" },
+    { chinese: "狐狸", hungarian: "róka", pinyin: "húli", english: "fox", category: "allatok" },
+    { chinese: "猴子", hungarian: "majom", pinyin: "hóuzi", english: "monkey", category: "allatok" },
+    { chinese: "蛇", hungarian: "kígyó", pinyin: "shé", english: "snake", category: "allatok" },
+    { chinese: "蜘蛛", hungarian: "pók", pinyin: "zhīzhū", english: "spider", category: "allatok" },
+    { chinese: "蝴蝶", hungarian: "pillangó", pinyin: "húdié", english: "butterfly", category: "allatok" },
+    { chinese: "蜜蜂", hungarian: "méh", pinyin: "mìfēng", english: "bee", category: "allatok" },
+    { chinese: "蚂蚁", hungarian: "hangya", pinyin: "mǎyǐ", english: "ant", category: "allatok" },
+    { chinese: "苍蝇", hungarian: "légy", pinyin: "cāngying", english: "fly", category: "allatok" },
+    { chinese: "蚊子", hungarian: "szúnyog", pinyin: "wénzi", english: "mosquito", category: "allatok" },
+    { chinese: "青蛙", hungarian: "béka", pinyin: "qīngwā", english: "frog", category: "allatok" },
+    { chinese: "乌龟", hungarian: "teknős", pinyin: "wūguī", english: "turtle", category: "allatok" },
+    { chinese: "鳄鱼", hungarian: "krokodil", pinyin: "èyú", english: "crocodile", category: "allatok" },
+    { chinese: "鲸鱼", hungarian: "bálna", pinyin: "jīngyú", english: "whale", category: "allatok" },
+    { chinese: "鲨鱼", hungarian: "cápa", pinyin: "shāyú", english: "shark", category: "allatok" },
+    { chinese: "海豚", hungarian: "delfin", pinyin: "hǎitún", english: "dolphin", category: "allatok" },
+    { chinese: "熊猫", hungarian: "panda", pinyin: "xióngmāo", english: "panda", category: "allatok" },
+    { chinese: "长颈鹿", hungarian: "zsiráf", pinyin: "chángjǐng lù", english: "giraffe", category: "allatok" },
+    { chinese: "斑马", hungarian: "zebra", pinyin: "bānmǎ", english: "zebra", category: "allatok" },
+    { chinese: "袋鼠", hungarian: "kenguru", pinyin: "dàishǔ", english: "kangaroo", category: "allatok" },
+    { chinese: "松鼠", hungarian: "mókus", pinyin: "sōngshǔ", english: "squirrel", category: "allatok" },
+    { chinese: "刺猬", hungarian: "sündisznó", pinyin: "cìwei", english: "hedgehog", category: "allatok" },
+    { chinese: "蝙蝠", hungarian: "denevér", pinyin: "biānfú", english: "bat", category: "allatok" },
+
+    // ==================== SZEMÉLYES NÉVMÁSOK (20 szó) ====================
+    { chinese: "我", hungarian: "én", pinyin: "wǒ", english: "I, me", category: "szemelyes_nevmasok" },
+    { chinese: "你", hungarian: "te", pinyin: "nǐ", english: "you", category: "szemelyes_nevmasok" },
+    { chinese: "他", hungarian: "ő (férfi)", pinyin: "tā", english: "he, him", category: "szemelyes_nevmasok" },
+    { chinese: "她", hungarian: "ő (nő)", pinyin: "tā", english: "she, her", category: "szemelyes_nevmasok" },
+    { chinese: "它", hungarian: "az", pinyin: "tā", english: "it", category: "szemelyes_nevmasok" },
+    { chinese: "我们", hungarian: "mi", pinyin: "wǒmen", english: "we, us", category: "szemelyes_nevmasok" },
+    { chinese: "你们", hungarian: "ti", pinyin: "nǐmen", english: "you (plural)", category: "szemelyes_nevmasok" },
+    { chinese: "他们", hungarian: "ők (férfiak)", pinyin: "tāmen", english: "they, them (male)", category: "szemelyes_nevmasok" },
+    { chinese: "她们", hungarian: "ők (nők)", pinyin: "tāmen", english: "they, them (female)", category: "szemelyes_nevmasok" },
+    { chinese: "它们", hungarian: "azok", pinyin: "tāmen", english: "they, them (things)", category: "szemelyes_nevmasok" },
+    { chinese: "自己", hungarian: "önmaga", pinyin: "zìjǐ", english: "oneself", category: "szemelyes_nevmasok" },
+    { chinese: "别人", hungarian: "mások", pinyin: "biérén", english: "others", category: "szemelyes_nevmasok" },
+    { chinese: "大家", hungarian: "mindenki", pinyin: "dàjiā", english: "everyone", category: "szemelyes_nevmasok" },
+    { chinese: "谁", hungarian: "ki", pinyin: "shéi", english: "who", category: "szemelyes_nevmasok" },
+    { chinese: "什么", hungarian: "mi", pinyin: "shénme", english: "what", category: "szemelyes_nevmasok" },
+    { chinese: "哪里", hungarian: "hol", pinyin: "nǎlǐ", english: "where", category: "szemelyes_nevmasok" },
+    { chinese: "什么时候", hungarian: "mikor", pinyin: "shénme shíhòu", english: "when", category: "szemelyes_nevmasok" },
+    { chinese: "为什么", hungarian: "miért", pinyin: "wèishéme", english: "why", category: "szemelyes_nevmasok" },
+    { chinese: "怎么", hungarian: "hogyan", pinyin: "zěnme", english: "how", category: "szemelyes_nevmasok" },
+    { chinese: "多少", hungarian: "mennyi", pinyin: "duōshǎo", english: "how much/many", category: "szemelyes_nevmasok" },
+
+//Étel-ital
+{ chinese: "早餐", hungarian: "reggeli", pinyin: "zǎocān", english: "breakfast", category: "etelek" },
+{ chinese: "午餐", hungarian: "ebéd", pinyin: "wǔcān", english: "lunch", category: "etelek" },
+{ chinese: "晚餐", hungarian: "vacsora", pinyin: "wǎncān", english: "dinner", category: "etelek" },
+{ chinese: "汤", hungarian: "leves", pinyin: "tāng", english: "soup", category: "etelek" },
+{ chinese: "沙拉", hungarian: "saláta", pinyin: "shālā", english: "salad", category: "etelek" },
+{ chinese: "三明治", hungarian: "szendvics", pinyin: "sānmíngzhì", english: "sandwich", category: "etelek" },
+{ chinese: "汉堡包", hungarian: "hamburger", pinyin: "hànbǎo bāo", english: "hamburger", category: "etelek" },
+{ chinese: "披萨", hungarian: "pizza", pinyin: "pīsà", english: "pizza", category: "etelek" },
+{ chinese: "意大利面", hungarian: "spagetti", pinyin: "yìdàlì miàn", english: "spaghetti", category: "etelek" },
+{ chinese: "米饭", hungarian: "rizs", pinyin: "mǐfàn", english: "rice", category: "etelek" },
+{ chinese: "面条", hungarian: "tészta", pinyin: "miàntiáo", english: "noodles", category: "etelek" },
+{ chinese: "饺子", hungarian: "gombóc", pinyin: "jiǎozi", english: "dumpling", category: "etelek" },
+{ chinese: "包子", hungarian: "gőzölt zsemle", pinyin: "bāozi", english: "steamed bun", category: "etelek" },
+{ chinese: "馒头", hungarian: "gőzölt kenyér", pinyin: "mántou", english: "steamed bread", category: "etelek" },
+{ chinese: "蛋糕", hungarian: "torta", pinyin: "dàngāo", english: "cake", category: "etelek" },
+{ chinese: "饼干", hungarian: "keksz", pinyin: "bǐnggān", english: "cookie", category: "etelek" },
+{ chinese: "巧克力", hungarian: "csokoládé", pinyin: "qiǎokèlì", english: "chocolate", category: "etelek" },
+{ chinese: "冰淇淋", hungarian: "fagylalt", pinyin: "bīngqílín", english: "ice cream", category: "etelek" },
+{ chinese: "糖果", hungarian: "cukorka", pinyin: "tángguǒ", english: "candy", category: "etelek" },
+{ chinese: "苹果", hungarian: "alma", pinyin: "píngguǒ", english: "apple", category: "etelek" },
+{ chinese: "香蕉", hungarian: "banán", pinyin: "xiāngjiāo", english: "banana", category: "etelek" },
+{ chinese: "橙子", hungarian: "narancs", pinyin: "chéngzi", english: "orange", category: "etelek" },
+{ chinese: "草莓", hungarian: "eper", pinyin: "cǎoméi", english: "strawberry", category: "etelek" },
+{ chinese: "葡萄", hungarian: "szőlő", pinyin: "pútáo", english: "grape", category: "etelek" },
+{ chinese: "西瓜", hungarian: "görögdinnye", pinyin: "xīguā", english: "watermelon", category: "etelek" },
+{ chinese: "番茄", hungarian: "paradicsom", pinyin: "fānqié", english: "tomato", category: "etelek" },
+{ chinese: "胡萝卜", hungarian: "sárgarépa", pinyin: "húluóbo", english: "carrot", category: "etelek" },
+{ chinese: "土豆", hungarian: "burgonya", pinyin: "tǔdòu", english: "potato", category: "etelek" },
+{ chinese: "洋葱", hungarian: "hagyma", pinyin: "yángcōng", english: "onion", category: "etelek" },
+{ chinese: "大蒜", hungarian: "fokhagyma", pinyin: "dàsuàn", english: "garlic", category: "etelek" },
+{ chinese: "牛奶", hungarian: "tej", pinyin: "niúnǎi", english: "milk", category: "etelek" },
+{ chinese: "果汁", hungarian: "gyümölcslé", pinyin: "guǒzhī", english: "juice", category: "etelek" },
+{ chinese: "可乐", hungarian: "kóla", pinyin: "kělè", english: "cola", category: "etelek" },
+{ chinese: "矿泉水", hungarian: "ásványvíz", pinyin: "kuàngquán shuǐ", english: "mineral water", category: "etelek" },
+{ chinese: "红酒", hungarian: "vörösbor", pinyin: "hóngjiǔ", english: "red wine", category: "etelek" },
+{ chinese: "白酒", hungarian: "szeszes ital", pinyin: "báijiǔ", english: "liquor", category: "etelek" },
+{ chinese: "鸡尾酒", hungarian: "koktél", pinyin: "jīwěijiǔ", english: "cocktail", category: "etelek" },
+{ chinese: "威士忌", hungarian: "whisky", pinyin: "wēishìjì", english: "whisky", category: "etelek" },
+{ chinese: "伏特加", hungarian: "vodka", pinyin: "fútèjiā", english: "vodka", category: "etelek" },
+{ chinese: "鸡尾酒", hungarian: "koktél", pinyin: "jīwěijiǔ", english: "cocktail", category: "etelek" },
+    
+// Testrészek
+{ chinese: "头", hungarian: "fej", pinyin: "tóu", english: "head", category: "testreszek" },
+{ chinese: "头发", hungarian: "haj", pinyin: "tóufa", english: "hair", category: "testreszek" },
+{ chinese: "脸", hungarian: "arc", pinyin: "liǎn", english: "face", category: "testreszek" },
+{ chinese: "眼睛", hungarian: "szem", pinyin: "yǎnjing", english: "eye", category: "testreszek" },
+{ chinese: "鼻子", hungarian: "orr", pinyin: "bízi", english: "nose", category: "testreszek" },
+{ chinese: "耳朵", hungarian: "fül", pinyin: "ěrduo", english: "ear", category: "testreszek" },
+{ chinese: "嘴", hungarian: "száj", pinyin: "zuǐ", english: "mouth", category: "testreszek" },
+{ chinese: "嘴唇", hungarian: "ajak", pinyin: "zuǐchún", english: "lips", category: "testreszek" },
+{ chinese: "牙齿", hungarian: "fog", pinyin: "yáchǐ", english: "tooth", category: "testreszek" },
+{ chinese: "舌头", hungarian: "nyelv", pinyin: "shétou", english: "tongue", category: "testreszek" },
+{ chinese: "脖子", hungarian: "nyak", pinyin: "bózi", english: "neck", category: "testreszek" },
+{ chinese: "肩膀", hungarian: "váll", pinyin: "jiānbǎng", english: "shoulder", category: "testreszek" },
+{ chinese: "手臂", hungarian: "kar", pinyin: "shǒubì", english: "arm", category: "testreszek" },
+{ chinese: "手", hungarian: "kéz", pinyin: "shǒu", english: "hand", category: "testreszek" },
+{ chinese: "手指", hungarian: "ujj", pinyin: "shǒuzhǐ", english: "finger", category: "testreszek" },
+{ chinese: "胸部", hungarian: "mell", pinyin: "xiōngbù", english: "chest", category: "testreszek" },
+{ chinese: "背部", hungarian: "hát", pinyin: "bèibù", english: "back", category: "testreszek" },
+{ chinese: "胃", hungarian: "gyomor", pinyin: "wèi", english: "stomach", category: "testreszek" },
+{ chinese: "腰", hungarian: "derék", pinyin: "yāo", english: "waist", category: "testreszek" },
+{ chinese: "腿", hungarian: "láb", pinyin: "tuǐ", english: "leg", category: "testreszek" },
+{ chinese: "膝盖", hungarian: "térd", pinyin: "xīgài", english: "knee", category: "testreszek" },
+{ chinese: "脚", hungarian: "lábfej", pinyin: "jiǎo", english: "foot", category: "testreszek" },
+{ chinese: "脚趾", hungarian: "lábujj", pinyin: "jiǎozhǐ", english: "toe", category: "testreszek" },
+{ chinese: "皮肤", hungarian: "bőr", pinyin: "pífū", english: "skin", category: "testreszek" },
+{ chinese: "骨头", hungarian: "csont", pinyin: "gǔtou", english: "bone", category: "testreszek" },
+{ chinese: "肌肉", hungarian: "izom", pinyin: "jīròu", english: "muscle", category: "testreszek" },
+{ chinese: "心脏", hungarian: "szív", pinyin: "xīnzàng", english: "heart", category: "testreszek" },
+{ chinese: "肺", hungarian: "tüdő", pinyin: "fèi", english: "lung", category: "testreszek" },
+{ chinese: "肝", hungarian: "máj", pinyin: "gān", english: "liver", category: "testreszek" },
+{ chinese: "肾", hungarian: "vese", pinyin: "shèn", english: "kidney", category: "testreszek" },
+
+//Család
+{ chinese: "家庭", hungarian: "család", pinyin: "jiātíng", english: "family", category: "csalad" },
+{ chinese: "父亲", hungarian: "apa", pinyin: "fùqīn", english: "father", category: "csalad" },
+{ chinese: "母亲", hungarian: "anya", pinyin: "mǔqīn", english: "mother", category: "csalad" },
+{ chinese: "爸爸", hungarian: "apu", pinyin: "bàba", english: "dad", category: "csalad" },
+{ chinese: "妈妈", hungarian: "anyu", pinyin: "māma", english: "mom", category: "csalad" },
+{ chinese: "儿子", hungarian: "fiú", pinyin: "érzi", english: "son", category: "csalad" },
+{ chinese: "女儿", hungarian: "lány", pinyin: "nǚ'ér", english: "daughter", category: "csalad" },
+{ chinese: "兄弟", hungarian: "testvér", pinyin: "xiōngdì", english: "brother", category: "csalad" },
+{ chinese: "姐妹", hungarian: "nővér", pinyin: "jiěmèi", english: "sister", category: "csalad" },
+{ chinese: "哥哥", hungarian: "báty", pinyin: "gēge", english: "older brother", category: "csalad" },
+{ chinese: "弟弟", hungarian: "öcs", pinyin: "dìdi", english: "younger brother", category: "csalad" },
+{ chinese: "姐姐", hungarian: "nővér", pinyin: "jiějie", english: "older sister", category: "csalad" },
+{ chinese: "妹妹", hungarian: "húg", pinyin: "mèimei", english: "younger sister", category: "csalad" },
+{ chinese: "丈夫", hungarian: "férj", pinyin: "zhàngfū", english: "husband", category: "csalad" },
+{ chinese: "妻子", hungarian: "feleség", pinyin: "qīzi", english: "wife", category: "csalad" },
+{ chinese: "祖父", hungarian: "nagypapa", pinyin: "zǔfù", english: "grandfather", category: "csalad" },
+{ chinese: "祖母", hungarian: "nagymama", pinyin: "zǔmǔ", english: "grandmother", category: "csalad" },
+{ chinese: "孙子", hungarian: "unoka", pinyin: "sūnzi", english: "grandson", category: "csalad" },
+{ chinese: "孙女", hungarian: "unoka", pinyin: "sūnnǚ", english: "granddaughter", category: "csalad" },
+{ chinese: "叔叔", hungarian: "nagybácsi", pinyin: "shūshu", english: "uncle", category: "csalad" },
+{ chinese: "阿姨", hungarian: "nagynéni", pinyin: "āyí", english: "aunt", category: "csalad" },
+{ chinese: "侄子", hungarian: "unokaöccs", pinyin: "zhízi", english: "nephew", category: "csalad" },
+{ chinese: "侄女", hungarian: "unokahúg", pinyin: "zhínǚ", english: "niece", category: "csalad" },
+{ chinese: "表兄弟", hungarian: "unokatestvér", pinyin: "biǎoxiōngdì", english: "cousin", category: "csalad" },
+{ chinese: "亲戚", hungarian: "rokon", pinyin: "qīnqi", english: "relative", category: "csalad" },
+
+//Ruházat
+{ chinese: "衣服", hungarian: "ruha", pinyin: "yīfu", english: "clothes", category: "ruhazat" },
+{ chinese: "衬衫", hungarian: "ing", pinyin: "chènshān", english: "shirt", category: "ruhazat" },
+{ chinese: "T恤", hungarian: "póló", pinyin: "T xù", english: "t-shirt", category: "ruhazat" },
+{ chinese: "裤子", hungarian: "nadrág", pinyin: "kùzi", english: "pants", category: "ruhazat" },
+{ chinese: "牛仔裤", hungarian: "farmernadrág", pinyin: "niúzǎikù", english: "jeans", category: "ruhazat" },
+{ chinese: "裙子", hungarian: "szoknya", pinyin: "qúnzi", english: "skirt", category: "ruhazat" },
+{ chinese: "连衣裙", hungarian: "ruha", pinyin: "liányīqún", english: "dress", category: "ruhazat" },
+{ chinese: "外套", hungarian: "kabát", pinyin: "wàitào", english: "coat", category: "ruhazat" },
+{ chinese: "夹克", hungarian: "dzseki", pinyin: "jiákè", english: "jacket", category: "ruhazat" },
+{ chinese: "毛衣", hungarian: "pulóver", pinyin: "máoyī", english: "sweater", category: "ruhazat" },
+{ chinese: "运动服", hungarian: "edzőruha", pinyin: "yùndòng fú", english: "sportswear", category: "ruhazat" },
+{ chinese: "睡衣", hungarian: "pizsama", pinyin: "shuìyī", english: "pajamas", category: "ruhazat" },
+{ chinese: "内衣", hungarian: "fehérnemű", pinyin: "nèiyī", english: "underwear", category: "ruhazat" },
+{ chinese: "袜子", hungarian: "zokni", pinyin: "wàzi", english: "socks", category: "ruhazat" },
+{ chinese: "鞋子", hungarian: "cipő", pinyin: "xiézi", english: "shoes", category: "ruhazat" },
+{ chinese: "运动鞋", hungarian: "edzőcipő", pinyin: "yùndòng xié", english: "sneakers", category: "ruhazat" },
+{ chinese: "靴子", hungarian: "csizma", pinyin: "xuēzi", english: "boots", category: "ruhazat" },
+{ chinese: "凉鞋", hungarian: "szandál", pinyin: "liángxié", english: "sandals", category: "ruhazat" },
+{ chinese: "帽子", hungarian: "sapka", pinyin: "màozi", english: "hat", category: "ruhazat" },
+{ chinese: "围巾", hungarian: "sál", pinyin: "wéijīn", english: "scarf", category: "ruhazat" },
+{ chinese: "手套", hungarian: "kesztyű", pinyin: "shǒutào", english: "gloves", category: "ruhazat" },
+{ chinese: "皮带", hungarian: "öv", pinyin: "pídài", english: "belt", category: "ruhazat" },
+{ chinese: "领带", hungarian: "nyakkendő", pinyin: "lǐngdài", english: "tie", category: "ruhazat" },
+{ chinese: "珠宝", hungarian: "ékszer", pinyin: "zhūbǎo", english: "jewelry", category: "ruhazat" },
+{ chinese: "手表", hungarian: "karóra", pinyin: "shǒubiǎo", english: "watch", category: "ruhazat" },
+
+//Otthon
+{ chinese: "房子", hungarian: "ház", pinyin: "fángzi", english: "house", category: "otthon" },
+{ chinese: "公寓", hungarian: "lakás", pinyin: "gōngyù", english: "apartment", category: "otthon" },
+{ chinese: "房间", hungarian: "szoba", pinyin: "fángjiān", english: "room", category: "otthon" },
+{ chinese: "卧室", hungarian: "hálószoba", pinyin: "wòshì", english: "bedroom", category: "otthon" },
+{ chinese: "客厅", hungarian: "nappali", pinyin: "kètīng", english: "living room", category: "otthon" },
+{ chinese: "厨房", hungarian: "konyha", pinyin: "chúfáng", english: "kitchen", category: "otthon" },
+{ chinese: "浴室", hungarian: "fürdőszoba", pinyin: "yùshì", english: "bathroom", category: "otthon" },
+{ chinese: "餐厅", hungarian: "ebédlő", pinyin: "cāntīng", english: "dining room", category: "otthon" },
+{ chinese: "阳台", hungarian: "erkély", pinyin: "yángtái", english: "balcony", category: "otthon" },
+{ chinese: "花园", hungarian: "kert", pinyin: "huāyuán", english: "garden", category: "otthon" },
+{ chinese: "门", hungarian: "ajtó", pinyin: "mén", english: "door", category: "otthon" },
+{ chinese: "窗户", hungarian: "ablak", pinyin: "chuānghu", english: "window", category: "otthon" },
+{ chinese: "墙", hungarian: "fal", pinyin: "qiáng", english: "wall", category: "otthon" },
+{ chinese: "地板", hungarian: "padló", pinyin: "dìbǎn", english: "floor", category: "otthon" },
+{ chinese: "天花板", hungarian: "mennyezet", pinyin: "tiānhuābǎn", english: "ceiling", category: "otthon" },
+{ chinese: "楼梯", hungarian: "lépcső", pinyin: "lóutī", english: "stairs", category: "otthon" },
+{ chinese: "家具", hungarian: "bútor", pinyin: "jiājù", english: "furniture", category: "otthon" },
+{ chinese: "床", hungarian: "ágy", pinyin: "chuáng", english: "bed", category: "otthon" },
+{ chinese: "桌子", hungarian: "asztal", pinyin: "zhuōzi", english: "table", category: "otthon" },
+{ chinese: "椅子", hungarian: "szék", pinyin: "yǐzi", english: "chair", category: "otthon" },
+{ chinese: "沙发", hungarian: "kanapé", pinyin: "shāfā", english: "sofa", category: "otthon" },
+{ chinese: "柜子", hungarian: "szekrény", pinyin: "guìzi", english: "cabinet", category: "otthon" },
+{ chinese: "书架", hungarian: "könyvespolc", pinyin: "shūjià", english: "bookshelf", category: "otthon" },
+{ chinese: "灯", hungarian: "lámpa", pinyin: "dēng", english: "lamp", category: "otthon" },
+{ chinese: "镜子", hungarian: "tükör", pinyin: "jìngzi", english: "mirror", category: "otthon" },
+
+//Színek-és formák
+{ chinese: "颜色", hungarian: "szín", pinyin: "yánsè", english: "color", category: "szinek" },
+{ chinese: "红色", hungarian: "piros", pinyin: "hóngsè", english: "red", category: "szinek" },
+{ chinese: "蓝色", hungarian: "kék", pinyin: "lánsè", english: "blue", category: "szinek" },
+{ chinese: "绿色", hungarian: "zöld", pinyin: "lǜsè", english: "green", category: "szinek" },
+{ chinese: "黄色", hungarian: "sárga", pinyin: "huángsè", english: "yellow", category: "szinek" },
+{ chinese: "黑色", hungarian: "fekete", pinyin: "hēisè", english: "black", category: "szinek" },
+{ chinese: "白色", hungarian: "fehér", pinyin: "báisè", english: "white", category: "szinek" },
+{ chinese: "紫色", hungarian: "lila", pinyin: "zǐsè", english: "purple", category: "szinek" },
+{ chinese: "橙色", hungarian: "narancssárga", pinyin: "chéngsè", english: "orange", category: "szinek" },
+{ chinese: "粉色", hungarian: "rózsaszín", pinyin: "fěnsè", english: "pink", category: "szinek" },
+{ chinese: "形状", hungarian: "forma", pinyin: "xíngzhuàng", english: "shape", category: "szinek" },
+{ chinese: "圆形", hungarian: "kör", pinyin: "yuánxíng", english: "circle", category: "szinek" },
+{ chinese: "方形", hungarian: "négyzet", pinyin: "fāngxíng", english: "square", category: "szinek" },
+{ chinese: "三角形", hungarian: "háromszög", pinyin: "sānjiǎoxíng", english: "triangle", category: "szinek" },
+ 
+  ];
+// DEBUG: Ellenőrizzük a kategóriákat
+console.log('🐛 DEBUG: Összes kategória a szótárban:');
+const categoryCount = {};
+wordPairs.forEach(word => {
+    if (word.category) {
+        categoryCount[word.category] = (categoryCount[word.category] || 0) + 1;
+    }
+});
+console.log('Kategóriák és darabszámuk:', categoryCount);
+
+// Ellenőrizzük a problémás kategóriákat
+console.log('🐛 Személyes névmások:', wordPairs.filter(w => w.category === 'szemelyes_nevmasok').length, 'szó');
+console.log('🐛 Számok:', wordPairs.filter(w => w.category === 'szamok').length, 'szó'); 
+console.log('🐛 Állatok:', wordPairs.filter(w => w.category === 'allatok').length, 'szó');
+filteredWordPairs = wordPairs.filter(word => word.category === "nul");
+console.log(`✅ Beépített szótár betöltve: ${wordPairs.length} szó`);
+init();
+               // filteredWordPairs = [...wordPairs];
+               // init();
+            }
+        }
+
+        // Inicializálás
+        function init() {
+            displayWord();
+            updateStats();
+            
+            // Eseménykezelők
+            checkButton.addEventListener('click', checkAnswer);
+            speakButton.addEventListener('click', speakWords);
+            nextButton.addEventListener('click', nextWord);
+            answerInputElement.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkAnswer();
+                }
+            });
+            
+            // Kategória változásának kezelése
+            categorySelect.addEventListener('change', function() {
+                currentCategory = this.value;
+                filterWordsByCategory();
+                currentWordIndex = 0;
+                displayWord();
+            });
+        }
+
+        // Szavak szűrése kategória szerint
+        function filterWordsByCategory() {
+            if (currentCategory === "all") {
+                filteredWordPairs = wordPairs.filter(word => word.category !== "nul");
+            } else if (currentCategory === "nul") {
+                filteredWordPairs = wordPairs.filter(word => word.category === "nul");
+            } else {
+                filteredWordPairs = wordPairs.filter(word => word.category === currentCategory);
+            }
+            
+            // Ha nincs szó a kiválasztott kategóriában
+            if (filteredWordPairs.length === 0) {
+                filteredWordPairs = [{ 
+                    chinese: "Nincs szó ebben a kategóriában", 
+                    hungarian: "No words in this category", 
+                    english: "No words in this category",
+                    pinyin: "N/A" 
+                }];
+            }
+            
+            // Visszaállítjuk az indexet
+            currentWordIndex = 0;
+        }
+
+        // Szó megjelenítése
+        function displayWord() {
+            if (filteredWordPairs.length === 0) return;
+            
+            const currentWord = filteredWordPairs[currentWordIndex];
+            chineseWordElement.textContent = currentWord.chinese;
+            pinyinElement.textContent = currentWord.pinyin;
+            answerInputElement.value = '';
+            feedbackElement.style.display = 'none';
+            answerInputElement.focus();
+            
+            // Frissíti a folyamatjelzőt
+            const progress = ((currentWordIndex) / filteredWordPairs.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Válasz ellenőrzése - elfogadja a magyar és angol választ is
+        function checkAnswer() {
+            if (filteredWordPairs.length === 0 || filteredWordPairs[currentWordIndex].category === "nul") return;
+            
+            const userAnswer = answerInputElement.value.trim().toLowerCase();
+            const correctHungarian = filteredWordPairs[currentWordIndex].hungarian.toLowerCase();
+            const correctEnglish = filteredWordPairs[currentWordIndex].english ? filteredWordPairs[currentWordIndex].english.toLowerCase() : "";
+            
+            feedbackElement.style.display = 'block';
+            totalAttempts++;
+            
+            if (userAnswer === correctHungarian || userAnswer === correctEnglish) {
+                feedbackElement.textContent = 'Helyes! ✓ [正确的！✓] [Correct! ✓]';
+                feedbackElement.className = 'feedback correct';
+                correctAnswers++;
+            } else {
+                let correctAnswerText = `Helytelen. [错误的。] [Incorrect.] A helyes válasz: ${filteredWordPairs[currentWordIndex].hungarian}`;
+                if (filteredWordPairs[currentWordIndex].english) {
+                    correctAnswerText += ` / ${filteredWordPairs[currentWordIndex].english}`;
+                }
+                feedbackElement.textContent = correctAnswerText;
+                feedbackElement.className = 'feedback incorrect';
+            }
+            
+            updateStats();
+        }
+
+        // Szavak felolvastatása
+        function speakWords() {
+            if (filteredWordPairs.length === 0 || filteredWordPairs[currentWordIndex].category === "nul") return;
+            
+            const currentWord = filteredWordPairs[currentWordIndex];
+            
+            // Felolvassa a kínai szót
+            const chineseSpeech = new SpeechSynthesisUtterance(currentWord.chinese);
+            chineseSpeech.lang = 'zh-CN';
+            window.speechSynthesis.speak(chineseSpeech);
+            
+            // Felolvassa a magyar szót
+            setTimeout(() => {
+                const hungarianSpeech = new SpeechSynthesisUtterance(currentWord.hungarian);
+                hungarianSpeech.lang = 'hu-HU';
+                window.speechSynthesis.speak(hungarianSpeech);
+            }, 800);
+            
+            // Felolvassa az angol szót
+            setTimeout(() => {
+                if (currentWord.english) {
+                    const englishSpeech = new SpeechSynthesisUtterance(currentWord.english);
+                    englishSpeech.lang = 'en-US';
+                    window.speechSynthesis.speak(englishSpeech);
+                }
+            }, 1800);
+        }
+
+        // Következő szó
+        function nextWord() {
+            if (filteredWordPairs.length === 0) return;
+            
+            currentWordIndex = (currentWordIndex + 1) % filteredWordPairs.length;
+            displayWord();
+        }
+
+        // Statisztikák frissítése
+        function updateStats() {
+            correctCountElement.textContent = correctAnswers;
+            totalCountElement.textContent = totalAttempts;
+        }
+
+        // Alkalmazás indítása - szótár betöltése
+        document.addEventListener('DOMContentLoaded', loadDictionary);
+    </script>
+</body>
+</html>
