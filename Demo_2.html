@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiejtés Gyakorló - Kínai-Magyar-Angol<br><u><strong>DEMO</strong></u></strong></title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: white;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin-top: 20px;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(to right, #e52d27, #b31217);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .word-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .chinese-word {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            color: #e52d27;
+            font-weight: bold;
+        }
+        
+        .pinyin {
+            font-size: 2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .meaning {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .recording-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .recording-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        
+        .recording-btn:hover {
+            background: #3d8b40;
+            transform: scale(1.05);
+        }
+        
+        .recording-btn.recording {
+            background: #e52d27;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .feedback.good {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .feedback.needs-work {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .listen-btn {
+            background: #2196F3;
+            color: white;
+        }
+        
+        .next-btn {
+            background: #FF9800;
+            color: white;
+        }
+        
+        .hint-btn {
+            background: #9C27B0;
+            color: white;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .progress {
+            margin-top: 20px;
+            text-align: center;
+            color: #666;
+        }
+        
+        .hint-section {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .hint-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1976d2;
+        }
+        
+        @media (max-width: 600px) {
+            .chinese-word {
+                font-size: 3rem;
+            }
+            
+            .pinyin {
+                font-size: 1.5rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .control-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Kiejtés Gyakorló</h1>
+            <div class="subtitle">Gyakorold a kínai szavak kiejtését - 发音练习</div>
+        </header>
+        
+        <div class="content">
+            <div class="word-section">
+                <div class="chinese-word" id="chinese-word">...</div>
+                <div class="pinyin" id="pinyin">...</div>
+                <div class="meaning" id="meaning">...</div>
+            </div>
+            
+            <div class="recording-section">
+                <button class="recording-btn" id="record-btn">
+                    🎤 Kattints és beszélj
+                </button>
+                <div class="feedback" id="feedback"></div>
+            </div>
+            
+            <div class="controls">
+                <button class="control-btn listen-btn" id="listen-btn">
+                    🔊 Hallgasd meg
+                </button>
+                <button class="control-btn next-btn" id="next-btn">
+                    ➡️ Következő szó
+                </button>
+                <button class="control-btn hint-btn" id="hint-btn">
+                    💡 Kiejtési tipp
+                </button>
+            </div>
+            
+            <div class="progress" id="progress">1/10</div>
+            
+            <div class="hint-section" id="hint-section">
+                <div class="hint-title">Kiejtési tipp:</div>
+                <div id="hint-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // SZÓTÁR - Itt helyezd el a 500+ szót!
+        const pronunciationWords = [
+            // === ALAP SZAVAK ===
+            {
+                chinese: "你好",
+                pinyin: "nǐ hǎo",
+                meaning: "szia / hello",
+                hint: "Figyelj a tonusokra: nǐ (harmadik tonus) hǎo (harmadik tonus)"
+            },
+            {
+                chinese: "谢谢", 
+                pinyin: "xiè xie",
+                meaning: "köszönöm / thank you",
+                hint: "xiè (negyedik tonus) - erősen lefelé, xie (semleges tonus)"
+            },
+            {
+                chinese: "水",
+                pinyin: "shuǐ",
+                meaning: "víz / water", 
+                hint: "shuǐ (harmadik tonus) - először le, majd fel"
+            },
+            {
+                chinese: "妈妈",
+                pinyin: "mā ma", 
+                meaning: "anya / mother",
+                hint: "mā (első tonus) - magas és sík, ma (semleges tonus)"
+            },
+            {
+                chinese: "朋友",
+                pinyin: "péng yǒu",
+                meaning: "barát / friend",
+                hint: "péng (második tonus) - emelkedő, yǒu (harmadik tonus)"
+            },
+            {
+                chinese: "学校",
+                pinyin: "xué xiào",
+                meaning: "iskola / school",
+                hint: "xué (második tonus) - emelkedő, xiào (negyedik tonus) - erősen le"
+            },
+            {
+                chinese: "电话",
+                pinyin: "diàn huà",
+                meaning: "telefon / telephone",
+                hint: "diàn (negyedik tonus) - lefelé, huà (negyedik tonus) - lefelé"
+            },
+            {
+                chinese: "电脑",
+                pinyin: "diàn nǎo",
+                meaning: "számítógép / computer",
+                hint: "diàn (negyedik tonus), nǎo (harmadik tonus) - először le, majd fel"
+            },
+            {
+                chinese: "汽车",
+                pinyin: "qì chē",
+                meaning: "autó / car",
+                hint: "qì (negyedik tonus) - lefelé, chē (első tonus) - magas és sík"
+            },
+            {
+                chinese: "飞机",
+                pinyin: "fēi jī",
+                meaning: "repülőgép / airplane",
+                hint: "fēi (első tonus) - magas, jī (első tonus) - magas"
+            }
+
+            // === IDE MÁSOLD BE A MARADÉK 490+ SZÓT ===
+            // A teljes 500+ szós listából
+            // Csak másold a szavakat és add hozzá a "hint" mezőt!
+            
+        ];
+
+        let currentWordIndex = 0;
+        let mediaRecorder;
+        let audioChunks = [];
+        let isRecording = false;
+
+        // DOM elemek
+        const chineseWordElement = document.getElementById('chinese-word');
+        const pinyinElement = document.getElementById('pinyin');
+        const meaningElement = document.getElementById('meaning');
+        const recordButton = document.getElementById('record-btn');
+        const listenButton = document.getElementById('listen-btn');
+        const nextButton = document.getElementById('next-btn');
+        const hintButton = document.getElementById('hint-btn');
+        const feedbackElement = document.getElementById('feedback');
+        const progressElement = document.getElementById('progress');
+        const hintSection = document.getElementById('hint-section');
+        const hintContent = document.getElementById('hint-content');
+
+        // Szó megjelenítése
+        function displayWord() {
+            const currentWord = pronunciationWords[currentWordIndex];
+            chineseWordElement.textContent = currentWord.chinese;
+            pinyinElement.textContent = currentWord.pinyin;
+            meaningElement.textContent = `${currentWord.meaning}`;
+            progressElement.textContent = `${currentWordIndex + 1}/${pronunciationWords.length}`;
+            
+            // Reset
+            feedbackElement.style.display = 'none';
+            hintSection.style.display = 'none';
+        }
+
+        // Hangfelvétel kezelése
+        async function startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = event => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    // Itt lehetne AI elemzés a kiejtésre
+                    giveFeedback();
+                };
+
+                mediaRecorder.start();
+                isRecording = true;
+                recordButton.textContent = '⏹️ Stop';
+                recordButton.classList.add('recording');
+                
+            } catch (error) {
+                console.error('Hiba a felvételnél:', error);
+                feedbackElement.textContent = 'Hozzáférés megtagadva a mikrofonhoz';
+                feedbackElement.className = 'feedback needs-work';
+                feedbackElement.style.display = 'block';
+            }
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && isRecording) {
+                mediaRecorder.stop();
+                isRecording = false;
+                recordButton.textContent = '🎤 Kattints és beszélj';
+                recordButton.classList.remove('recording');
+                
+                // Stop all tracks
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());
+            }
+        }
+
+        // Visszajelzés adása (egyszerűsített)
+        function giveFeedback() {
+            const feedbacks = [
+                "Nagyon jó! 👏",
+                "Szép munka! 👍", 
+                "Majd egy kicsit még gyakorolj 💪",
+                "Figyelj a tonusokra! 🎵",
+                "Jól sikerült! 🎉",
+                "Még egy kicsit gyakorold! 📚"
+            ];
+            
+            const randomFeedback = feedbacks[Math.floor(Math.random() * feedbacks.length)];
+            feedbackElement.textContent = randomFeedback;
+            feedbackElement.className = 'feedback good';
+            feedbackElement.style.display = 'block';
+        }
+
+        // Szó felolvasása
+        function speakWord() {
+            const currentWord = pronunciationWords[currentWordIndex];
+            const speech = new SpeechSynthesisUtterance(currentWord.chinese);
+            speech.lang = 'zh-CN';
+            speech.rate = 0.8;
+            window.speechSynthesis.speak(speech);
+        }
+
+
+        // Kiejtési tipp megjelenítése
+        function showHint() {
+            const currentWord = pronunciationWords[currentWordIndex];
+            hintContent.textContent = currentWord.hint;
+            hintSection.style.display = 'block';
+        }
+
+        // Eseménykezelők
+        recordButton.addEventListener('click', () => {
+            if (!isRecording) {
+                startRecording();
+            } else {
+                stopRecording();
+            }
+        });
+
+        listenButton.addEventListener('click', speakWord);
+        
+        nextButton.addEventListener('click', () => {
+            currentWordIndex = (currentWordIndex + 1) % pronunciationWords.length;
+            displayWord();
+        });
+
+        hintButton.addEventListener('click', showHint);
+
+        // Inicializálás
+        displayWord();
+
+        // Konzol üzenet
+        console.log(`🎯 Kiejtés gyakorló betöltve: ${pronunciationWords.length} szó`);
+    </script>
+</body>
+</html>
