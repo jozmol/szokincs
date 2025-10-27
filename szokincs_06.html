@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kínai-Magyar Szókincs Gyakorló / 中匈词汇练习</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        
+        header {
+            background: linear-gradient(to right, #e52d27, #b31217);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .mode-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .mode-btn {
+            padding: 8px 20px;
+            border: 2px solid white;
+            border-radius: 20px;
+            background: transparent;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .mode-btn.active {
+            background: white;
+            color: #e52d27;
+        }
+        
+        .content {
+            display: flex;
+            padding: 20px;
+            min-height: 400px;
+        }
+        
+        .left-panel, .right-panel {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .left-panel {
+            border-right: 1px dashed #ddd;
+            text-align: center;
+        }
+        
+        .word-display {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: bold;
+            line-height: 1.2;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .pinyin {
+            font-size: 1.5rem;
+            color: #e52d27;
+            margin-bottom: 10px;
+        }
+        
+        .hint {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        .input-container {
+            margin-bottom: 20px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: #e52d27;
+            outline: none;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        #check-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        #check-btn:hover {
+            background-color: #3d8b40;
+        }
+        
+        #speak-btn {
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        #speak-btn:hover {
+            background-color: #0b7dda;
+        }
+        
+        #next-btn {
+            background-color: #FF9800;
+            color: white;
+        }
+        
+        #next-btn:hover {
+            background-color: #e68900;
+        }
+        
+        #restart-btn, #new-category-btn {
+            background-color: #9C27B0;
+            color: white;
+        }
+        
+        #restart-btn:hover, #new-category-btn:hover {
+            background-color: #7B1FA2;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .correct {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .incorrect {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .tts-info {
+            background-color: #e3f2fd;
+            padding: 10px;
+            margin: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .category-selector {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .category-row {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .category-select {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .word-count-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .word-count-selector select {
+            width: auto;
+            min-width: 80px;
+        }
+        
+        .start-btn {
+            background-color: #e52d27;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .start-btn:hover {
+            background-color: #b31217;
+        }
+        
+        .completion-screen {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .completion-screen h2 {
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .completion-screen h3 {
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+        
+        .success {
+            color: #4CAF50;
+        }
+        
+        .failure {
+            color: #e52d27;
+        }
+        
+        .excellent {
+            color: #9C27B0;
+        }
+        
+        .good {
+            color: #2196F3;
+        }
+        
+        .average {
+            color: #FF9800;
+        }
+        
+        .sufficient {
+            color: #8BC34A;
+        }
+        
+        .insufficient {
+            color: #F44336;
+        }
+        
+        .completion-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .category-info {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .dual-language {
+            display: block;
+        }
+        
+        .chinese-text {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .attempted-words {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        @media (max-width: 600px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .left-panel {
+                border-right: none;
+                border-bottom: 1px dashed #ddd;
+            }
+            
+            .word-display {
+                font-size: 2.5rem;
+                min-height: 100px;
+            }
+            
+            .pinyin {
+                font-size: 1.2rem;
+            }
+            
+            .buttons {
+                flex-wrap: wrap;
+            }
+            
+            button {
+                min-width: 45%;
+            }
+            
+            .category-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .category-select {
+                min-width: auto;
+            }
+            
+            .completion-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Kínai-Magyar Szókincs Gyakorló <span class="chinese-text">中匈词汇练习</span></h1>
+            <div class="subtitle">Válassz egy nyelvet a gyakorláshoz! <span class="chinese-text">选择练习语言！</span></div>
+            <div class="mode-selector">
+                <button class="mode-btn active" id="mode-chinese">Kínai → Magyar <span class="chinese-text">中文 → 匈牙利语</span></button>
+                <button class="mode-btn" id="mode-hungarian">Magyar → Kínai <span class="chinese-text">匈牙利语 → 中文</span></button>
+            </div>
+        </header>
+        
+        <div class="category-selector" id="category-selector">
+            <h3>Válassz kategóriát: <span class="chinese-text">选择类别：</span></h3>
+            <div class="category-row">
+                <select class="category-select" id="category-select">
+                    <option value="">-- Válassz kategóriát -- / 选择类别</option>
+                    <!-- Kategóriák JavaScript-ből töltődnek -->
+                </select>
+                
+                <div class="word-count-selector">
+                    <label for="word-count">Szavak: <span class="chinese-text">单词：</span></label>
+                    <select id="word-count">
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="all">Összes / 全部</option>
+                    </select>
+                </div>
+                
+                <button class="start-btn" id="start-btn">Kezdés <span class="chinese-text">开始</span></button>
+            </div>
+            <div class="category-info" id="category-info"></div>
+        </div>
+        
+        <div class="tts-info">
+            🔊 A felolvasás gombok a rendszer beépített Text-to-Speech funkcióját használják. 
+            Első használatkor engedélyezni kell a hangot a rendszerben.
+            <span class="chinese-text">🔊 朗读按钮使用系统内置的文本转语音功能。首次使用时，需在系统中启用声音功能。</span>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="content" id="practice-content" style="display: none;">
+            <div class="left-panel">
+                <div class="word-display" id="word-display">书</div>
+                <div class="pinyin" id="pinyin">shū</div>
+                <div class="hint" id="hint">Írd be a magyar megfelelőjét a jobb oldali mezőbe! <span class="chinese-text">在右侧栏中填写匈牙利语对应词！</span></div>
+            </div>
+            
+            <div class="right-panel">
+                <div class="input-container">
+                    <input type="text" id="answer-input" placeholder="Írd ide a választ... / 在这里写下答案...">
+                </div>
+                
+                <div class="feedback" id="feedback"></div>
+                
+                <div class="buttons">
+                    <button id="check-btn">Ellenőrzés <span class="chinese-text">检查</span></button>
+                    <button id="speak-btn">Felolvasás <span class="chinese-text">朗读</span></button>
+                    <button id="next-btn">Következő <span class="chinese-text">下一个</span></button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="completion-screen" id="completion-screen" style="display: none;">
+            <h2 id="completion-title">Eredményed <span class="chinese-text">你的成绩</span></h2>
+            <h3 id="completion-grade">Osztályzat <span class="chinese-text">评分</span></h3>
+            <p>Helyes válaszok: <span id="final-correct">0</span> / <span id="final-total">0</span> <span class="chinese-text">正确答案：<span id="final-correct-cn">0</span> / <span id="final-total-cn">0</span></span></p>
+            <p class="attempted-words">Megválaszolt szavak: <span id="final-attempted">0</span> / <span id="final-all">0</span> <span class="chinese-text">已回答单词：<span id="final-attempted-cn">0</span> / <span id="final-all-cn">0</span></span></p>
+            <p id="completion-description">Leírás <span class="chinese-text">描述</span></p>
+            <div class="completion-buttons">
+                <button id="restart-btn">Újrakezdés <span class="chinese-text">重新开始</span></button>
+                <button id="new-category-btn">Új kategória <span class="chinese-text">新类别</span></button>
+            </div>
+        </div>
+        
+        <div class="stats" id="stats" style="display: none;">
+            <div>Helyes válaszok: <span id="correct-count">0</span> <span class="chinese-text">正确答案：<span id="correct-count-cn">0</span></span></div>
+            <div>Megválaszolt szavak: <span id="attempted-count">0</span> / <span id="total-words">0</span> <span class="chinese-text">已回答单词：<span id="attempted-count-cn">0</span> / <span id="total-words-cn">0</span></span></div>
+            <div>Mód: <span id="mode-indicator">Kínai → Magyar</span> <span class="chinese-text">模式：<span id="mode-indicator-cn">中文 → 匈牙利语</span></span></div>
+        </div>
+        
+        <footer>
+            Nyelvtani oktató alkalmazás - kínai-magyar szókincs gyakorlás <span class="chinese-text">语言学习应用 - 中匈词汇练习</span>
+            <br>语法练习者 - 中匈英词汇练习者
+            <br>Grammar Trainer - Chinese-Hungarian-English Vocabulary Practice
+            <br> Created by jozmol
+</footer>
+    </div>
+
+    <script>
+        // Szótár - kategóriák szerint csoportosítva (egyszerűsített kínai)
+        const wordCategories = {
+            "Alapvető szavak": [
+                { chinese: "书", hungarian: "könyv", pinyin: "shū" },
+                { chinese: "学校", hungarian: "iskola", pinyin: "xuéxiào" },
+                { chinese: "老师", hungarian: "tanár", pinyin: "lǎoshī" },
+                { chinese: "学生", hungarian: "diák", pinyin: "xuésheng" },
+                { chinese: "水", hungarian: "víz", pinyin: "shuǐ" },
+                { chinese: "面包", hungarian: "kenyér", pinyin: "miànbāo" },
+                { chinese: "苹果", hungarian: "alma", pinyin: "píngguǒ" },
+                { chinese: "房子", hungarian: "ház", pinyin: "fángzi" },
+                { chinese: "汽车", hungarian: "autó", pinyin: "qìchē" },
+                { chinese: "花园", hungarian: "kert", pinyin: "huāyuán" }
+            ],
+            "Család és emberek": [
+                { chinese: "家庭", hungarian: "család", pinyin: "jiātíng" },
+                { chinese: "朋友", hungarian: "barát", pinyin: "péngyǒu" },
+                { chinese: "人", hungarian: "ember", pinyin: "rén" },
+                { chinese: "男人", hungarian: "férfi", pinyin: "nánrén" },
+                { chinese: "女人", hungarian: "nő", pinyin: "nǚrén" },
+                { chinese: "孩子", hungarian: "gyerek", pinyin: "háizi" },
+                { chinese: "父亲", hungarian: "apa", pinyin: "fùqīn" },
+                { chinese: "母亲", hungarian: "anya", pinyin: "mǔqīn" },
+                { chinese: "儿子", hungarian: "fiú", pinyin: "érzi" },
+                { chinese: "女儿", hungarian: "lány", pinyin: "nǚ'ér" }
+            ],
+            "Ételek és italok": [
+                { chinese: "食物", hungarian: "étel", pinyin: "shíwù" },
+                { chinese: "饮料", hungarian: "ital", pinyin: "yǐnliào" },
+                { chinese: "咖啡", hungarian: "kávé", pinyin: "kāfēi" },
+                { chinese: "茶", hungarian: "tea", pinyin: "chá" },
+                { chinese: "牛奶", hungarian: "tej", pinyin: "niúnǎi" },
+                { chinese: "鸡蛋", hungarian: "tojás", pinyin: "jīdàn" },
+                { chinese: "肉", hungarian: "hús", pinyin: "ròu" },
+                { chinese: "鱼", hungarian: "hal", pinyin: "yú" },
+                { chinese: "蔬菜", hungarian: "zöldség", pinyin: "shūcài" },
+                { chinese: "水果", hungarian: "gyümölcs", pinyin: "shuǐguǒ" }
+            ],
+            "Állatok": [
+                { chinese: "动物", hungarian: "állat", pinyin: "dòngwù" },
+                { chinese: "狗", hungarian: "kutya", pinyin: "gǒu" },
+                { chinese: "猫", hungarian: "macska", pinyin: "māo" },
+                { chinese: "鸟", hungarian: "madár", pinyin: "niǎo" },
+                { chinese: "马", hungarian: "ló", pinyin: "mǎ" },
+                { chinese: "牛", hungarian: "tehén", pinyin: "niú" },
+                { chinese: "猪", hungarian: "sertés", pinyin: "zhū" },
+                { chinese: "鸡", hungarian: "csirke", pinyin: "jī" },
+                { chinese: "鸭", hungarian: "kacsa", pinyin: "yā" }
+            ],
+            "Színek és számok": [
+                { chinese: "颜色", hungarian: "szín", pinyin: "yánsè" },
+                { chinese: "红色", hungarian: "piros", pinyin: "hóngsè" },
+                { chinese: "蓝色", hungarian: "kék", pinyin: "lánsè" },
+                { chinese: "绿色", hungarian: "zöld", pinyin: "lǜsè" },
+                { chinese: "黄色", hungarian: "sárga", pinyin: "huángsè" },
+                { chinese: "黑色", hungarian: "fekete", pinyin: "hēisè" },
+                { chinese: "白色", hungarian: "fehér", pinyin: "báisè" },
+                { chinese: "数字", hungarian: "szám", pinyin: "shùzì" },
+                { chinese: "一", hungarian: "egy", pinyin: "yī" },
+                { chinese: "二", hungarian: "kettő", pinyin: "èr" },
+                { chinese: "三", hungarian: "három", pinyin: "sān" },
+                { chinese: "四", hungarian: "négy", pinyin: "sì" },
+                { chinese: "五", hungarian: "öt", pinyin: "wǔ" }
+            ]
+        };
+
+        // Alkalmazás állapota
+        let currentWordIndex = 0;
+        let correctAnswers = 0;
+        let totalAttempts = 0;
+        let answeredWords = 0;
+        let currentMode = 'chinese'; // 'chinese' vagy 'hungarian'
+        let currentCategory = null;
+        let currentWords = [];
+        let maxWords = 10;
+        let wordAttempted = []; // Nyomon követi, hogy mely szavakra adott választ
+
+        // DOM elemek
+        const wordDisplayElement = document.getElementById('word-display');
+        const pinyinElement = document.getElementById('pinyin');
+        const hintElement = document.getElementById('hint');
+        const answerInputElement = document.getElementById('answer-input');
+        const checkButton = document.getElementById('check-btn');
+        const speakButton = document.getElementById('speak-btn');
+        const nextButton = document.getElementById('next-btn');
+        const feedbackElement = document.getElementById('feedback');
+        const correctCountElement = document.getElementById('correct-count');
+        const correctCountCnElement = document.getElementById('correct-count-cn');
+        const attemptedCountElement = document.getElementById('attempted-count');
+        const attemptedCountCnElement = document.getElementById('attempted-count-cn');
+        const totalWordsElement = document.getElementById('total-words');
+        const totalWordsCnElement = document.getElementById('total-words-cn');
+        const progressBar = document.getElementById('progress-bar');
+        const modeIndicator = document.getElementById('mode-indicator');
+        const modeIndicatorCnElement = document.getElementById('mode-indicator-cn');
+        const modeChineseBtn = document.getElementById('mode-chinese');
+        const modeHungarianBtn = document.getElementById('mode-hungarian');
+        const categorySelector = document.getElementById('category-selector');
+        const categorySelect = document.getElementById('category-select');
+        const categoryInfo = document.getElementById('category-info');
+        const wordCountSelect = document.getElementById('word-count');
+        const startButton = document.getElementById('start-btn');
+        const practiceContent = document.getElementById('practice-content');
+        const completionScreen = document.getElementById('completion-screen');
+        const completionTitle = document.getElementById('completion-title');
+        const completionGrade = document.getElementById('completion-grade');
+        const completionDescription = document.getElementById('completion-description');
+        const finalCorrectElement = document.getElementById('final-correct');
+        const finalCorrectCnElement = document.getElementById('final-correct-cn');
+        const finalTotalElement = document.getElementById('final-total');
+        const finalTotalCnElement = document.getElementById('final-total-cn');
+        const finalAttemptedElement = document.getElementById('final-attempted');
+        const finalAttemptedCnElement = document.getElementById('final-attempted-cn');
+        const finalAllElement = document.getElementById('final-all');
+        const finalAllCnElement = document.getElementById('final-all-cn');
+        const restartButton = document.getElementById('restart-btn');
+        const newCategoryButton = document.getElementById('new-category-btn');
+        const statsElement = document.getElementById('stats');
+
+        // Kategóriák betöltése a lenyíló menübe
+        function loadCategories() {
+            for (const category in wordCategories) {
+                const option = document.createElement('option');
+                option.value = category;
+                const wordCount = wordCategories[category].length;
+                option.textContent = `${category} (${wordCount} szó / ${wordCount} 单词)`;
+                categorySelect.appendChild(option);
+            }
+        }
+
+        // Kategória kiválasztása
+        function selectCategory() {
+            currentCategory = categorySelect.value;
+            maxWords = wordCountSelect.value === 'all' ? 'all' : parseInt(wordCountSelect.value) || 10;
+            
+            if (!currentCategory) {
+                alert("Kérjük, válassz egy kategóriát! / 请选择一个类别！");
+                return false;
+            }
+            
+            // Kategória információk frissítése
+            const totalWords = wordCategories[currentCategory].length;
+            const availableWords = maxWords === 'all' ? totalWords : Math.min(maxWords, totalWords);
+            categoryInfo.textContent = `A kategóriában ${totalWords} szó található. ${availableWords} szóval fogsz gyakorolni. / 该类别中有 ${totalWords} 个单词。你将练习 ${availableWords} 个单词。`;
+            
+            // Szavak betöltése
+            currentWords = [...wordCategories[currentCategory]];
+            if (maxWords !== 'all' && currentWords.length > maxWords) {
+                // Véletlenszerűen kiválasztjuk a megadott számú szót
+                const shuffled = [...currentWords].sort(() => 0.5 - Math.random());
+                currentWords = shuffled.slice(0, maxWords);
+            }
+            
+            // Válaszadási állapot inicializálása
+            wordAttempted = new Array(currentWords.length).fill(false);
+            
+            return true;
+        }
+
+        // Értékelés kiszámítása - CSAK a megválaszolt szavakra
+        function calculateGrade(correct, attempted, total) {
+            // Ha nem válaszolt egy szóra sem, akkor automatikusan elégtelen
+            if (attempted === 0) {
+                return { 
+                    grade: "1 (Elégtelen)", 
+                    gradeCn: "1 (不及格)",
+                    class: "insufficient", 
+                    description: "Nem válaszoltál egyetlen szóra sem! / 你没有回答任何单词！",
+                    descriptionCn: "你没有回答任何单词！"
+                };
+            }
+            
+            const percentage = (correct / attempted) * 100;
+            
+            if (percentage >= 90) {
+                return { 
+                    grade: "5 (Kiváló)", 
+                    gradeCn: "5 (优秀)",
+                    class: "excellent", 
+                    description: `Kiváló teljesítmény! ${correct}/${attempted} helyes válasz a megválaszolt szavakból!`,
+                    descriptionCn: `优秀表现！已回答单词中 ${correct}/${attempted} 正确答案！`
+                };
+            } else if (percentage >= 80) {
+                return { 
+                    grade: "5 (Jeles)", 
+                    gradeCn: "5 (杰出)",
+                    class: "excellent", 
+                    description: `Jeles eredmény! ${correct}/${attempted} helyes válasz a megválaszolt szavakból!`,
+                    descriptionCn: `杰出成绩！已回答单词中 ${correct}/${attempted} 正确答案！`
+                };
+            } else if (percentage >= 70) {
+                return { 
+                    grade: "4 (Jó)", 
+                    gradeCn: "4 (良好)",
+                    class: "good", 
+                    description: `Jó eredmény! ${correct}/${attempted} helyes válasz a megválaszolt szavakból.`,
+                    descriptionCn: `良好成绩！已回答单词中 ${correct}/${attempted} 正确答案。`
+                };
+            } else if (percentage >= 60) {
+                return { 
+                    grade: "3 (Közepes)", 
+                    gradeCn: "3 (中等)",
+                    class: "average", 
+                    description: `Közepes eredmény. ${correct}/${attempted} helyes válasz a megválaszolt szavakból.`,
+                    descriptionCn: `中等成绩。已回答单词中 ${correct}/${attempted} 正确答案。`
+                };
+            } else if (percentage >= 50) {
+                return { 
+                    grade: "2 (Elégséges)", 
+                    gradeCn: "2 (及格)",
+                    class: "sufficient", 
+                    description: `Elégséges eredmény. ${correct}/${attempted} helyes válasz a megválaszolt szavakból.`,
+                    descriptionCn: `及格成绩。已回答单词中 ${correct}/${attempted} 正确答案。`
+                };
+            } else {
+                return { 
+                    grade: "1 (Elégtelen)", 
+                    gradeCn: "1 (不及格)",
+                    class: "insufficient", 
+                    description: `Elégtelen eredmény. Csak ${correct}/${attempted} helyes válasz a megválaszolt szavakból.`,
+                    descriptionCn: `不及格成绩。已回答单词中只有 ${correct}/${attempted} 正确答案。`
+                };
+            }
+        }
+
+        // Gyakorlás indítása
+        function startPractice() {
+            if (!selectCategory()) return;
+            
+            currentWordIndex = 0;
+            correctAnswers = 0;
+            totalAttempts = 0;
+            answeredWords = 0;
+            
+            // Elrejtjük a kategória választót és megjelenítjük a gyakorlást
+            categorySelector.style.display = 'none';
+            practiceContent.style.display = 'flex';
+            completionScreen.style.display = 'none';
+            statsElement.style.display = 'flex';
+            
+            displayWord();
+            updateStats();
+        }
+
+        // Gyakorlás befejezése
+        function finishPractice() {
+            practiceContent.style.display = 'none';
+            completionScreen.style.display = 'block';
+            statsElement.style.display = 'none';
+            
+            finalCorrectElement.textContent = correctAnswers;
+            finalCorrectCnElement.textContent = correctAnswers;
+            finalTotalElement.textContent = totalAttempts;
+            finalTotalCnElement.textContent = totalAttempts;
+            finalAttemptedElement.textContent = answeredWords;
+            finalAttemptedCnElement.textContent = answeredWords;
+            finalAllElement.textContent = currentWords.length;
+            finalAllCnElement.textContent = currentWords.length;
+            
+            // Értékelés kiszámítása - CSAK a megválaszolt szavakra
+            const evaluation = calculateGrade(correctAnswers, answeredWords, currentWords.length);
+            
+            completionTitle.innerHTML = "Eredményed <span class='chinese-text'>你的成绩</span>";
+            completionGrade.innerHTML = `${evaluation.grade} <span class='chinese-text'>${evaluation.gradeCn}</span>`;
+            completionGrade.className = evaluation.class;
+            completionDescription.innerHTML = `${evaluation.description} <span class='chinese-text'>${evaluation.descriptionCn}</span>`;
+        }
+
+        // Módváltás
+        function switchMode(mode) {
+            currentMode = mode;
+            
+            // Frissíti az aktív gombot
+            modeChineseBtn.classList.toggle('active', mode === 'chinese');
+            modeHungarianBtn.classList.toggle('active', mode === 'hungarian');
+            
+            // Frissíti a mód indikátort
+            if (mode === 'chinese') {
+                modeIndicator.textContent = 'Kínai → Magyar';
+                modeIndicatorCnElement.textContent = '中文 → 匈牙利语';
+                hintElement.innerHTML = 'Írd be a magyar megfelelőjét a jobb oldali mezőbe! <span class="chinese-text">在右侧栏中填写匈牙利语对应词！</span>';
+            } else {
+                modeIndicator.textContent = 'Magyar → Kínai';
+                modeIndicatorCnElement.textContent = '匈牙利语 → 中文';
+                hintElement.innerHTML = 'Írd be a kínai megfelelőjét a jobb oldali mezőbe! <span class="chinese-text">在右侧栏中填写中文对应词！</span>';
+            }
+            
+            // Új szó betöltése
+            if (currentCategory) {
+                displayWord();
+            }
+        }
+
+        // Szó megjelenítése
+        function displayWord() {
+            if (currentWordIndex >= currentWords.length) {
+                finishPractice();
+                return;
+            }
+            
+            const currentWord = currentWords[currentWordIndex];
+            
+            if (currentMode === 'chinese') {
+                wordDisplayElement.textContent = currentWord.chinese;
+                pinyinElement.textContent = currentWord.pinyin;
+                pinyinElement.style.display = 'block';
+            } else {
+                wordDisplayElement.textContent = currentWord.hungarian;
+                pinyinElement.style.display = 'none';
+            }
+            
+            answerInputElement.value = '';
+            feedbackElement.style.display = 'none';
+            answerInputElement.focus();
+            
+            // Frissíti a folyamatjelzőt
+            const progress = (currentWordIndex / currentWords.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Válasz ellenőrzése
+        function checkAnswer() {
+            const userAnswer = answerInputElement.value.trim().toLowerCase();
+            let correctAnswer;
+            
+            if (currentMode === 'chinese') {
+                correctAnswer = currentWords[currentWordIndex].hungarian.toLowerCase();
+            } else {
+                correctAnswer = currentWords[currentWordIndex].chinese.toLowerCase();
+            }
+            
+            feedbackElement.style.display = 'block';
+            totalAttempts++;
+            
+            // Ha ez az első válasz erre a szóra, növeljük a megválaszolt szavak számát
+            if (!wordAttempted[currentWordIndex]) {
+                answeredWords++;
+                wordAttempted[currentWordIndex] = true;
+            }
+            
+            if (userAnswer === correctAnswer) {
+                feedbackElement.textContent = 'Helyes! ✓ / 正确！✓';
+                feedbackElement.className = 'feedback correct';
+                correctAnswers++;
+            } else {
+                if (currentMode === 'chinese') {
+                    feedbackElement.textContent = `Helytelen. A helyes válasz: ${currentWords[currentWordIndex].hungarian} / 错误。正确答案：${currentWords[currentWordIndex].hungarian}`;
+                } else {
+                    feedbackElement.textContent = `Helytelen. A helyes válasz: ${currentWords[currentWordIndex].chinese} (${currentWords[currentWordIndex].pinyin}) / 错误。正确答案：${currentWords[currentWordIndex].chinese} (${currentWords[currentWordIndex].pinyin})`;
+                }
+                feedbackElement.className = 'feedback incorrect';
+            }
+            
+            updateStats();
+        }
+
+        // Következő szó - üres válasszal
+        function nextWord() {
+            // Ha nem adott választ erre a szóra, akkor nem számítjuk megválaszoltként
+            if (answerInputElement.value.trim() === '' && !wordAttempted[currentWordIndex]) {
+                // Nem növeljük a megválaszolt szavak számát
+            }
+            
+            currentWordIndex++;
+            displayWord();
+        }
+
+        // Szavak felolvastatása
+        function speakWords() {
+            const currentWord = currentWords[currentWordIndex];
+            
+            if (currentMode === 'chinese') {
+                // Felolvassa a kínai szót
+                const chineseSpeech = new SpeechSynthesisUtterance(currentWord.chinese);
+                chineseSpeech.lang = 'zh-CN';
+                window.speechSynthesis.speak(chineseSpeech);
+                
+                // Felolvassa a magyar szót
+                setTimeout(() => {
+                    const hungarianSpeech = new SpeechSynthesisUtterance(currentWord.hungarian);
+                    hungarianSpeech.lang = 'hu-HU';
+                    window.speechSynthesis.speak(hungarianSpeech);
+                }, 1000);
+            } else {
+                // Felolvassa a magyar szót
+                const hungarianSpeech = new SpeechSynthesisUtterance(currentWord.hungarian);
+                hungarianSpeech.lang = 'hu-HU';
+                window.speechSynthesis.speak(hungarianSpeech);
+                
+                // Felolvassa a kínai szót
+                setTimeout(() => {
+                    const chineseSpeech = new SpeechSynthesisUtterance(currentWord.chinese);
+                    chineseSpeech.lang = 'zh-CN';
+                    window.speechSynthesis.speak(chineseSpeech);
+                }, 1000);
+            }
+        }
+
+        // Statisztikák frissítése
+        function updateStats() {
+            correctCountElement.textContent = correctAnswers;
+            correctCountCnElement.textContent = correctAnswers;
+            attemptedCountElement.textContent = answeredWords;
+            attemptedCountCnElement.textContent = answeredWords;
+            totalWordsElement.textContent = currentWords.length;
+            totalWordsCnElement.textContent = currentWords.length;
+        }
+
+        // Újrakezdés
+        function restartPractice() {
+            startPractice();
+        }
+
+        // Új kategória
+        function newCategory() {
+            practiceContent.style.display = 'none';
+            completionScreen.style.display = 'none';
+            categorySelector.style.display = 'block';
+            statsElement.style.display = 'none';
+            categoryInfo.textContent = '';
+        }
+
+        // Inicializálás
+        function init() {
+            loadCategories();
+            
+            // Eseménykezelők
+            checkButton.addEventListener('click', checkAnswer);
+            speakButton.addEventListener('click', speakWords);
+            nextButton.addEventListener('click', nextWord);
+            startButton.addEventListener('click', startPractice);
+            
+            answerInputElement.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkAnswer();
+                }
+            });
+            
+            // Módváltó gombok
+            modeChineseBtn.addEventListener('click', () => switchMode('chinese'));
+            modeHungarianBtn.addEventListener('click', () => switchMode('hungarian'));
+            
+            // Befejezés gombok
+            restartButton.addEventListener('click', restartPractice);
+            newCategoryButton.addEventListener('click', newCategory);
+            
+            // Szószám változás
+            wordCountSelect.addEventListener('change', function() {
+                if (currentCategory) {
+                    selectCategory();
+                }
+            });
+            
+            // Kategória változás
+            categorySelect.addEventListener('change', function() {
+                if (categorySelect.value) {
+                    selectCategory();
+                } else {
+                    categoryInfo.textContent = '';
+                }
+            });
+        }
+
+        // Alkalmazás indítása
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
