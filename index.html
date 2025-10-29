@@ -508,11 +508,16 @@
 <script>
  async function updateCounter() {
     try {
-        const domain = "jozmol.github.io";
-        const path = "szokincs";
+        // CORS proxy használata
+        const proxyUrl = 'https://api.allorigins.win/raw?url=';
+        const countUrl = 'https://api.countapi.xyz/hit/jozmol.github.io/szokincs';
         
-        await fetch(`https://api.countapi.xyz/hit/${domain}/${path}`);
-        const response = await fetch(`https://api.countapi.xyz/get/${domain}/${path}`);
+        // Növeljük a számlálót
+        await fetch(proxyUrl + encodeURIComponent(countUrl));
+        
+        // Lekérjük az értéket
+        const getUrl = 'https://api.countapi.xyz/get/jozmol.github.io/szokincs';
+        const response = await fetch(proxyUrl + encodeURIComponent(getUrl));
         const data = await response.json();
         
         document.getElementById('visitorCount').textContent = data.value;
@@ -526,6 +531,7 @@ updateCounter();
 </body>
 
 </html>
+
 
 
 
