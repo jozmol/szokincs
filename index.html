@@ -508,17 +508,17 @@
 <script>
 async function updateCounter() {
     try {
-        const proxy = 'https://api.allorigins.win/raw?url=';
-        const site = 'jozmol.github.io/szokincs';
+        // Visitor Badge - mindig működik
+        const response = await fetch('https://visitor-badge.laobi.icu/badge?page_id=jozmol-szokincs');
+        const text = await response.text();
         
-        // Növelés
-        await fetch(proxy + encodeURIComponent(`https://api.countapi.xyz/hit/${site}`));
-        
-        // Lekérés
-        const response = await fetch(proxy + encodeURIComponent(`https://api.countapi.xyz/get/${site}`));
-        const data = await response.json();
-        
-        document.getElementById('visitorCount').textContent = data.value;
+        // A badge tartalmazza a számot
+        const match = text.match(/<text[^>]*>(\d+)<\/text>/);
+        if (match) {
+            document.getElementById('visitorCount').textContent = match[1];
+        } else {
+            document.getElementById('visitorCount').textContent = '...';
+        }
     } catch (error) {
         document.getElementById('visitorCount').textContent = '...';
     }
@@ -529,6 +529,7 @@ updateCounter();
 </body>
 
 </html>
+
 
 
 
