@@ -506,13 +506,13 @@
         });
     </script>
 <script>
-   async function updateCounter() {
+ async function updateCounter() {
     try {
-        // CSERÉLD KI A SAJÁT GITHUB OLDALAD CÍMÉRE!
-        const siteName = "jozmol.github.io-szokincs";  // ← / helyett -
+        const domain = "jozmol.github.io";
+        const path = "szokincs";
         
-        await fetch(`https://api.countapi.xyz/hit/${siteName}/visits`);
-        const response = await fetch(`https://api.countapi.xyz/get/${siteName}/visits`);
+        await fetch(`https://api.countapi.xyz/hit/${domain}/${path}`);
+        const response = await fetch(`https://api.countapi.xyz/get/${domain}/${path}`);
         const data = await response.json();
         
         document.getElementById('visitorCount').textContent = data.value;
@@ -526,6 +526,7 @@ updateCounter();
 </body>
 
 </html>
+
 
 
 
