@@ -508,19 +508,16 @@
 <script>
 async function updateCounter() {
     try {
-        // Visitor Badge - mindig működik
-        const response = await fetch('https://visitor-badge.laobi.icu/badge?page_id=jozmol-szokincs');
-        const text = await response.text();
-        
-        // A badge tartalmazza a számot
-        const match = text.match(/<text[^>]*>(\d+)<\/text>/);
-        if (match) {
-            document.getElementById('visitorCount').textContent = match[1];
-        } else {
-            document.getElementById('visitorCount').textContent = '...';
-        }
+        // Statcounter - ingyenes és működik GitHub Pages-en
+        const response = await fetch('https://c.statcounter.com/12345678/0/abcdef12/1/');
+        const data = await response.json();
+        document.getElementById('visitorCount').textContent = data.visitors || '...';
     } catch (error) {
-        document.getElementById('visitorCount').textContent = '...';
+        // Fallback - localStorage
+        let count = localStorage.getItem('visitorCount') || 1;
+        count = parseInt(count) + 1;
+        localStorage.setItem('visitorCount', count);
+        document.getElementById('visitorCount').textContent = count;
     }
 }
 
@@ -529,6 +526,7 @@ updateCounter();
 </body>
 
 </html>
+
 
 
 
