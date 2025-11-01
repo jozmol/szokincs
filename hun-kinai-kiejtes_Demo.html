@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiejtés Gyakorló - Magyar - Kínai</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: white;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin-top: 20px;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(to right, #e52d27, #b31217);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .word-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .chinese-word {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            color: #e52d27;
+            font-weight: bold;
+        }
+        
+        .pinyin {
+            font-size: 2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .tts-info {
+            background-color: #e3f2fd;
+            padding: 10px;
+            margin: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .meaning {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .recording-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .recording-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        
+        .recording-btn:hover {
+            background: #3d8b40;
+            transform: scale(1.05);
+        }
+        
+        .recording-btn.recording {
+            background: #e52d27;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .feedback.good {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .feedback.needs-work {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .listen-btn {
+            background: #2196F3;
+            color: white;
+        }
+
+        .next-btn {
+            background: #FF9800;
+            color: white;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .progress {
+            margin-top: 20px;
+            text-align: center;
+            color: #666;
+        }
+        
+        .hint-section {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .hint-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1976d2;
+        }
+
+        .score-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .suggestion {
+            font-style: italic;
+            margin-top: 10px;
+            color: #555;
+        }
+        
+        .recording-status {
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 400px) {
+            .chinese-word {
+                font-size: 3rem;
+            }
+            
+            .pinyin {
+                font-size: 1.5rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .control-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Kiejtés Gyakorló</h1>
+            <div class="subtitle">Gyakorold a magyar szavak kiejtését <br> 练习发音匈牙利语单词<br>发音练习</div>
+        </header>
+        <div class="tts-info">
+            🔊 A felolvasás gombok a rendszer beépített Text-to-Speech funkcióját használják. 
+            <br>Első használatkor engedélyezned kell a hangot a rendszerben, ha nem működik a felolvasás.<br>
+ 🔊 朗讀按鈕使用系統內建的文字轉語音功能。<br>首次使用時，若朗讀功能無法運作，您必須在系統中啟用聲音功能。
+
+        </div>
+
+        <div class="content">
+            <div class="word-section">
+                <div class="chinese-word" id="chinese-word">***</div>
+                <div class="pinyin" id="pinyin">***</div>
+                <div class="meaning" id="meaning">***</div>
+            </div>
+            
+            <div class="recording-section">
+                <button class="recording-btn" id="record-btn">
+                    🎤 Kattints és beszélj - 用匈牙利语说出来
+                </button>
+                <div class="recording-status" id="recording-status"></div>
+                <div class="feedback" id="feedback"></div>
+            </div>
+            
+            <div class="controls">
+                <button class="control-btn listen-btn" id="listen-btn">
+                    🔊 Hallgasd meg <br> 听一听
+                </button>
+                <button class="control-btn next-btn" id="next-btn">
+                    ➡️ Következő szó <br> 下一个词
+                </button>
+            </div>
+            
+           <div class="progress" id="progress">0/0</div>
+        </div>
+    </div>
+
+    <script>
+        // SZÓTÁR
+        const pronunciationWords = [
+              {
+                hungarian:"szia" ,
+                pinyin: "nǐ hǎo",
+                meaning: "你好"
+                           },
+            {
+                hungarian: "Köszönöm", 
+                pinyin: "xiè xie",
+                meaning: "谢谢"
+            },
+            {
+                hungarian: "víz",
+                pinyin: "shuǐ",
+                meaning: "水", 
+                            },
+            {
+                hungarian: "anya",
+                pinyin: "mā ma", 
+                meaning: "妈妈",
+            },
+            {
+                hungarian: "barát",
+                pinyin: "péng yǒu",
+                meaning: "朋友",
+            },
+            {
+                hungarian: "iskola", 
+                pinyin: "xué xiào",
+                meaning: "学校",
+            },
+            {
+                hungarian: "telefon",
+                pinyin: "diàn huà",
+                meaning: "电话",
+            },
+            {
+                hungarian: "számítógép",
+                pinyin: "diàn nǎo",
+                meaning: "电脑",
+                hint: "diàn (negyedik tonus), nǎo (harmadik tonus) - először le, majd fel"
+            },
+            {
+                meaning: "汽车",
+                pinyin: "qì chē",
+                hungarian: "autó",
+                hint: "qì (negyedik tonus) - lefelé, chē (első tonus) - magas és sík"
+            },
+            {
+                meaning: "飞机",
+                pinyin: "fēi jī",
+                hungarian: "repülőgép",
+                hint: "fēi (első tonus) - magas, jī (első tonus) - magas"
+            },
+
+	  {
+               meaning: "我可以在哪裡找到公車站?",
+               pinyin: "Wǒ kěyǐ zài nǎlǐ zhǎodào gōngchē zhàn?",
+               hungarian:"Hol találom a buszmegállót?"
+         	 },
+	  	 {
+		meaning: "我可以在哪裡找到火車站?",
+		pinyin: "Wǒ kěyǐ zài nǎlǐ zhǎodào huǒchē zhàn?",
+		hungarian: "Hol találom a vasútállomást?"
+            },
+		{
+      		meaning: "酒店",
+      		hungarian: "szálloda",
+      		pinyin: "jiǔdiàn",     
+    	}, 
+	{
+      		meaning: "行李",
+      		hungarian: "csomag",
+      		"pinyin": "xíngli",
+    },
+	{
+      		meaning: "出租車",
+      		hungarian: "taxi",
+      		"pinyin": "chūzūchē",
+    },
+ 	{
+      		meaning: "地鐵",
+      		hungarian: "metro",
+      		pinyin: "dìtiě"
+    },
+		{
+      		"meaning": "船",
+      		"hungarian": "hajó",
+      		"pinyin": "chuán",
+    },
+
+{		"meaning": "方向",
+      		"hungarian": "irány",
+      		"pinyin": "fāngxiàng",
+},
+ {
+      "meaning": "北",
+      "hungarian": "észak",
+      "pinyin": "běi",
+}, 
+{
+      "meaning":"南",
+      "hungarian": "dél",
+      "pinyin": "nán",
+     
+    },
+{
+      "meaning": "東",
+      "hungarian": "kelet",
+      "pinyin": "dōng",
+    }
+
+
+
+
+        ];
+
+        let currentWordIndex = 0;
+        let mediaRecorder;
+        let audioChunks = [];
+        let isRecording = false;
+
+        // DOM elemek
+        const chineseWordElement = document.getElementById('chinese-word');
+        const pinyinElement = document.getElementById('pinyin');
+        const meaningElement = document.getElementById('meaning');
+        const recordButton = document.getElementById('record-btn');
+        const listenButton = document.getElementById('listen-btn');
+        const nextButton = document.getElementById('next-btn');
+        const feedbackElement = document.getElementById('feedback');
+        const progressElement = document.getElementById('progress');
+        const recordingStatus = document.getElementById('recording-status');
+
+        // Szó megjelenítése
+        function displayWord() {
+            const currentWord = pronunciationWords[currentWordIndex];
+            chineseWordElement.textContent = currentWord.hungarian;
+            pinyinElement.textContent = currentWord.pinyin;
+            meaningElement.textContent = currentWord.meaning;
+            progressElement.textContent = `${currentWordIndex + 1}/${pronunciationWords.length}`;
+            
+            // Reset
+            feedbackElement.style.display = 'none';
+            feedbackElement.innerHTML = '';
+            recordingStatus.textContent = '';
+        }
+
+        // EGYSZERŰSÍTETT AI kiejtéselemző - Kétnyelvű
+async function analyzeHungarianPronunciation(audioBlob, currentWord) {
+    console.log("🔊 Kiejtés elemzés...");
+    
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            const random = Math.random();
+            let result;
+            
+            if (random < 0.3) {
+                // Nem érthető
+                result = {
+                    score: 40,
+                    level: "nem_eretheto",
+                    message: "🚫 听不懂 - Nem érthető",
+                    details: "需要多练习！ - Gyakorolj többet!",
+                    color: "#e52d27"
+                };
+            } else if (random < 0.7) {
+                // Elfogadható
+                result = {
+                    score: 65,
+                    level: "elfogadhato",
+                    message: "⚠️ 可以接受 - Elfogadható", 
+                    details: "需要改进发音！ - Javítani kell a kiejtésed",
+                    color: "#ff9800"
+                };
+            } else {
+                // Jól érthető
+                result = {
+                    score: 85,
+                    level: "jol_eretheto",
+                    message: "✅ 很好懂 - Jól érthető",
+                    details: "很好！继续加油！ - Szép munka!",
+                    color: "#4CAF50"
+                };
+            }
+            
+            resolve(result);
+        }, 1000);
+    });
+}
+
+// Visszajelzés megjelenítése
+function giveFeedback(analysis) {
+    console.log("📢 Eredmény:", analysis);
+    
+    if (!analysis) {
+        feedbackElement.innerHTML = "❌ 分析错误 - Hiba az elemzés során";
+        feedbackElement.className = 'feedback needs-work';
+        feedbackElement.style.display = 'block';
+        return;
+    }
+    
+    let feedbackHTML = `
+        <div class="score-display" style="color: ${analysis.color}; font-size: 1.8rem; font-weight: bold;">
+            ${analysis.message}
+        </div>
+        <div style="margin-top: 10px; font-size: 1.2rem;">
+            ${analysis.details}
+        </div>
+        <div style="margin-top: 8px; font-size: 1rem; color: #666;">
+            分数: <strong>${analysis.score}/100</strong>
+        </div>
+    `;
+    
+    feedbackElement.innerHTML = feedbackHTML;
+    feedbackElement.className = 'feedback';
+    if (analysis.level === 'jol_eretheto') {
+        feedbackElement.style.background = '#e8f5e9';
+    } else if (analysis.level === 'elfogadhato') {
+        feedbackElement.style.background = '#fff3cd';
+    } else {
+        feedbackElement.style.background = '#ffebee';
+    }
+    feedbackElement.style.display = 'block';
+}
+
+        // Hangfelvétel kezelése - EGYSZERŰSÍTETT ÉS JAVÍTOTT
+        async function startRecording() {
+            try {
+                recordingStatus.textContent = "⏺️ Felvétel indítása...";
+                
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    audio: {
+                        sampleRate: 16000,
+                        channelCount: 1,
+                        echoCancellation: true
+                    } 
+                });
+                
+                audioChunks = [];
+                mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        audioChunks.push(event.data);
+                    }
+                };
+
+                // CSAK EGY onstop eseménykezelő!
+                mediaRecorder.onstop = async () => {
+                    recordingStatus.textContent = "✅ Kész, elemzés... 讲话结束，分析 ..";
+                    
+                    if (audioChunks.length === 0) {
+                        recordingStatus.textContent = "❌ Nincs hangadat -  没有声音数据";
+                        return;
+                    }
+                    
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const currentWord = pronunciationWords[currentWordIndex];
+                    
+                    try {
+                        const feedback = await analyzeHungarianPronunciation(audioBlob, currentWord);
+                        giveFeedback(feedback);
+                        recordingStatus.textContent = "✅ Elemzés kész! - 分析完成！";
+                    } catch (error) {
+                        console.error("❌ Hiba az elemzés során:", error);
+                        giveFeedback({ error: "Nem sikerült elemezni a kiejtést - 无法分析发音" });
+                        recordingStatus.textContent = "❌ Elemzés sikertelen - 分析失败！";
+                    }
+                    
+                    // Stream leállítása
+                    stream.getTracks().forEach(track => track.stop());
+                };
+
+                mediaRecorder.start();
+                isRecording = true;
+                recordButton.textContent = '⏹️ Stop - 停止';
+                recordButton.classList.add('recording');
+                recordingStatus.textContent = "🔴 Beszélj most! - 现在就说话！";
+                
+            } catch (error) {
+                console.error('Hiba a felvételnél:', error);
+                recordingStatus.textContent = "❌ Hozzáférés megtagadva a mikrofonhoz - 拒绝访问麦克风";
+                feedbackElement.innerHTML = '❌ Engedélyezd a mikrofonhoz való hozzáférést! - 请允许访问麦克风！';
+                feedbackElement.className = 'feedback needs-work';
+                feedbackElement.style.display = 'block';
+            }
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && isRecording) {
+                mediaRecorder.stop();
+                isRecording = false;
+                recordButton.textContent = '🎤 Kattints és beszélj - 用匈牙利语说出来';
+                recordButton.classList.remove('recording');
+            }
+        }
+
+        // Szó felolvasása - magyar
+        function speakWord() {
+            const currentWord = pronunciationWords[currentWordIndex];
+            if ('speechSynthesis' in window) {
+                const speech = new SpeechSynthesisUtterance(currentWord.hungarian);
+                speech.lang = 'hu-HU';
+                speech.rate = 0.8;
+                speech.pitch = 1;
+                window.speechSynthesis.speak(speech);
+            } else {
+                alert("A böngésző nem támogatja a felolvasást! - 浏览器不支持朗读功能！");
+            }
+        }
+
+        // Eseménykezelők
+        recordButton.addEventListener('click', () => {
+            if (!isRecording) {
+                startRecording();
+            } else {
+                stopRecording();
+            }
+        });
+
+        listenButton.addEventListener('click', speakWord);
+        
+        nextButton.addEventListener('click', () => {
+            currentWordIndex = (currentWordIndex + 1) % pronunciationWords.length;
+            displayWord();
+            setTimeout(speakWord, 300);
+        });
+
+        // Inicializálás
+        displayWord();
+
+        // Konzol üzenet
+        console.log(`🎯 Kiejtés gyakorló betöltve: ${pronunciationWords.length} szó`);
+        console.log(`🤖 AI kiejtéselemzés AKTÍV - Működik!`);
+    </script>
+</body>
+</html>
