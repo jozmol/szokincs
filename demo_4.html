@@ -146,7 +146,7 @@
         }
         
         .hint {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: #666;
             margin-top: 10px;
         }
@@ -405,7 +405,6 @@
             .completion-buttons {
                 flex-direction: column;
             }
-
         }
     </style>
 </head>
@@ -415,16 +414,16 @@
             <h1>Kínai-Magyar-Kínai Szókincs Gyakorló<br><b>汉语-匈牙利语-汉语词汇练习</b></h1>
             <div class="subtitle">Válassz egy nyelvet a gyakorláshoz!<br>选择一种语言进行练习吧！</div>
             <div class="mode-selector">
-                <button class="mode-btn active" id="mode-chinese">Kínai → Magyar - 中文 → 匈牙利语</button>
-                <button class="mode-btn" id="mode-hungarian">Magyar → Kínai -匈牙利语 → 中文</button>
+                <button class="mode-btn active" id="mode-chinese">Kínai → Magyar</button>
+                <button class="mode-btn" id="mode-hungarian">Magyar → Kínai</button>
             </div>
         </header>
         
         <div class="category-selector" id="category-selector">
-            <h3>Válassz kategóriát - 选择类别:</h3>
+            <h3>Válassz kategóriát:</h3>
             <div class="category-row">
                 <select class="category-select" id="category-select">
-                    <option value="">-- Válassz kategóriát - 选择类别 --</option>
+                    <option value="">-- Válassz kategóriát --</option>
                     <!-- Kategóriák JavaScript-ből töltődnek -->
                 </select>
                 
@@ -439,7 +438,7 @@
                     </select>
                 </div>
                 
-                <button class="start-btn" id="start-btn">Kezdés - 开始</button>
+                <button class="start-btn" id="start-btn">Kezdés</button>
             </div>
         </div>
         
@@ -447,7 +446,6 @@
             🔊 A felolvasás gombok a rendszer beépített Text-to-Speech funkcióját használják. 
             <br>Első használatkor engedélyezni kell a hangot a rendszerben.
             <span class="chinese-text"><br>🔊 朗读按钮使用系统内置的文本转语音功能。首次使用时，需在系统中启用声音功能。</span>
-	    
         </div>
 
 
@@ -460,8 +458,6 @@
                 <div class="word-display" id="word-display">书</div>
                 <div class="pinyin" id="pinyin">shū</div>
                 <div class="hint" id="hint">Írd be a magyar megfelelőjét a jobb oldali mezőbe!</div>
-		
-
             </div>
             
             <div class="right-panel">
@@ -472,30 +468,30 @@
                 <div class="feedback" id="feedback"></div>
                 
                 <div class="buttons">
-                    <button id="check-btn">Ellenőrzés - 检查</button>
-                    <button id="speak-btn">Felolvasás - 朗读</button>
-                    <button id="next-btn">Következő - 下一个</button>
+                    <button id="check-btn">Ellenőrzés</button>
+                    <button id="speak-btn">Felolvasás</button>
+                    <button id="next-btn">Következő</button>
                 </div>
             </div>
         </div>
         
         <div class="completion-screen" id="completion-screen" style="display: none;">
-            <h2 id="completion-title">Gratulálok! Sikeresen befejezted a gyakorlást! <br> 恭喜！你成功完成了练习！</h2>
+            <h2 id="completion-title">Gratulálok! Sikeresen befejezted a gyakorlást!</h2>
             <p>Helyes válaszok: <span id="final-correct">0</span> / <span id="final-total">0</span></p>
             <div class="completion-buttons">
-                <button id="restart-btn">Újrakezdés - 重新开始</button>
-                <button id="new-category-btn">Új kategória - 新类别</button>
+                <button id="restart-btn">Újrakezdés</button>
+                <button id="new-category-btn">Új kategória</button>
             </div>
         </div>
         
         <div class="stats" id="stats" style="display: none;">
-            <div>Helyes válaszok - 正确答案: <span id="correct-count">0</span></div>
-            <div>Összes szó - 总计: <span id="total-count">0</span></div>
+            <div>Helyes válaszok: <span id="correct-count">0</span></div>
+            <div>Összes szó: <span id="total-count">0</span></div>
             <div>Mód: <span id="mode-indicator">Kínai → Magyar</span></div>
         </div>
         
         <footer>
-            Nyelvtani oktató alkalmazás - kínai-magyar szókincs gyakorlás <br> 汉语-匈牙利语词汇练习 <br> Created by &copy jozmol
+            Nyelvtani oktató alkalmazás - kínai-magyar szókincs gyakorlás
         </footer>
     </div>
 
@@ -503,6 +499,7 @@
         // Szótár - kategóriák szerint csoportosítva (egyszerűsített kínai)
         const wordCategories = {
             "Alapvető szavak": [
+		"Alapvető szavak": [
 		{ chinese: "书", hungarian: "könyv", pinyin: "shū", img: "pic/konyv.jpg"},
                 { chinese: "学校", hungarian: "iskola", pinyin: "xuéxiào", img: "pic/iskola.png"},
                 { chinese: "老师", hungarian: "tanár", pinyin: "lǎoshī", img: "pic/tanar.png"},
@@ -564,6 +561,7 @@
                 { chinese: "四", hungarian: "négy", pinyin: "sì" },
                 { chinese: "五", hungarian: "öt", pinyin: "wǔ" }
             ]
+
         };
 
         // Alkalmazás állapota
@@ -653,23 +651,23 @@
         }
 
         // Gyakorlás befejezése
-function finishPractice() {
-    practiceContent.style.display = 'none';
-    completionScreen.style.display = 'block';
-    statsElement.style.display = 'none';
-    
-    finalCorrectElement.textContent = correctAnswers;
-    finalTotalElement.textContent = totalAttempts;
-    
-    // Sikeres vagy sikertelen eredmény megjelenítése
-    if (correctAnswers > 0) {
-        completionTitle.innerHTML = "Gratulálok! Sikeresen befejezted a gyakorlást!<br>恭喜！你成功完成了练习！";
-        completionTitle.className = "success";
-    } else {
-        completionTitle.innerHTML = "Sajnos ez most nem sikerült. Próbáld újra!<br>很遗憾，现在没成功。再试一次吧！";
-        completionTitle.className = "failure";
-    }
-}
+        function finishPractice() {
+            practiceContent.style.display = 'none';
+            completionScreen.style.display = 'block';
+            statsElement.style.display = 'none';
+            
+            finalCorrectElement.textContent = correctAnswers;
+            finalTotalElement.textContent = totalAttempts;
+            
+            // Sikeres vagy sikertelen eredmény megjelenítése
+            if (correctAnswers > 0) {
+                completionTitle.textContent = "Gratulálok! Sikeresen befejezted a gyakorlást!";
+                completionTitle.className = "success";
+            } else {
+                completionTitle.textContent = "Sajnos ez most nem sikerült. Próbáld újra!";
+                completionTitle.className = "failure";
+            }
+        }
 
         // Módváltás
         function switchMode(mode) {
@@ -680,12 +678,12 @@ function finishPractice() {
             modeHungarianBtn.classList.toggle('active', mode === 'hungarian');
             
             // Frissíti a mód indikátort
-            modeIndicator.textContent = mode === 'chinese' ? 'Kínai → Magyar - 中文 → 匈牙利语' : 'Magyar → Kínai - 匈牙利语 → 中文';
+            modeIndicator.textContent = mode === 'chinese' ? 'Kínai → Magyar' : 'Magyar → Kínai';
             
             // Frissíti a feliratot
             hintElement.textContent = mode === 'chinese' 
-                ? 'Írd be a magyar megfelelőjét a jobb oldali mezőbe! - 在右侧栏中填写匈牙利语对应词！'
-                : 'Írd be a kínai megfelelőjét a jobb oldali mezőbe! - 在右侧的空格中填写中文对应词！';
+                ? 'Írd be a magyar megfelelőjét a jobb oldali mezőbe!' 
+                : 'Írd be a kínai megfelelőjét a jobb oldali mezőbe!';
             
             // Új szó betöltése
             if (currentCategory) {
