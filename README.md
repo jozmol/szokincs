@@ -16,4 +16,4 @@ Interaktív alkalmazás kínai, magyar és angol szavak gyakorlásához.
 3. Gyakorolj!
 
 ## 🌐 Élő demo
-[jozmol/szokincs]
+[jozmol.github.io/szokincs]
