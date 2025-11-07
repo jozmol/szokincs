@@ -286,19 +286,7 @@ function stopRecording(){
     stopBtn.disabled = true;
     try{ if (recognizer) recognizer.stop(); }catch(e){}
 
-    // ✅ Az elemzést akkor indítjuk, amikor a felvétel ténylegesen befejeződik:
-    mediaRecorder.onstop = async () => {
-      recordingStatus.textContent = '✅ Recording saved. Starting analysis...';
-      analyzeBtn.disabled = true;
-
-      // egy kis késleltetés, hogy a böngésző lezárja a blobot
-      await new Promise(res => setTimeout(res, 400));
-
-      // most már biztonságosan elérhető az audioChunks tartalma
-      await analyzeRecordingFlow();
-    };
-
-    mediaRecorder.stop();
+   
   }
 }
 
@@ -440,6 +428,7 @@ document.addEventListener('keydown', (e)=>{
 </script>
 </body>
 </html>
+
 
 
 
