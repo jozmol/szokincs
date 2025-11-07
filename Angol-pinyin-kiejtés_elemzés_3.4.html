@@ -83,7 +83,10 @@ const fullWordDictionary = [
   {english:"lunch", pinyin:"lunch", meaning:"午餐"},
   {english:"dinner", pinyin:"dinner", meaning:"晚餐"},
   {english:"soup", pinyin:"soup", meaning:"汤"},
-  {english:"salad", pinyin:"salad", meaning:"沙拉"}
+  {english:"salad", pinyin:"salad", meaning:"沙拉"},
+  { english: "sandwich", pinyin: "sandwich", meaning: "三明治"},
+		{ english: "hamburger", pinyin: "hamburger", meaning: "汉堡", },
+		{ english: "pizza", hungarian: "pizza", pinyin: "pizza",meaning: "披萨"},
 ];
 
 /* ---------- DOM ---------- */
@@ -214,7 +217,10 @@ const phoneticDictionary = {
   "friend":["frend","frind","freind"],
   "breakfast":["brekfast"],
   "lunch":["lancs","lanch"],
-  "dinner":["diner","dine"]
+  "dinner":["diner","dine"],
+  "sandwich":["seandvich", "sendvich", "sendvits"],
+  "hamburger": ["hamburge", "heambörg"],
+  "pizza": ["pizza","peeza"]
 };
 function simpleSimilarity(a,b){
   if (!a||!b) return 0;
@@ -424,4 +430,5 @@ document.addEventListener('keydown', (e)=>{
 </script>
 </body>
 </html>
+
 
