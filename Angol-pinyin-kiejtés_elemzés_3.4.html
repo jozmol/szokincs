@@ -278,21 +278,13 @@ async function startRecording(){
   }
 }
 function stopRecording(){
-  if (!mediaRecorder) return;
-  if (isRecording && mediaRecorder.state !== 'inactive'){
-    mediaRecorder.stop();
+  if (mediaRecorder && isRecording) {
+    try { mediaRecorder.stop(); } catch(e){}
     isRecording = false;
     recordBtn.disabled = false;
     stopBtn.disabled = true;
-    recordingStatus.textContent = '⏹ Stopped';
-    try{ if (recognizer) recognizer.stop(); }catch(e){}
-
-    // 🔽 Automatikus elemzés indítása
-    setTimeout(async ()=>{
-      recordingStatus.textContent = '🔍 Analyzing...';
-      analyzeBtn.disabled = true;
-      await analyzeRecordingFlow();
-    }, 800); // kis várakozás a blob véglegesítéséhez
+    recordingStatus.textContent = '⏹ Recording stopped';
+    if (recogSupported && recognizer) try{ recognizer.stop(); }catch(e){}
   }
 }
 
@@ -433,6 +425,7 @@ document.addEventListener('keydown', (e)=>{
 </script>
 </body>
 </html>
+
 
 
 
