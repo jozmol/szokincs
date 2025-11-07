@@ -24,10 +24,10 @@
 </style>
 </head>
 <body>
-  <div class="card" role="application" aria-label="Kiejtés gyakorló">
+  <div class="card" role="application" aria-label="Kiejtés gyakorló - Pronunciation Practice - 发音练习">
     <header>
-      <h1>Kiejtés Gyakorló</h1>
-      <div class="small">Chrome/Edge: STT (ha elérhető). Firefox: audio-alapú összehasonlítás.</div>
+      <h1>Kiejtés Gyakorló <br> Pronunciation Practice <br> 发音练习</h1>
+      <div class="small">Chrome/Edge: STT (如果可用 - if available).</div>
     </header>
 
     <div class="body">
@@ -35,14 +35,14 @@
         <label for="wordCount">Szavak száma:</label>
         <select id="wordCount">
           <option value="5">5</option>
-          <option value="7" selected>7</option>
+          <option value="7">7</option>
           <option value="10">10</option>
-          <option value="0">All</option>
+          <option value="0" selected>All </option>
         </select>
 
-        <button id="startBtn">🚀 Start</button>
-        <button id="nextBtn">➡️ Next</button>
-        <button id="listenBtn">🔊 Play (TTS)</button>
+        <button id="startBtn">🚀 Start - 开始</button>
+        <button id="nextBtn">➡️ Next - 下一个</button>
+        <button id="listenBtn">🔊 Listen to it  - 听它</button>
       </div>
 
       <div id="progress" class="status" style="display:none;margin-top:12px"></div>
@@ -52,9 +52,11 @@
         <div style="color:#666;margin-top:6px" id="targetInfo">—</div>
 
         <div class="controls" style="margin-top:12px">
-          <button id="recordBtn">🎤 Start Recording</button>
-          <button id="stopBtn" disabled>⏹ Stop</button>
-          <button id="analyzeBtn" disabled>🔍 Analyze</button>
+          <button id="recordBtn">🎤 Start speak - 说话吧 </button>
+
+          <button id="stopBtn" disabled>⏹ Stop - 停止</button>
+
+          <button id="analyzeBtn" disabled>🔍 Analyze - 分析</button>
         </div>
 
         <div id="recordingStatus" class="status" style="display:block;margin-top:12px">Ready</div>
@@ -64,6 +66,7 @@
 
       <div style="margin-top:18px;color:#666;font-size:.95rem">
         <p><strong>Megjegyzés:</strong> Engedélyezd a mikrofont. Chrome/Edge esetén, ha elérhető, a böngésző beszédfelismerését használjuk (jobb precizitás szó-egyezéshez). Firefoxban vagy ha nincs STT, akkor az audio mintázat alapján adunk visszajelzést (zajküszöb beépítve).<br>
+<p><strong>Note:</strong>
 Enable your microphone. In Chrome/Edge browsers, if available, the browser will use its speech recognition feature (for better word recognition). In Firefox browsers, or if STT is not available, we will provide feedback based on the audio pattern (built-in noise threshold).</p>
       </div>
     </div>
@@ -83,7 +86,9 @@ const fullWordDictionary = [
   {english:"lunch", pinyin:"lunch", meaning:"午餐"},
   {english:"dinner", pinyin:"dinner", meaning:"晚餐"},
   {english:"soup", pinyin:"soup", meaning:"汤"},
-  {english:"salad", pinyin:"salad", meaning:"沙拉"}
+  {english:"salad", pinyin:"salad", meaning:"沙拉"},
+  {english: "airport",pinyin: "airport",  meaning: "機場" },
+  {english: "map",pinyin:"map", meaning:"地圖"}
 ];
 
 /* ---------- DOM ---------- */
@@ -214,7 +219,9 @@ const phoneticDictionary = {
   "friend":["frend","frind","freind"],
   "breakfast":["brekfast"],
   "lunch":["lancs","lanch"],
-  "dinner":["diner","dine"]
+  "dinner":["diner","dine"],
+  "airport":["erport"],
+  "map": ["map"]
 };
 function simpleSimilarity(a,b){
   if (!a||!b) return 0;
@@ -245,7 +252,7 @@ async function startRecording(){
     mediaRecorder = new MediaRecorder(stream);
     mediaRecorder.ondataavailable = e => { if (e.data && e.data.size>0) audioChunks.push(e.data); };
     mediaRecorder.onstop = () => {
-      recordingStatus.textContent = '✅ Recording saved (ready to analyze)';
+      recordingStatus.textContent = '✅ Saved (ready to analyze)';
       analyzeBtn.disabled = false;
       try{ stream.getTracks().forEach(t=>t.stop()); }catch(e){}
     };
@@ -254,7 +261,7 @@ async function startRecording(){
     recordBtn.disabled = true;
     stopBtn.disabled = false;
     analyzeBtn.disabled = true;
-    recordingStatus.textContent = '🔴 Recording... Speak now!';
+    recordingStatus.textContent = '🔴 Start speak... Speak now!';
     lastTranscript = "";
 
     // if recognizer available, start it in parallel to capture transcript
@@ -282,7 +289,7 @@ function stopRecording(){
     isRecording = false;
     recordBtn.disabled = false;
     stopBtn.disabled = true;
-    recordingStatus.textContent = '⏹ Recording stopped';
+    recordingStatus.textContent = '⏹ Stopped';
     if (recogSupported && recognizer) try{ recognizer.stop(); }catch(e){}
   }
 }
@@ -403,7 +410,7 @@ function displayCurrent(){
   const w = selectedWords[currentIndex];
   targetWordEl.textContent = w.english;
   targetInfoEl.textContent = `Pinyin: ${w.pinyin || '-'} — Meaning: ${w.meaning || '-'}`;
-  recordingStatus.textContent = 'Click "Start Recording", speak, then "Analyze"';
+  recordingStatus.textContent = 'Click "Start speak", speak, then "Analyze"';
   recordBtn.disabled = false;
   stopBtn.disabled = true;
   analyzeBtn.disabled = true;
