@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title></title>
+<title>Kiejtés gyakorló — Text feedback (Chromium + Firefox)</title>
 <style>
   *{box-sizing:border-box}
   body{font-family:Segoe UI,system-ui,Arial;margin:0;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;color:#222}
@@ -24,15 +24,15 @@
 </style>
 </head>
 <body>
-  <div class="card" role="application" aria-label="Kiejtés gyakorló" <br><strong>Pronunciation Practice</strong>
+  <div class="card" role="application" aria-label="Kiejtés gyakorló">
     <header>
-      <h1>Kiejtés Gyakorló <br><b> Pronunciation Practice</b></h1>
+      <h1>Kiejtés Gyakorló</h1>
       <div class="small">Chrome/Edge: STT (ha elérhető). Firefox: audio-alapú összehasonlítás.</div>
     </header>
 
     <div class="body">
       <div class="row">
-        <label for="wordCount">Szavak száma / Number of words:</label>
+        <label for="wordCount">Szavak száma:</label>
         <select id="wordCount">
           <option value="5">5</option>
           <option value="7" selected>7</option>
@@ -63,9 +63,8 @@
       </div>
 
       <div style="margin-top:18px;color:#666;font-size:.95rem">
-        <p><strong>Megjegyzés / Note:</strong><br> <small>Engedélyezd a mikrofont. Chrome/Edge esetén, ha elérhető, a böngésző beszédfelismerését használjuk (jobb precizitás szó-egyezéshez). 
-         Firefoxban vagy ha nincs STT, akkor az audio mintázat alapján adunk visszajelzést (zajküszöb beépítve).</small><br>
-       <strong>Enable your microphone. <br>In Chrome/Edge browsers, if available, the browser will use its speech recognition feature (for better word recognition).<br> In Firefox browsers, or if STT is not available, we will provide feedback based on the audio pattern (built-in noise threshold).</strong></p>
+        <p><strong>Megjegyzés:</strong> Engedélyezd a mikrofont. Chrome/Edge esetén, ha elérhető, a böngésző beszédfelismerését használjuk (jobb precizitás szó-egyezéshez). Firefoxban vagy ha nincs STT, akkor az audio mintázat alapján adunk visszajelzést (zajküszöb beépítve).<br>
+Enable your microphone. In Chrome/Edge browsers, if available, the browser will use its speech recognition feature (for better word recognition). In Firefox browsers, or if STT is not available, we will provide feedback based on the audio pattern (built-in noise threshold).</p>
       </div>
     </div>
   </div>
@@ -278,18 +277,15 @@ async function startRecording(){
   }
 }
 function stopRecording(){
-  if (!mediaRecorder) return;
-  if (isRecording && mediaRecorder.state !== 'inactive'){
-    recordingStatus.textContent = '⏹ Stopping...';
+  if (mediaRecorder && isRecording) {
+    try { mediaRecorder.stop(); } catch(e){}
     isRecording = false;
     recordBtn.disabled = false;
     stopBtn.disabled = true;
-    try{ if (recognizer) recognizer.stop(); }catch(e){}
-
-   
+    recordingStatus.textContent = '⏹ Recording stopped';
+    if (recogSupported && recognizer) try{ recognizer.stop(); }catch(e){}
   }
 }
-
 
 /* ---------- Analyze: STT preferred, else audio-envelope ---------- */
 async function analyzeRecording(){
@@ -428,15 +424,3 @@ document.addEventListener('keydown', (e)=>{
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
