@@ -26,23 +26,23 @@
 <body>
   <div class="card" role="application" aria-label="Kiejtés gyakorló">
     <header>
-      <h1>Kiejtés Gyakorló <br> 发音练习 <br> Pronunciation Practice</h1>
-      <div class="small">Chrome/Edge: STT (ha elérhető / 如果可用 / if available).</div>
+      <h1>Kiejtés Gyakorló</h1>
+      <div class="small">Chrome/Edge: STT (ha elérhető). Firefox: audio-alapú összehasonlítás.</div>
     </header>
 
     <div class="body">
       <div class="row">
-        <label for="wordCount">Szavak száma /词数 / Number of words:</label>
+        <label for="wordCount">Szavak száma:</label>
         <select id="wordCount">
           <option value="5">5</option>
-          <option value="7" >7</option>
+          <option value="7" selected>7</option>
           <option value="10">10</option>
-          <option value="0" selected>All</option>
+          <option value="0">All</option>
         </select>
 
-        <button id="startBtn">🚀 Start / 开始</button>
-        <button id="nextBtn">➡️ Next / 下一个</button>
-        <button id="listenBtn">🔊 Listen to / 听一听</button>
+        <button id="startBtn">🚀 Start</button>
+        <button id="nextBtn">➡️ Next</button>
+        <button id="listenBtn">🔊 Play (TTS)</button>
       </div>
 
       <div id="progress" class="status" style="display:none;margin-top:12px"></div>
@@ -64,7 +64,7 @@
 
       <div style="margin-top:18px;color:#666;font-size:.95rem">
         <p><strong>Megjegyzés:</strong> Engedélyezd a mikrofont. Chrome/Edge esetén, ha elérhető, a böngésző beszédfelismerését használjuk (jobb precizitás szó-egyezéshez). Firefoxban vagy ha nincs STT, akkor az audio mintázat alapján adunk visszajelzést (zajküszöb beépítve).<br>
-<br><strong>Note:</strong><br>Enable your microphone. In Chrome/Edge browsers, if available, the browser will use its speech recognition feature (for better word recognition). In Firefox browsers, or if STT is not available, we will provide feedback based on the audio pattern (built-in noise threshold).</p>
+Enable your microphone. In Chrome/Edge browsers, if available, the browser will use its speech recognition feature (for better word recognition). In Firefox browsers, or if STT is not available, we will provide feedback based on the audio pattern (built-in noise threshold).</p>
       </div>
     </div>
   </div>
@@ -83,10 +83,7 @@ const fullWordDictionary = [
   {english:"lunch", pinyin:"lunch", meaning:"午餐"},
   {english:"dinner", pinyin:"dinner", meaning:"晚餐"},
   {english:"soup", pinyin:"soup", meaning:"汤"},
-  {english:"salad", pinyin:"salad", meaning:"沙拉"},
-  { english: "sandwich", pinyin: "sandwich", meaning: "三明治"},
-		{ english: "hamburger", pinyin: "hamburger", meaning: "汉堡", },
-		{ english: "pizza", hungarian: "pizza", pinyin: "pizza",meaning: "披萨"},
+  {english:"salad", pinyin:"salad", meaning:"沙拉"}
 ];
 
 /* ---------- DOM ---------- */
@@ -217,10 +214,7 @@ const phoneticDictionary = {
   "friend":["frend","frind","freind"],
   "breakfast":["brekfast"],
   "lunch":["lancs","lanch"],
-  "dinner":["diner","dine"],
-  "sandwich":["seandvich", "sendvich", "sendvits"],
-  "hamburger": ["hamburge", "heambörg"],
-  "pizza": ["pizza","peeza"]
+  "dinner":["diner","dine"]
 };
 function simpleSimilarity(a,b){
   if (!a||!b) return 0;
@@ -430,7 +424,3 @@ document.addEventListener('keydown', (e)=>{
 </script>
 </body>
 </html>
-
-
-
-
