@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Kiejtés Gyakorló</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display:flex; flex-direction:column; align-items:center; padding:20px; color:white; }
+        .container { max-width:800px; width:100%; background:white; border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,0.2); overflow:hidden; margin-top:20px; color:#333; }
+        header { background: linear-gradient(to right, #e52d27, #b31217); color:white; padding:30px 20px; text-align:center; }
+        h1 { font-size:2.5rem; margin-bottom:10px; }
+        .subtitle { font-size:1.1rem; opacity:0.9; }
+        .content { padding:30px; }
+        .settings-section{ background:#f8f9fa; padding:20px; border-radius:10px; margin-bottom:25px; text-align:center; }
+        .settings-title { font-size:1.2rem; font-weight:bold; margin-bottom:15px; color:#333; }
+        .settings-row { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:20px; align-items:center; }
+        .select-wrapper { position:relative; min-width:200px; }
+        .word-count-select { width:100%; padding:12px 15px; border:2px solid #2196F3; border-radius:8px; background:white; color:#333; font-size:1rem; cursor:pointer; }
+        .start-btn { background:#4CAF50; color:white; border:none; padding:12px 30px; border-radius:25px; font-size:1.1rem; font-weight:bold; cursor:pointer; transition:all 0.3s; }
+        .start-btn:hover { background:#3d8b40; transform:scale(1.05); }
+        .practice-info { margin-top:10px; font-size:0.9rem; color:#666; }
+        .word-section { text-align:center; margin-bottom:30px; }
+        .chinese-word { font-size:4rem; margin-bottom:10px; color:#e52d27; font-weight:bold; }
+        .pinyin { font-size:2rem; color:#666; margin-bottom:20px; }
+        .tts-info { background-color:#e3f2fd; padding:10px; margin:10px 20px; border-radius:8px; font-size:0.9rem; text-align:center; border-left:4px solid #2196F3; }
+        .meaning { font-size:1.3rem; color:#333; margin-bottom:30px; }
+        .recording-section { background:#f8f9fa; padding:25px; border-radius:10px; margin-bottom:25px; text-align:center; }
+        .recording-btn { background:#4CAF50; color:white; border:none; padding:15px 30px; border-radius:50px; font-size:1.1rem; font-weight:bold; cursor:pointer; margin:10px; transition:all 0.3s; }
+        .recording-btn:hover { background:#3d8b40; transform:scale(1.05); }
+        .recording-btn.recording { background:#e52d27; animation:pulse 1.5s infinite; }
+        .recording-btn:disabled { background:#cccccc; cursor:not-allowed; transform:none; }
+        @keyframes pulse { 0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);} }
+        .recognition-controls { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+        .feedback { margin-top:20px; padding:15px; border-radius:8px; text-align:center; font-weight:bold; min-height:80px; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+        .feedback.good { background-color:#e8f5e9; color:#2e7d32; border:1px solid #c8e6c9; }
+        .feedback.needs-work { background-color:#fff3cd; color:#856404; border:1px solid #ffeaa7; }
+        .feedback.perfect { background-color:#e3f2fd; color:#1565c0; border:1px solid #bbdefb; }
+        .controls { display:flex; justify-content:center; gap:15px; margin-top:20px; flex-wrap:wrap; }
+        .control-btn { padding:12px 25px; border:none; border-radius:8px; font-size:1rem; font-weight:bold; cursor:pointer; transition:all 0.3s; }
+        .listen-btn{ background:#2196F3; color:white; } .next-btn{ background:#FF9800; color:white; } .new-session-btn{ background:#607D8B; color:white; }
+        .control-btn:hover { transform:translateY(-2px); }
+        .progress { margin-top:20px; text-align:center; color:#666; font-size:1.1rem; font-weight:bold; }
+        .progress-bar { width:100%; height:8px; background:#e0e0e0; border-radius:4px; margin-top:5px; overflow:hidden; }
+        .progress-fill { height:100%; background:linear-gradient(to right,#4CAF50,#45a049); transition:width 0.3s ease; }
+        .recording-status { margin-top:10px; color:#666; font-size:0.9rem; }
+        .audio-visualizer { width:100%; height:80px; border:1px solid #ddd; border-radius:8px; margin:15px 0; display:none; }
+        .hidden{ display:none; }
+        @media (max-width:600px){ .chinese-word{font-size:3rem;} .pinyin{font-size:1.5rem;} .controls{flex-direction:column; align-items:center;} .control-btn{width:100%; max-width:250px;} .settings-row{flex-direction:column; gap:10px;} .select-wrapper{width:100%;} .recognition-controls{flex-direction:column;} }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Pronunciation Practice</h1>
+            <div class="subtitle">Practice pronouncing English words</div>
+        </header>
+
+        <div class="tts-info">
+            🔊 Click "Start Recording", speak the word, then click "Analyze" — or use the fallback if your browser doesn't support speech recognition.
+        </div>
+
+        <div class="progress hidden" id="progress-section">
+            <div id="progress">0/0</div>
+            <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+        </div>
+
+        <div class="content">
+            <div class="settings-section" id="settings-section">
+                <div class="settings-title">🎯 Choose how many words to practice</div>
+                <div class="settings-row">
+                    <div class="select-wrapper">
+                        <select class="word-count-select" id="word-count-select">
+                            <option value="5">5 words</option>
+                            <option value="7" selected>7 words</option>
+                            <option value="10">10 words</option>
+                            <option value="0">All words</option>
+                        </select>
+                    </div>
+                    <button class="start-btn" id="start-btn">🚀 Start exercise</button>
+                </div>
+                <div class="practice-info" id="practice-info">Total words: <span id="total-words">All</span> words</div>
+            </div>
+
+            <div class="word-section hidden" id="word-section">
+                <div class="chinese-word" id="chinese-word">***</div>
+                <div class="pinyin" id="pinyin">***</div>
+                <div class="meaning" id="meaning">***</div>
+            </div>
+
+            <div class="recording-section hidden" id="recording-section">
+                <div class="recognition-controls">
+                    <button class="recording-btn" id="record-btn">🎤 Start Recording</button>
+                    <button class="recording-btn" id="stop-btn" disabled>⏹️ Stop Recording</button>
+                    <button class="recording-btn" id="analyze-btn" disabled>🔍 Analyze</button>
+                </div>
+
+                <canvas class="audio-visualizer" id="audio-visualizer"></canvas>
+
+                <div class="recording-status" id="recording-status">Click "Start Recording", speak, then "Analyze"</div>
+
+                <div class="feedback" id="feedback"></div>
+            </div>
+
+            <div class="controls hidden" id="controls">
+                <button class="control-btn listen-btn" id="listen-btn">🔊 Listen English</button>
+                <button class="control-btn next-btn" id="next-btn">➡️ Next word</button>
+                <button class="control-btn new-session-btn" id="new-session-btn">🔄 New exercise</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // --- ADATOK (Szótár) ---
+    const fullWordDictionary = [
+        { english: "thank you", pinyin: "thank you", meaning: "谢谢" },
+        { english: "good day", pinyin: "good day", meaning: "你好" },
+        { english: "I love you", pinyin: "I love you", meaning: "我爱你" },
+        { english: "hello", pinyin: "hello", meaning: "你好" },
+        { english: "water", pinyin: "water", meaning: "水" },
+        { english: "mother", pinyin: "mother", meaning: "妈妈" },
+        { english: "friend", pinyin: "friend", meaning: "朋友" },
+        { english: "breakfast", pinyin: "breakfast", meaning: "早餐" },
+        { english: "lunch", pinyin: "lunch", meaning: "午餐"},
+        { english: "dinner", pinyin: "dinner", meaning: "晚餐"},
+        { english: "soup", pinyin: "soup", meaning: "汤"},
+        { english: "salad", pinyin: "salad", meaning: "沙拉"},
+        { english: "sandwich", pinyin: "sandwich", meaning: "三明治"},
+        { english: "hamburger", pinyin: "hamburger", meaning: "汉堡" },
+        { english: "pizza", pinyin: "pīsà", meaning: "披萨" },
+        { english: "spaghetti", pinyin: "yìdàlì miàn", meaning: "意大利面" },
+        { english: "rice", pinyin: "mǐfàn", meaning: "米饭" },
+        { english: "noodles", pinyin: "miàntiáo", meaning: "面条" },
+        { english: "dumpling", pinyin: "jiǎozi", meaning: "饺子" },
+        { english: "steamed bun", pinyin: "bāozi", meaning: "包子" },
+        { english: "steamed bread", pinyin: "mántou", meaning: "馒头" },
+        { english: "cake", pinyin: "dàngāo", meaning: "蛋糕" },
+        { english: "cookie", pinyin: "bǐnggān", meaning: "饼干" },
+        { english: "chocolate", pinyin: "qiǎokèlì", meaning: "巧克力" },
+        { english: "ice cream", pinyin: "bīngqílín", meaning: "冰淇淋" },
+        { english: "candy", pinyin: "tángguǒ", meaning: "糖果" },
+        { english: "apple", pinyin: "píngguǒ", meaning: "苹果" },
+        { english: "banana", pinyin: "xiāngjiāo", meaning: "香蕉" },
+        { english: "orange", pinyin: "chéngzi", meaning: "橙子" },
+        { english: "strawberry", pinyin: "cǎoméi", meaning: "草莓" },
+        { english: "grape", pinyin: "pútáo", meaning: "葡萄" },
+        { english: "watermelon", pinyin: "xīguā", meaning: "西瓜" },
+        { english: "tomato", pinyin: "xīhóngshì", meaning: "西红柿" },
+        { english: "carrot", pinyin: "húluóbo", meaning: "胡萝卜" },
+        { english: "potato", pinyin: "tǔdòu", meaning: "土豆" },
+        { english: "onion", pinyin: "yángcōng", meaning: "洋葱" },
+        { english: "garlic", pinyin: "dàsuàn", meaning: "大蒜" },
+        { english: "milk", pinyin: "niúnǎi", meaning: "牛奶" },
+        { english: "juice", pinyin: "guǒzhī", meaning: "果汁" },
+        { english: "cola", pinyin: "kělè", meaning: "可乐" },
+        { english: "mineral water", pinyin: "kuàngquán shuǐ", meaning: "矿泉水" },
+        { english: "red wine", pinyin: "hóngjiǔ", meaning: "红酒" },
+        { english: "liquor", pinyin: "báijiǔ", meaning: "白酒" },
+        { english: "cocktail", pinyin: "jīwěijiǔ", meaning: "鸡尾酒" },
+        { english: "whisky", pinyin: "wēishìjì", meaning: "威士忌" },
+        { english: "vodka", pinyin: "fútèjiā", meaning: "伏特加" }
+    ];
+
+    // --- state ---
+    let currentWordIndex = 0;
+    let selectedWords = [];
+    let selectedWordCount = 7;
+
+    // Audio & recording
+    let mediaRecorder = null;
+    let audioChunks = [];
+    let isRecording = false;
+    let audioContext = null;
+    let analyser = null;
+    let microphone = null;
+    const visualizer = document.getElementById('audio-visualizer');
+
+    // SpeechRecognition (transcription)
+    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+    let recog = null;
+    let lastTranscript = ""; // stores last recognized text (if any)
+    let recogSupported = false;
+
+    if (SpeechRec) {
+        try {
+            recog = new SpeechRec();
+            recog.interimResults = false;
+            recog.maxAlternatives = 1;
+            recog.lang = 'en-US';
+            recogSupported = true;
+            console.log("SpeechRecognition supported");
+        } catch (e) {
+            console.warn("SpeechRecognition init failed:", e);
+            recogSupported = false;
+        }
+    } else {
+        console.log("SpeechRecognition not supported in this browser.");
+    }
+
+    // DOM refs
+    const settingsSection = document.getElementById('settings-section');
+    const wordSection = document.getElementById('word-section');
+    const recordingSection = document.getElementById('recording-section');
+    const controlsSection = document.getElementById('controls');
+    const progressSection = document.getElementById('progress-section');
+    const chineseWordElement = document.getElementById('chinese-word');
+    const pinyinElement = document.getElementById('pinyin');
+    const meaningElement = document.getElementById('meaning');
+    const recordButton = document.getElementById('record-btn');
+    const stopButton = document.getElementById('stop-btn');
+    const analyzeButton = document.getElementById('analyze-btn');
+    const listenButton = document.getElementById('listen-btn');
+    const nextButton = document.getElementById('next-btn');
+    const newSessionButton = document.getElementById('new-session-btn');
+    const feedbackElement = document.getElementById('feedback');
+    const progressElement = document.getElementById('progress');
+    const progressFill = document.getElementById('progress-fill');
+    const recordingStatus = document.getElementById('recording-status');
+    const startButton = document.getElementById('start-btn');
+    const wordCountSelect = document.getElementById('word-count-select');
+
+    // PHONETIC DICTIONARY (ASCII-style approximations)
+    const phoneticDictionary = {
+        "hello": ["helo", "helou", "halo", "hellou", "ellow"],
+        "thank you": ["tenk ju", "sank ju", "thank yu", "tenk you", "sank you"],
+        "good day": ["gud dei", "gud day", "good dei", "gud dey"],
+        "i love you": ["ai lav ju", "ay lov you", "i lav yu"],
+        "water": ["voter", "vater", "woter"],
+        "mother": ["mader", "mather", "moter"],
+        "friend": ["frend", "frind", "freind"],
+        "breakfast": ["brekfast"],
+        "lunch": ["lancs", "lanch"],
+        "dinner": ["diner","dine"],
+        "soup": ["sup"],
+        "salad": ["salad"],
+        "sandwich": ["sandvich","sendvics"],
+        "hamburger": ["hamburger","hambörger"],
+        "pizza": ["piza","pidza"],
+        "spaghetti": ["spagetti"],
+        "rice": ["rajs"],
+        "noodles": ["nidels","nidls"],
+        "dumpling": ["dampling"],
+        "steamed bun": ["stimt ban","stimtban"],
+        "cake": ["kek"],
+        "cookie": ["kuki"],
+        "chocolate": ["shokolad"],
+        "ice cream": ["ajs crim","ays crem"],
+        "candy": ["kendi"],
+        "apple": ["apl","epl"],
+        "banana": ["banana"],
+        "orange": ["oranj","oradzs"],
+        // ... (bővíthető)
+    };
+
+    // --- HELPERS: similarity, hungarian detection ---
+    function calculateSimilarity(str1, str2) {
+        if (!str1 || !str2) return 0;
+        str1 = str1.toLowerCase();
+        str2 = str2.toLowerCase();
+        if (str1 === str2) return 1;
+        const longer = str1.length > str2.length ? str1 : str2;
+        const minLength = Math.min(str1.length, str2.length);
+        let matches = 0;
+        for (let i = 0; i < minLength; i++) {
+            if (str1[i] === str2[i]) matches++;
+        }
+        return matches / longer.length;
+    }
+
+    function detectHungarian(text) {
+        if (!text) return false;
+        const hungarianWords = ["köszönöm","szia","jó napot","víz","anya","barát","igen","nem","kérem"];
+        for (let w of hungarianWords) if (text.includes(w)) return true;
+        // diacritics quick check
+        if (/[áéíóöőúüű]/i.test(text)) return true;
+        // characteristic Hungarian consonant clusters
+        const patterns = /sz|zs|cs|gy|ty|ny|ly/;
+        if (patterns.test(text)) return true;
+        return false;
+    }
+
+    // PHONETIC compare (uses dictionary, exact match and similarity)
+    function phoneticCompare(spokenText, targetWord) {
+        const spokenClean = (spokenText || "").toLowerCase().trim();
+        const targetClean = (targetWord || "").toLowerCase().trim();
+
+        if (!spokenClean) return { match:false, score:0, type:'no_input' };
+
+        // 1. exact
+        if (spokenClean === targetClean) return { match:true, score:95, type:'perfect' };
+
+        // 2. phonetic dictionary variants
+        const variants = phoneticDictionary[targetClean] || [];
+        for (let v of variants) {
+            if (v === spokenClean) return { match:true, score:85, type:'phonetic' };
+        }
+
+        // 3. detect Hungarian -> reject
+        if (detectHungarian(spokenClean)) return { match:false, score:15, type:'hungarian' };
+
+        // 4. similarity fallback
+        const sim = calculateSimilarity(spokenClean, targetClean);
+        if (sim > 0.7) {
+            return { match:true, score: Math.min(90, Math.round(60 + sim*25)), type:'partial' };
+        }
+
+        // 5. no match
+        return { match:false, score: Math.round(30 + sim*20), type:'no_match' };
+    }
+
+    // --- Recognition event handlers (if supported) ---
+    if (recog) {
+        recog.onstart = () => {
+            console.log("Recognition started");
+            recordingStatus.textContent = "🎧 Recognizer listening...";
+        };
+        recog.onresult = (ev) => {
+            const text = ev.results[0][0].transcript;
+            lastTranscript = text;
+            console.log("Recognized:", text);
+            recordingStatus.textContent = `🗣 Recognized: "${text}"`;
+        };
+        recog.onerror = (ev) => {
+            console.warn("Recognition error:", ev.error);
+            recordingStatus.textContent = `⚠ Recognition error: ${ev.error}`;
+        };
+        recog.onend = () => {
+            console.log("Recognition ended");
+        };
+    }
+
+    // --- RECORDING / VISUALIZER (kept for UX) ---
+    async function startRecording() {
+        try {
+            recordingStatus.textContent = "🔄 Accessing microphone...";
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: { sampleRate:16000, channelCount:1, echoCancellation:true, noiseSuppression:true } });
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioContext.createAnalyser();
+            microphone = audioContext.createMediaStreamSource(stream);
+            microphone.connect(analyser);
+            analyser.fftSize = 256;
+            visualizer.style.display = 'block';
+            visualizeAudio();
+
+            audioChunks = [];
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.ondataavailable = e => { if (e.data && e.data.size>0) audioChunks.push(e.data); };
+            mediaRecorder.onstop = () => {
+                recordingStatus.textContent = "✅ Recording ready for analysis";
+                analyzeButton.disabled = false;
+                visualizer.style.display = 'none';
+            };
+            mediaRecorder.start();
+            isRecording = true;
+            recordButton.disabled = true;
+            stopButton.disabled = false;
+            analyzeButton.disabled = true;
+            recordButton.classList.add('recording');
+            recordingStatus.textContent = "🔴 Recording... Speak now!";
+
+            // Start live recognition in parallel if supported
+            if (recogSupported && recog) {
+                lastTranscript = "";
+                try {
+                    recog.lang = 'en-US';
+                    recog.start();
+                } catch (e) {
+                    console.warn('Recognition start error', e);
+                }
+            }
+        } catch (err) {
+            console.error("Recording error:", err);
+            recordingStatus.textContent = "❌ Microphone access denied or error";
+            feedbackElement.innerHTML = "Please allow microphone access and try again";
+            feedbackElement.className = 'feedback needs-work';
+            feedbackElement.style.display = 'block';
+        }
+    }
+
+    function stopRecording() {
+        if (mediaRecorder && isRecording) {
+            mediaRecorder.stop();
+            isRecording = false;
+            recordButton.disabled = false;
+            stopButton.disabled = true;
+            recordButton.classList.remove('recording');
+            recordingStatus.textContent = "⏹️ Recording stopped";
+            if (mediaRecorder.stream) mediaRecorder.stream.getTracks().forEach(t=>t.stop());
+        }
+        // stop recognition if running
+        try {
+            if (recogSupported && recog) recog.stop();
+        } catch (e) { /* ignore */ }
+    }
+
+    function visualizeAudio() {
+        if (!analyser) return;
+        const canvas = visualizer;
+        const ctx = canvas.getContext('2d');
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+
+        function draw() {
+            if (!isRecording) return;
+            requestAnimationFrame(draw);
+            analyser.getByteFrequencyData(dataArray);
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0,0,canvas.width,canvas.height);
+            const barWidth = (canvas.width / bufferLength) * 2.5;
+            let x = 0;
+            for (let i=0;i<bufferLength;i++){
+                const barHeight = dataArray[i]/2;
+                ctx.fillStyle = `rgb(${barHeight+80},50,50)`;
+                ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+                x += barWidth + 1;
+            }
+        }
+        draw();
+    }
+
+    // --- ANALYZE: use lastTranscript (if available), else prompt fallback ---
+    async function analyzeRecording() {
+        recordingStatus.textContent = "🔍 Analyzing pronunciation...";
+        let transcript = lastTranscript && lastTranscript.trim() ? lastTranscript.trim() : "";
+
+        // If recognition not available or transcript empty, ask the user to type as fallback
+        if (!transcript) {
+            if (!recogSupported) {
+                const typed = window.prompt("Speech recognition not available in this browser. Please type what you pronounced (fallback):");
+                if (!typed) {
+                    recordingStatus.textContent = "⚠ No input provided";
+                    return;
+                }
+                transcript = typed.trim();
+            } else {
+                // recognition supported but transcript empty: give user one more chance to use prompt
+                const typed = window.prompt("Recognition couldn't detect text reliably. You can type what you said (or Cancel to abort):");
+                if (!typed) {
+                    recordingStatus.textContent = "⚠ No input provided";
+                    return;
+                }
+                transcript = typed.trim();
+            }
+        }
+
+        const currentWord = selectedWords[currentWordIndex].english.toLowerCase();
+        const result = phoneticCompare(transcript.toLowerCase(), currentWord.toLowerCase());
+        displayPhoneticResult(result, transcript, currentWord);
+        recordingStatus.textContent = "✅ Analysis complete!";
+    }
+
+    // --- Displaying result (kept your styling/messages) ---
+    function displayPhoneticResult(result, spokenText, targetWord) {
+        let message, details, color;
+        if (result.type === 'hungarian') {
+            message = "❌ Please speak English";
+            details = `You said: <strong>"${spokenText}"</strong> (Hungarian)<br>Should be: <strong>"${targetWord}"</strong> (English)`;
+            color = "#e52d27";
+        } else if (result.type === 'perfect') {
+            message = "✅ Perfect!";
+            details = `Excellent pronunciation!`;
+            color = "#4CAF50";
+        } else if (result.match) {
+            message = "✅ Good!";
+            details = `You said: "${spokenText}"<br>Close to: "${targetWord}"`;
+            color = "#4CAF50";
+        } else {
+            message = "⚠️ Try again";
+            details = `You said: "${spokenText}"<br>Should be: "${targetWord}"`;
+            color = "#ff9800";
+        }
+
+        feedbackElement.innerHTML = `
+            <div style="font-size:1.5em;color:${color};margin-bottom:10px;font-weight:bold;">${message}</div>
+            <div style="margin:10px 0;font-size:1.1rem;">${details}</div>
+            <div style="color:#666;margin-top:8px;">Score: <strong>${result.score}%</strong> | Type: ${result.type}</div>
+            ${result.type === 'hungarian' ? '<div style="margin-top:10px;color:#d32f2f;font-size:0.9rem;">💡 Please speak in English, not Hungarian</div>' : ''}
+        `;
+        feedbackElement.className = 'feedback';
+        feedbackElement.style.display = 'block';
+    }
+
+    // --- Word selection & display ---
+    function selectRandomWords(count) {
+        if (count === 0 || count >= fullWordDictionary.length) selectedWords = [...fullWordDictionary];
+        else {
+            const shuffled = [...fullWordDictionary].sort(()=>0.5 - Math.random());
+            selectedWords = shuffled.slice(0, count);
+        }
+        currentWordIndex = 0;
+    }
+
+    function displayWord() {
+        if (!selectedWords.length) return;
+        const currentWord = selectedWords[currentWordIndex];
+        chineseWordElement.textContent = currentWord.english;
+        pinyinElement.textContent = currentWord.pinyin || "";
+        meaningElement.textContent = currentWord.meaning || "";
+        const progressText = `${currentWordIndex + 1}/${selectedWords.length}`;
+        progressElement.textContent = progressText;
+        const progressPercent = ((currentWordIndex + 1) / selectedWords.length) * 100;
+        progressFill.style.width = `${progressPercent}%`;
+        feedbackElement.style.display = 'none';
+        recordingStatus.textContent = 'Click "Start Recording", speak, then "Analyze"';
+        recordButton.disabled = false;
+        stopButton.disabled = true;
+        analyzeButton.disabled = true;
+        recordButton.classList.remove('recording');
+        visualizer.style.display = 'none';
+        lastTranscript = ""; // reset last transcript for new word
+    }
+
+    // --- Start practice ---
+    function startPractice() {
+        selectedWordCount = parseInt(wordCountSelect.value);
+        selectRandomWords(selectedWordCount);
+        settingsSection.classList.add('hidden');
+        wordSection.classList.remove('hidden');
+        recordingSection.classList.remove('hidden');
+        controlsSection.classList.remove('hidden');
+        progressSection.classList.remove('hidden');
+        displayWord();
+    }
+
+    // --- speak English (TTS) ---
+    function speakEnglish() {
+        const currentWord = selectedWords[currentWordIndex];
+        if (!currentWord) return;
+        if ('speechSynthesis' in window) {
+            const speech = new SpeechSynthesisUtterance(currentWord.english);
+            speech.lang = 'en-US';
+            speech.rate = 0.9;
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.speak(speech);
+        } else {
+            alert("TTS not supported in this browser.");
+        }
+    }
+
+    // --- init handlers ---
+    function init() {
+        updatePracticeInfo();
+        startButton.addEventListener('click', startPractice);
+        recordButton.addEventListener('click', startRecording);
+        stopButton.addEventListener('click', stopRecording);
+        analyzeButton.addEventListener('click', analyzeRecording);
+        listenButton.addEventListener('click', speakEnglish);
+        nextButton.addEventListener('click', () => {
+            currentWordIndex = (currentWordIndex + 1) % selectedWords.length;
+            displayWord();
+            // auto speak the new word
+            setTimeout(() => speakEnglish(), 150);
+        });
+        newSessionButton.addEventListener('click', () => {
+            settingsSection.classList.remove('hidden');
+            wordSection.classList.add('hidden');
+            recordingSection.classList.add('hidden');
+            controlsSection.classList.add('hidden');
+            progressSection.classList.add('hidden');
+        });
+        wordCountSelect.addEventListener('change', ()=> selectedWordCount = parseInt(wordCountSelect.value));
+
+        // Enable analyze button only when there's recording available (handled onstop of mediaRecorder)
+        // If speech recognition is supported, show hint
+        if (!recogSupported) {
+            recordingStatus.textContent = "Note: SpeechRecognition not available in this browser — fallback will ask you to type the recognized text.";
+        }
+    }
+
+    function updatePracticeInfo() {
+        document.getElementById('total-words').textContent = fullWordDictionary.length;
+    }
+
+    // run init
+    init();
+    console.log("Pronunciation practice loaded (real recognition enabled where supported).");
+    </script>
+</body>
+</html>
