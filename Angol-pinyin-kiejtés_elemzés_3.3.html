@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiejtés Gyakorló</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: white;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin-top: 20px;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(to right, #e52d27, #b31217);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+
+        .settings-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .settings-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .settings-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .select-wrapper {
+            position: relative;
+            min-width: 200px;
+        }
+
+        .word-count-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #2196F3;
+            border-radius: 8px;
+            background: white;
+            color: #333;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .start-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .start-btn:hover {
+            background: #3d8b40;
+            transform: scale(1.05);
+        }
+
+        .practice-info {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .word-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .chinese-word {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            color: #e52d27;
+            font-weight: bold;
+        }
+        
+        .pinyin {
+            font-size: 2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .tts-info {
+            background-color: #e3f2fd;
+            padding: 10px;
+            margin: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .meaning {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .recording-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .recording-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        
+        .recording-btn:hover {
+            background: #3d8b40;
+            transform: scale(1.05);
+        }
+        
+        .recording-btn.recording {
+            background: #e52d27;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .recording-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .recognition-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .feedback.good {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .feedback.needs-work {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .feedback.perfect {
+            background-color: #e3f2fd;
+            color: #1565c0;
+            border: 1px solid #bbdefb;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .listen-btn {
+            background: #2196F3;
+            color: white;
+        }
+
+        .next-btn {
+            background: #FF9800;
+            color: white;
+        }
+
+        .new-session-btn {
+            background: #607D8B;
+            color: white;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .progress {
+            margin-top: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            transition: width 0.3s ease;
+        }
+        
+        .recording-status {
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .audio-visualizer {
+            width: 100%;
+            height: 80px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: none;
+        }
+
+        /* bars for comparison */
+        .bars-container {
+            display:flex;
+            gap:6px;
+            align-items:flex-end;
+            height:120px;
+            margin-top:12px;
+            overflow-x:auto;
+            padding:8px;
+            border-radius:8px;
+            border:1px solid #eee;
+            background:#fafafa;
+        }
+        .bar-col {
+            width:14px;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:4px;
+        }
+        .bar-ref {
+            width:100%;
+            background:#90caf9;
+            border-radius:4px;
+            transition:height .15s;
+        }
+        .bar-user {
+            width:100%;
+            background:#4caf50;
+            border-radius:4px;
+            transition:height .15s;
+        }
+        .match-display { margin-top:8px; font-weight:bold; }
+
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 600px) {
+            .chinese-word {
+                font-size: 3rem;
+            }
+            
+            .pinyin {
+                font-size: 1.5rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .control-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+
+            .settings-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .select-wrapper {
+                width: 100%;
+            }
+
+            .recognition-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Pronunciation Practice</h1>
+            <div class="subtitle">Practice pronouncing English words</div>
+        </header>
+        
+        <div class="tts-info">
+            🔊 Click "Start Recording", speak the word, then click "Analyze"<br>
+            🔊 点击"开始录音"，说出单词，然后点击"分析"
+        </div>
+
+        <div class="progress hidden" id="progress-section">
+            <div id="progress">0/0</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="settings-section" id="settings-section">
+                <div class="settings-title">
+                    🎯 Choose how many words to practice
+                </div>
+                <div class="settings-row">
+                    <div class="select-wrapper">
+                        <select class="word-count-select" id="word-count-select">
+                            <option value="5">5 words</option>
+                            <option value="7" selected>7 words</option>
+                            <option value="10">10 words</option>
+                            <option value="0">All words</option>
+                        </select>
+                    </div>
+                    <button class="start-btn" id="start-btn">
+                        🚀 Start exercise
+                    </button>
+                </div>
+                <div class="practice-info" id="practice-info">
+                    Total words: <span id="total-words">All</span> words
+                </div>
+            </div>
+
+            <div class="word-section hidden" id="word-section">
+                <div class="chinese-word" id="chinese-word">***</div>
+                <div class="pinyin" id="pinyin">***</div>
+                <div class="meaning" id="meaning">***</div>
+            </div>
+            
+            <div class="recording-section hidden" id="recording-section">
+                <div class="recognition-controls">
+                    <button class="recording-btn" id="record-btn">
+                        🎤 Start Recording
+                    </button>
+                    <button class="recording-btn" id="stop-btn" disabled>
+                        ⏹️ Stop Recording
+                    </button>
+                    <button class="recording-btn" id="analyze-btn" disabled>
+                        🔍 Analyze
+                    </button>
+                </div>
+                
+                <canvas class="audio-visualizer" id="audio-visualizer"></canvas>
+                
+                <div class="recording-status" id="recording-status">
+                    Click "Start Recording", speak, then "Analyze"
+                </div>
+                
+                <div class="feedback" id="feedback"></div>
+
+                <!-- bars for audio comparison (created dynamically) -->
+                <div id="bars-wrapper" class="hidden">
+                    <div class="bars-container" id="bars-container"></div>
+                    <div class="match-display" id="match-display">Match: <strong id="match-percent">0%</strong></div>
+                </div>
+            </div>
+            
+            <div class="controls hidden" id="controls">
+                <button class="control-btn listen-btn" id="listen-btn">
+                    🔊 Listen English
+                </button>
+                <button class="control-btn next-btn" id="next-btn">
+                   ➡️ Next word
+                </button>
+                <button class="control-btn new-session-btn" id="new-session-btn">
+                    🔄 New exercise
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // -------------------------
+        // Szótár (eredeti)
+        // -------------------------
+        const fullWordDictionary = [
+            { english: "thank you", pinyin: "thank you", meaning: "谢谢" },
+            { english: "good day", pinyin: "good day", meaning: "你好" },
+            { english: "I love you", pinyin: "I love you", meaning: "我爱你" },
+            { english: "hello", pinyin: "hello", meaning: "你好" },
+            { english: "water", pinyin: "water", meaning: "水" },
+            { english: "mother", pinyin: "mother", meaning: "妈妈" },
+            { english: "friend", pinyin: "friend", meaning: "朋友" },
+            { english: "breakfast", pinyin: "breakfast", meaning: "早餐" },
+            { english: "lunch", pinyin: "lunch", meaning: "午餐"},
+            { english: "dinner", pinyin: "dinner", meaning: "晚餐"},
+            { english: "soup", pinyin: "soup", meaning: "汤"},
+            { english: "salad", pinyin: "salad", meaning: "沙拉"},
+            { english: "sandwich", pinyin: "sandwich", meaning: "三明治"},
+            { english: "hamburger", pinyin: "hamburger", meaning: "汉堡", },
+            { meaning: "披萨", hungarian: "pizza", pinyin: "pīsà", english: "pizza", category: "etelek" },
+            { meaning: "意大利面", hungarian: "spagetti", pinyin: "yìdàlì miàn", english: "spaghetti", category: "etelek" },
+            { meaning: "米饭", hungarian: "rizs", pinyin: "mǐfàn", english: "rice", category: "etelek" },
+            { meaning: "面条", hungarian: "tészta", pinyin: "miàntiáo", english: "noodles", category: "etelek" },
+            { meaning: "饺子", hungarian: "gombóc", pinyin: "jiǎozi", english: "dumpling", category: "etelek" },
+            { meaning: "包子", hungarian: "gőzölt zsemle", pinyin: "bāozi", english: "steamed bun", category: "etelek" },
+            { meaning: "馒头", hungarian: "gőzölt kenyér", pinyin: "mántou", english: "steamed bread", category: "etelek" },
+            { meaning: "蛋糕", hungarian: "torta", pinyin: "dàngāo", english: "cake", category: "etelek" },
+            { meaning: "饼干", hungarian: "keksz", pinyin: "bǐnggān", english: "cookie", category: "etelek" },
+            { meaning: "巧克力", hungarian: "csokoládé", pinyin: "qiǎokèlì", english: "chocolate", category: "etelek" },
+            { meaning: "冰淇淋", hungarian: "fagylalt", pinyin: "bīngqílín", english: "ice cream", category: "etelek" },
+            { meaning: "糖果", hungarian: "cukorka", pinyin: "tángguǒ", english: "candy", category: "etelek" },
+            { meaning: "苹果", hungarian: "alma", pinyin: "píngguǒ", english: "apple", category: "etelek" },
+            { meaning: "香蕉", hungarian: "banán", pinyin: "xiāngjiāo", english: "banana", category: "etelek" },
+            { meaning: "橙子", hungarian: "narancs", pinyin: "chéngzi", english: "orange", category: "etelek" },
+            { meaning: "草莓", hungarian: "eper", pinyin: "cǎoméi", english: "strawberry", category: "etelek" },
+            { meaning: "葡萄", hungarian: "szőlő", pinyin: "pútáo", english: "grape", category: "etelek" },
+            { meaning: "西瓜", hungarian: "görögdinnye", pinyin: "xīguā", english: "watermelon", category: "etelek" },
+            { meaning: "西红柿", hungarian: "paradicsom", pinyin: "xīhóngshì", english: "tomato", category: "etelek" },
+            { meaning: "胡萝卜", hungarian: "sárgarépa", pinyin: "húluóbo", english: "carrot", category: "etelek" },
+            { meaning: "土豆", hungarian: "burgonya", pinyin: "tǔdòu", english: "potato", category: "etelek" },
+            { meaning: "洋葱", hungarian: "hagyma", pinyin: "yángcōng", english: "onion", category: "etelek" },
+            { meaning: "大蒜", hungarian: "fokhagyma", pinyin: "dàsuàn", english: "garlic", category: "etelek" },
+            { meaning: "牛奶", hungarian: "tej", pinyin: "niúnǎi", english: "milk", category: "etelek" },
+            { meaning: "果汁", hungarian: "gyümölcslé", pinyin: "guǒzhī", english: "juice", category: "etelek" },
+            { meaning: "可乐", hungarian: "kóla", pinyin: "kělè", english: "cola", category: "etelek" },
+            { meaning: "矿泉水", hungarian: "ásványvíz", pinyin: "kuàngquán shuǐ", english: "mineral water", category: "etelek" },
+            { meaning: "红酒", hungarian: "vörösbor", pinyin: "hóngjiǔ", english: "red wine", category: "etelek" },
+            { meaning: "白酒", hungarian: "szeszes ital", pinyin: "báijiǔ", english: "liquor", category: "etelek" },
+            { meaning: "鸡尾酒", hungarian: "koktél", pinyin: "jīwěijiǔ", english: "cocktail", category: "etelek" },
+            { meaning: "威士忌", hungarian: "whisky", pinyin: "wēishìjì", english: "whisky", category: "etelek" },
+            { meaning: "伏特加", hungarian: "vodka", pinyin: "fútèjiā", english: "vodka", category: "etelek" }
+        ];
+
+        // -------------------------
+        // UI & state
+        // -------------------------
+        const settingsSection = document.getElementById('settings-section');
+        const wordSection = document.getElementById('word-section');
+        const recordingSection = document.getElementById('recording-section');
+        const controlsSection = document.getElementById('controls');
+        const progressSection = document.getElementById('progress-section');
+        const chineseWordElement = document.getElementById('chinese-word');
+        const pinyinElement = document.getElementById('pinyin');
+        const meaningElement = document.getElementById('meaning');
+        const recordButton = document.getElementById('record-btn');
+        const stopButton = document.getElementById('stop-btn');
+        const analyzeButton = document.getElementById('analyze-btn');
+        const listenButton = document.getElementById('listen-btn');
+        const nextButton = document.getElementById('next-btn');
+        const newSessionButton = document.getElementById('new-session-btn');
+        const feedbackElement = document.getElementById('feedback');
+        const progressElement = document.getElementById('progress');
+        const progressFill = document.getElementById('progress-fill');
+        const recordingStatus = document.getElementById('recording-status');
+        const startButton = document.getElementById('start-btn');
+        const wordCountSelect = document.getElementById('word-count-select');
+        const barsWrapper = document.getElementById('bars-wrapper');
+        const barsContainer = document.getElementById('bars-container');
+        const matchPercentEl = document.getElementById('match-percent');
+
+        let currentWordIndex = 0;
+        let selectedWords = [];
+        let selectedWordCount = 7;
+
+        // Recording + recognition state
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let isRecording = false;
+        let audioContext = null;
+        let recognizer = null;
+        let lastTranscript = ""; // saved transcript if recognizer provided one
+        let recogSupported = false;
+
+        // Phonetic dictionary (simple)
+        const phoneticDictionary = {
+            "hello": ["helo", "helou", "halo", "hellou", "ellow"],
+            "thank you": ["tenk ju", "sank ju", "thank yu", "tenk you", "sank you"],
+            "good day": ["gud dei", "gud day", "good dei", "gud dey"],
+            "i love you": ["ai lav ju", "ay lov you", "i lav yu"],
+            "water": ["voter", "vater", "woter"],
+            "mother": ["mader", "mather", "moter"],
+            "friend": ["frend", "frind", "freind"],
+            "breakfast":["brekfast","brekfest"],
+            "lunch":["lancs","lanch"],
+            "dinner": ["diner","dine"]
+        };
+
+        // -------------------------
+        // Browser capability detection
+        // -------------------------
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+        if (SpeechRec) {
+            try {
+                recognizer = new SpeechRec();
+                recognizer.interimResults = false;
+                recognizer.maxAlternatives = 1;
+                recognizer.lang = 'en-US';
+                recogSupported = true;
+            } catch (e) {
+                recognizer = null;
+                recogSupported = false;
+            }
+        } else {
+            recogSupported = false;
+            recognizer = null;
+        }
+
+        const isFirefox = typeof InstallTrigger !== 'undefined';
+
+        // -------------------------
+        // Helpers
+        // -------------------------
+        function pickRandomWords(count) {
+            if (count === 0 || count >= fullWordDictionary.length) return [...fullWordDictionary];
+            const shuffled = [...fullWordDictionary].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
+        }
+
+        function updatePracticeInfo() {
+            const totalWords = fullWordDictionary.length;
+            document.getElementById('total-words').textContent = totalWords;
+        }
+
+        function displayWord() {
+            const currentWord = selectedWords[currentWordIndex];
+            chineseWordElement.textContent = currentWord.english;
+            pinyinElement.textContent = currentWord.pinyin || "";
+            meaningElement.textContent = currentWord.meaning || "";
+            const progressText = `${currentWordIndex + 1}/${selectedWords.length}`;
+            progressElement.textContent = progressText;
+            const progressPercent = ((currentWordIndex + 1) / selectedWords.length) * 100;
+            progressFill.style.width = `${progressPercent}%`;
+            feedbackElement.style.display = 'none';
+            recordingStatus.textContent = 'Click "Start Recording", speak, then "Analyze"';
+            recordButton.disabled = false;
+            stopButton.disabled = true;
+            analyzeButton.disabled = true;
+            recordButton.classList.remove('recording');
+            clearBars();
+            lastTranscript = "";
+            audioChunks = [];
+        }
+
+        // -------------------------
+        // Audio envelope & comparison
+        // -------------------------
+        function estimateSyllableCount(word) {
+            const v = word.toLowerCase().match(/[aeiouy]+/g);
+            return v ? Math.max(1, v.length) : 1;
+        }
+
+        function makeReferenceEnvelope(word, bins = 30) {
+            const syllables = estimateSyllableCount(word);
+            const env = new Array(bins).fill(0);
+            for (let s = 0; s < syllables; s++) {
+                const center = Math.floor((s + 0.5) * bins / syllables);
+                const width = Math.max(1, Math.floor(bins / (syllables * 1.6)));
+                for (let i = 0; i < bins; i++) {
+                    const d = Math.abs(i - center);
+                    env[i] += Math.max(0, (1 - (d / width)));
+                }
+            }
+            const maxv = Math.max(...env);
+            if (maxv > 0) for (let i = 0; i < env.length; i++) env[i] = env[i] / maxv;
+            return env;
+        }
+
+        async function getAudioEnvelopeFromBlob(blob, bins = 30) {
+            if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const arrayBuffer = await blob.arrayBuffer();
+            const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+            const channelData = audioBuffer.numberOfChannels ? audioBuffer.getChannelData(0) : audioBuffer.getChannelData(0);
+            const len = channelData.length;
+            const binSize = Math.floor(len / bins) || len;
+            const env = new Array(bins).fill(0);
+            for (let b = 0; b < bins; b++) {
+                const start = b * binSize;
+                const end = (b === bins - 1) ? len : (start + binSize);
+                let sum = 0;
+                for (let i = start; i < end; i++) {
+                    const v = channelData[i];
+                    sum += v * v;
+                }
+                const rms = Math.sqrt(sum / Math.max(1, end - start));
+                env[b] = rms;
+            }
+            const maxv = Math.max(...env);
+            if (maxv > 0) for (let i = 0; i < env.length; i++) env[i] = env[i] / maxv;
+            return env;
+        }
+
+        function cosineSimilarity(a, b) {
+            if (!a || !b || a.length !== b.length) return 0;
+            let dot = 0, na = 0, nb = 0;
+            for (let i = 0; i < a.length; i++) {
+                dot += a[i] * b[i];
+                na += a[i] * a[i];
+                nb += b[i] * b[i];
+            }
+            if (na === 0 || nb === 0) return 0;
+            return dot / (Math.sqrt(na) * Math.sqrt(nb));
+        }
+
+        function clearBars() {
+            barsContainer.innerHTML = '';
+            barsWrapper.classList.add('hidden');
+            matchPercentEl.textContent = '0%';
+        }
+
+        function drawBars(refEnv, userEnv) {
+            barsContainer.innerHTML = '';
+            barsWrapper.classList.remove('hidden');
+            const bins = Math.max(refEnv.length, userEnv.length);
+            for (let i = 0; i < bins; i++) {
+                const col = document.createElement('div');
+                col.className = 'bar-col';
+                const bref = document.createElement('div');
+                bref.className = 'bar-ref';
+                const rH = Math.round((refEnv[i] || 0) * 100);
+                bref.style.height = `${rH}%`;
+                const buser = document.createElement('div');
+                buser.className = 'bar-user';
+                const uH = Math.round((userEnv[i] || 0) * 100);
+                buser.style.height = `${uH}%`;
+                col.appendChild(bref);
+                col.appendChild(buser);
+                barsContainer.appendChild(col);
+            }
+        }
+
+        // -------------------------
+        // Recording flow
+        // -------------------------
+        async function startRecording() {
+            try {
+                recordingStatus.textContent = "🔄 Accessing microphone...";
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: { sampleRate: 16000, channelCount: 1, echoCancellation: true, noiseSuppression: true } });
+                audioChunks = [];
+                mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.ondataavailable = (e) => {
+                    if (e.data && e.data.size > 0) audioChunks.push(e.data);
+                };
+                mediaRecorder.onstop = () => {
+                    recordingStatus.textContent = "✅ Recording ready for analysis";
+                    analyzeButton.disabled = false;
+                    try { stream.getTracks().forEach(t => t.stop()); } catch (e) { /* ignore */ }
+                };
+                mediaRecorder.start();
+                isRecording = true;
+                recordButton.disabled = true;
+                stopButton.disabled = false;
+                analyzeButton.disabled = true;
+                recordButton.classList.add('recording');
+                recordingStatus.textContent = "🔴 Recording... Speak now!";
+
+                // start speech recognition in parallel if supported
+                lastTranscript = "";
+                if (recogSupported && recognizer) {
+                    try {
+                        recognizer.onresult = (ev) => {
+                            lastTranscript = ev.results[0][0].transcript;
+                            // show partial result in status for transparency
+                            recordingStatus.textContent = `🗣 Recognized: "${lastTranscript}"`;
+                        };
+                        recognizer.onerror = (ev) => {
+                            console.warn("Recognizer error", ev);
+                        };
+                        recognizer.start();
+                    } catch (e) {
+                        console.warn("Recognizer start failed", e);
+                    }
+                }
+            } catch (error) {
+                console.error("Recording error:", error);
+                recordingStatus.textContent = "❌ Microphone access denied or error";
+                feedbackElement.innerHTML = "Please allow microphone access and try again";
+                feedbackElement.className = 'feedback needs-work';
+                feedbackElement.style.display = 'block';
+            }
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && isRecording) {
+                try {
+                    mediaRecorder.stop();
+                } catch (e) { /* ignore */ }
+                isRecording = false;
+                recordButton.disabled = false;
+                stopButton.disabled = true;
+                recordButton.classList.remove('recording');
+                recordingStatus.textContent = "⏹️ Recording stopped";
+                if (recogSupported && recognizer) {
+                    try { recognizer.stop(); } catch (e) { /* ignore */ }
+                }
+            }
+        }
+
+        // -------------------------
+        // Analyze — unified: STT preferred, otherwise audio comparison
+        // -------------------------
+        async function analyzeRecording() {
+            recordingStatus.textContent = "🔍 Analyzing pronunciation...";
+            feedbackElement.style.display = 'none';
+            clearBars();
+
+            // Prefer STT if recognizer provided transcript
+            if (recogSupported && lastTranscript && lastTranscript.trim().length > 0) {
+                // Use transcript comparison
+                const currentWord = selectedWords[currentWordIndex].english.toLowerCase();
+                const spokenText = lastTranscript.toLowerCase().trim();
+                const result = phoneticCompare(spokenText, currentWord);
+                displayPhoneticResult(result, spokenText, currentWord);
+                recordingStatus.textContent = "✅ Analysis complete (STT)";
+                return;
+            }
+
+            // else, if we have audio recorded, do envelope comparison
+            if (audioChunks && audioChunks.length > 0) {
+                const currentWord = selectedWords[currentWordIndex].english;
+                // Play TTS reference (user will hear it)
+                recordingStatus.textContent = "▶ Playing reference (TTS)...";
+                await playTTS(currentWord); // play but we don't rely on system capture
+                recordingStatus.textContent = "⏱ Reference played — processing...";
+                const bins = 28;
+                const refEnv = makeReferenceEnvelope(currentWord, bins);
+                const blob = new Blob(audioChunks, { type: audioChunks[0].type || 'audio/webm' });
+                const userEnv = await getAudioEnvelopeFromBlob(blob, bins);
+                const sim = cosineSimilarity(refEnv, userEnv);
+                const pct = Math.round(sim * 100);
+                drawBars(refEnv, userEnv);
+                matchPercentEl.textContent = pct + '%';
+                feedbackElement.innerHTML = `<div style="font-weight:bold">${pct}% match (acoustic envelope)</div>
+                    <div style="margin-top:6px;color:#666;font-weight:normal">Approximate acoustic similarity — useful when STT not available.</div>`;
+                feedbackElement.className = 'feedback';
+                recordingStatus.textContent = "✅ Analysis complete (audio)";
+                return;
+            }
+
+            // No transcript and no audio — cannot analyze
+            recordingStatus.textContent = "⚠ No transcript or recorded audio available";
+            feedbackElement.innerHTML = '<div style="color:#d32f2f">No data to analyze — please record your voice first.</div>';
+            feedbackElement.className = 'feedback needs-work';
+            feedbackElement.style.display = 'block';
+        }
+
+        // -------------------------
+        // TTS helper (plays reference)
+        // -------------------------
+        function playTTS(text) {
+            return new Promise((resolve) => {
+                if (!('speechSynthesis' in window)) {
+                    // approximate delay
+                    setTimeout(resolve, Math.max(500, text.length * 60));
+                    return;
+                }
+                const ut = new SpeechSynthesisUtterance(text);
+                ut.lang = 'en-US';
+                ut.rate = 0.9;
+                ut.onend = () => resolve();
+                ut.onerror = () => resolve();
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.speak(ut);
+            });
+        }
+
+        // -------------------------
+        // Phonetic compare (simple)
+        // -------------------------
+        function phoneticCompare(spokenText, targetWord) {
+            const spokenClean = (spokenText || "").toLowerCase().trim();
+            const targetClean = (targetWord || "").toLowerCase().trim();
+
+            if (!spokenClean) return { match: false, score: 0, type: 'no_input' };
+            if (spokenClean === targetClean) return { match: true, score: 95, type: 'perfect' };
+            const variants = phoneticDictionary[targetClean] || [];
+            for (let v of variants) if (v === spokenClean) return { match: true, score: 85, type: 'phonetic' };
+
+            // hungarian detection
+            if (/[áéíóöőúüű]|sz|zs|cs|gy|ty|ny|ly/.test(spokenClean)) return { match: false, score: 15, type: 'hungarian' };
+
+            // similarity fallback (character-based)
+            const sim = calculateSimilarity(spokenClean, targetClean);
+            if (sim > 0.65) {
+                return { match: true, score: Math.min(90, Math.round(60 + sim * 25)), type: 'partial' };
+            }
+            return { match: false, score: Math.round(30 + sim * 20), type: 'no_match' };
+        }
+
+        function calculateSimilarity(a, b) {
+            if (!a || !b) return 0;
+            if (a === b) return 1;
+            const longer = a.length > b.length ? a : b;
+            const minLen = Math.min(a.length, b.length);
+            let matches = 0;
+            for (let i = 0; i < minLen; i++) if (a[i] === b[i]) matches++;
+            return matches / longer.length;
+        }
+
+        function displayPhoneticResult(result, spokenText, targetWord) {
+            let message, details, color;
+            if (result.type === 'hungarian') {
+                message = "❌ Please speak English";
+                details = `You said: <strong>"${spokenText}"</strong> (Hungarian)<br>Should be: <strong>"${targetWord}"</strong> (English)`;
+                color = "#e52d27";
+            } else if (result.type === 'perfect') {
+                message = "✅ Perfect!";
+                details = `Excellent pronunciation!`;
+                color = "#4CAF50";
+            } else if (result.match) {
+                message = "✅ Good!";
+                details = `You said: "${spokenText}"<br>Close to: "${targetWord}"`;
+                color = "#4CAF50";
+            } else {
+                message = "⚠️ Try again";
+                details = `You said: "${spokenText}"<br>Should be: "${targetWord}"`;
+                color = "#ff9800";
+            }
+
+            feedbackElement.innerHTML = `
+                <div style="font-size:1.5em;color:${color};margin-bottom:10px;font-weight:bold;">
+                    ${message}
+                </div>
+                <div style="margin:10px 0;font-size:1.1rem;">
+                    ${details}
+                </div>
+                <div style="color:#666;margin-top:8px;">
+                    Score: <strong>${result.score}%</strong> | Type: ${result.type}
+                </div>
+                ${result.type === 'hungarian' ? '<div style="margin-top:10px;color:#d32f2f;font-size:0.9rem;">💡 Please speak in English, not Hungarian</div>' : ''}
+            `;
+            feedbackElement.className = 'feedback';
+            feedbackElement.style.display = 'block';
+        }
+
+        // -------------------------
+        // UI init + events
+        // -------------------------
+        function selectRandomWords(count) {
+            if (count === 0 || count >= fullWordDictionary.length) {
+                selectedWords = [...fullWordDictionary];
+            } else {
+                const shuffled = [...fullWordDictionary].sort(() => 0.5 - Math.random());
+                selectedWords = shuffled.slice(0, count);
+            }
+            currentWordIndex = 0;
+        }
+
+        function startPractice() {
+            selectedWordCount = parseInt(wordCountSelect.value);
+            selectRandomWords(selectedWordCount);
+            settingsSection.classList.add('hidden');
+            wordSection.classList.remove('hidden');
+            recordingSection.classList.remove('hidden');
+            controlsSection.classList.remove('hidden');
+            progressSection.classList.remove('hidden');
+            displayWord();
+        }
+
+        function speakEnglish() {
+            const currentWord = selectedWords[currentWordIndex];
+            if ('speechSynthesis' in window && currentWord) {
+                const speech = new SpeechSynthesisUtterance(currentWord.english);
+                speech.lang = 'en-US';
+                speech.rate = 0.9;
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.speak(speech);
+            }
+        }
+
+        startButton.addEventListener('click', startPractice);
+        recordButton.addEventListener('click', startRecording);
+        stopButton.addEventListener('click', stopRecording);
+        analyzeButton.addEventListener('click', analyzeRecording);
+        listenButton.addEventListener('click', speakEnglish);
+        nextButton.addEventListener('click', () => {
+            if (!selectedWords.length) return;
+            currentWordIndex = (currentWordIndex + 1) % selectedWords.length;
+            displayWord();
+            setTimeout(() => speakEnglish(), 150);
+        });
+        newSessionButton.addEventListener('click', () => {
+            settingsSection.classList.remove('hidden');
+            wordSection.classList.add('hidden');
+            recordingSection.classList.add('hidden');
+            controlsSection.classList.add('hidden');
+            progressSection.classList.add('hidden');
+        });
+
+        wordCountSelect.addEventListener('change', () => {
+            selectedWordCount = parseInt(wordCountSelect.value);
+        });
+
+        function init() {
+            updatePracticeInfo();
+            // show mode hint
+            if (recogSupported) {
+                recordingStatus.textContent = "SpeechRecognition available — STT preferred where possible.";
+            } else {
+                recordingStatus.textContent = "SpeechRecognition unavailable — audio-based analysis will be used.";
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
