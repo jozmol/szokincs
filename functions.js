@@ -246,22 +246,26 @@ async function startRecording(){
     lastTranscript = "";
 
     // if recognizer available, start it in parallel to capture transcript
-    if (recogSupported && recognizer) {
-      try {
-        recognizer.onresult = function(ev){
-          lastTranscript = ev.results[0][0].transcript;
-          recordingStatus.textContent = `🗣 Recognized: "${lastTranscript}"`;
-        };
-        recognizer.onerror = function(ev){ console.warn('Recognizer error', ev); };
-        recognizer.start();
-      } catch(e) {
-        console.warn('Recognizer start failed', e);
+    // if recognizer available, start it in parallel to capture transcript
+if (recogSupported && recognizer) {
+  try {
+    recognizer.onresult = function(ev){
+      if (ev.results && ev.results[0]) {
+        lastTranscript = ev.results[0][0].transcript;
+        console.log('✅ Böngésző felismert:', lastTranscript, '| Cél szó:', selectedWords[currentIndex]?.hungarian);
+        recordingStatus.textContent = `🗣 Recognized: "${lastTranscript}"`;
       }
-    }
-  } catch(err){
-    console.error('Recording error', err);
-    recordingStatus.textContent = '❌ Microphone access denied or error - 麦克风访问被拒绝或错误';
-    showFeedback('bad', 'Microphone error - 麦克风错误', 'Please allow microphone access and retry. - 请允许麦克风访问权限并重试。');
+    };
+    
+    // Egyszerűsített error handler
+    recognizer.onerror = function(ev){ 
+      console.warn('Recognizer error', ev); 
+    };
+    
+    recognizer.start();
+  } catch(e) {
+    console.warn('Recognizer start failed', e);
+    recognizer = null; // ⬅️ FONTOS: ha egyszer hibázik, ne próbáljuk újra
   }
 }
 function stopRecording(){
@@ -413,6 +417,7 @@ recognizer.onresult = function(ev){
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available (Chromium).' : 'SpeechRecognition: unavailable — audio-based fallback (Firefox).';
 })();
+
 
 
 
