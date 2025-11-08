@@ -72,16 +72,16 @@ button{cursor:pointer;background:#1976d2;color:#fff;border:none}
 <script>
 /* ---------- SZÓTÁR (kezdésnek) ---------- */
 const fullWordDictionary = [
-  {english:"köszönöm", meaning:"谢谢"},
-  {english:"alma", meaning:"苹果"},
-  {english:"edzés", meaning:"sport"},
-  {english:"iskola", meaning:"xuéxiào"},
-  {english:"szia", meaning:"nǐ hǎo"},
-  {english:"víz", meaning:"水"},
-  {english:"tanulás", meaning:"学习"},
-  {english:"munka", meaning:"工作"},
-  {english:"barát", meaning:"朋友"},
-  {english:"bolt", meaning:"店铺"}
+  {hungarian:"köszönöm", meaning:"谢谢"},
+  {hungarian:"alma", meaning:"苹果"},
+  {hungarian:"edzés", meaning:"sport"},
+  {hungarian:"iskola", meaning:"xuéxiào"},
+  {hungarian:"szia", meaning:"nǐ hǎo"},
+  {hungarian:"víz", meaning:"水"},
+  {hungarian:"tanulás", meaning:"学习"},
+  {hungarian:"munka", meaning:"工作"},
+  {hungarian:"barát", meaning:"朋友"},
+  {hungarian:"bolt", meaning:"店铺"}
 ];
 /* bővíthető később */
 
@@ -249,7 +249,7 @@ function updateProgress(){
 function displayCurrent(){
   if(!selectedWords.length) return;
   const w = selectedWords[currentIndex];
-  targetWordEl.textContent = w.english;
+  targetWordEl.textContent = w.hungarian;
   targetInfoEl.textContent = `Meaning: ${w.meaning || '-'}`;
   recordingStatus.textContent = 'Kattints Start Recording, mondd be a szót, majd Stop.';
   feedbackEl.style.display='none';
@@ -317,7 +317,7 @@ async function analyzeRecordingFlow(){
   feedbackEl.style.display='none';
   // STT útvonal (Chromium + recognizer)
   if(recogSupported && lastTranscript && !isFirefox){
-    const target = selectedWords[currentIndex].english.toLowerCase();
+    const target = selectedWords[currentIndex].hungarian.toLowerCase();
     const spoken = lastTranscript.toLowerCase().trim();
     const sim = similarityScore(spoken, target);
     const pct = Math.round(sim * 100);
@@ -345,7 +345,7 @@ async function analyzeRecordingFlow(){
   // Hallgassuk le opcionálisan (ha szeretnéd): const url = URL.createObjectURL(blob);
 
   // Játssza le a TTS referenciahangot (időzítés miatt)
-  const target = selectedWords[currentIndex].english;
+  const target = selectedWords[currentIndex].hungarian;
   recordingStatus.textContent = '▶ Lejátszás (referencia) és feldolgozás...';
   await playTTS(target);
 
@@ -426,7 +426,7 @@ nextBtn.addEventListener('click', ()=>{
 listenBtn.addEventListener('click', ()=>{
   const w = selectedWords[currentIndex];
   if(!w) return;
-  playTTS(w.english);
+  playTTS(w.hungarian);
 });
 
 recordBtn.addEventListener('click', startRecording);
@@ -447,3 +447,4 @@ document.addEventListener('keydown', (e)=>{
 </script>
 </body>
 </html>
+
