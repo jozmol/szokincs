@@ -244,8 +244,8 @@ async function startRecording(){
     }
   } catch(err){
     console.error('Recording error', err);
-    recordingStatus.textContent = '❌ Microphone access denied or error';
-    showFeedback('bad', 'Microphone error', 'Please allow microphone access and retry.');
+    recordingStatus.textContent = '❌ Microphone access denied or error - 麦克风访问被拒绝或错误';
+    showFeedback('bad', 'Microphone error - 麦克风错误', 'Please allow microphone access and retry. - 请允许麦克风访问权限并重试。');
   }
 }
 function stopRecording(){
@@ -261,7 +261,7 @@ function stopRecording(){
 
 /* ---------- Analyze: STT preferred, else audio-envelope ---------- */
 async function analyzeRecording(){
-  recordingStatus.textContent = '🔍 Analyzing...';
+  recordingStatus.textContent = '🔍 Analyzing... - 正在分析...';
   clearFeedback();
   analyzeBtn.disabled = true;
 
@@ -271,31 +271,31 @@ async function analyzeRecording(){
     const spoken = lastTranscript.toLowerCase().trim();
     const res = phoneticCompare(spoken, currentWord);
     if (res.type === 'hungarian') {
-      showFeedback('bad', 'Please speak Hungarian', `You said: "${spoken}" — Target: "${currentWord}"`);
+      showFeedback('bad', 'Please speak Hungarian - 请说匈牙利语。', `You said - 你说: "${spoken}" — Target - 目标: "${currentWord}"`);
     } else if (res.type === 'perfect') {
-      showFeedback('good', 'Perfect!', `You said: "${spoken}" — Target: "${currentWord}"`);
+      showFeedback('good', 'Perfect! - 完美的！', `You said - 你说: "${spoken}" — Target - 目标: "${currentWord}"`);
     } else if (res.match) {
-      showFeedback('good', 'Good pronunciation', `You said: "${spoken}" — Target: "${currentWord}" (Score: ${res.score}%)`);
+      showFeedback('good', 'Good pronunciation - 发音清晰', `You said - 你说: "${spoken}" — Target - 目标: "${currentWord}" (Score: ${res.score}%)`);
     } else {
-      showFeedback('warn', 'Different word', `You said: "${spoken}" — Target: "${currentWord}" (Score: ${res.score}%)`);
+      showFeedback('warn', 'Different word - 不同的词', `You said - 你说: "${spoken}" — Target - 目标: "${currentWord}" (Score: ${res.score}%)`);
     }
-    recordingStatus.textContent = '✅ Analysis complete (STT)';
+    recordingStatus.textContent = '✅ Analysis complete - 分析完成 (STT)';
     return;
   }
 
   // ELSE: audio-based (Firefox or no transcript)
   if (!audioChunks || audioChunks.length===0) {
-    recordingStatus.textContent = '⚠ No recording found. Please record first.';
-    showFeedback('bad','No input','No recorded audio found — please record your voice.');
+    recordingStatus.textContent = '⚠ No recording found. Please record first. - 未找到录音。请先进行录音。';
+    showFeedback('bad','No input - 无输入','No recorded audio found — please record your voice. - 未找到录音——请录制您的声音。');
     analyzeBtn.disabled = false;
     return;
   }
 
   // decode and compute envelope
   const currentWord = selectedWords[currentIndex].hungarian;
-  recordingStatus.textContent = '▶ Playing reference (TTS) for timing...';
+  recordingStatus.textContent = '▶ Playing reference (TTS) for timing... - 播放参考（TTS）计时...';
   await playTTS(currentWord);
-  recordingStatus.textContent = '⏱ Reference played — processing audio...';
+  recordingStatus.textContent = '⏱ Reference played — processing audio... - 播放参考音频——正在处理音频…';
 
   const bins = 28;
   const refEnv = makeReferenceEnvelope(currentWord, bins);
@@ -307,8 +307,8 @@ async function analyzeRecording(){
 
   // Silence/no-speech detection thresholds (tuned conservatively)
   if (avgEnergy < 0.008 || maxEnergy < 0.015) {
-    recordingStatus.textContent = '⚠ No speech detected';
-    showFeedback('bad', 'No speech detected', 'Please speak louder or move closer to the microphone.');
+    recordingStatus.textContent = '⚠ No speech detected - 未检测到语音';
+    showFeedback('bad', 'No speech detected - 未检测到语音', 'Please speak louder or move closer to the microphone. - 请提高音量或靠近麦克风。');
     analyzeBtn.disabled = false;
     return;
   }
@@ -318,13 +318,13 @@ async function analyzeRecording(){
 
   // Interpret percentage to friendly text (no numeric display required, but we include short text)
   if (pct >= 85) {
-    showFeedback('good', 'Excellent pronunciation', `Detected acoustic match — high similarity.`);
+    showFeedback('good', 'Excellent pronunciation - 发音优美', `Detected acoustic match — high similarity. - 检测到声学匹配——高度相似。`);
   } else if (pct >= 60) {
-    showFeedback('good', 'Good pronunciation', `Detected moderate acoustic similarity.`);
+    showFeedback('good', 'Good pronunciation - 发音清晰', `Detected moderate acoustic similarity. - 检测到中等程度的声学相似性。`);
   } else {
-    showFeedback('warn', 'Try again', `Acoustic similarity is low — try to match the reference more closely.`);
+    showFeedback('warn', 'Try again - 再试一次', `Acoustic similarity is low — try to match the reference more closely. - 声学相似度低 — 请更贴近参考发音`);
   }
-  recordingStatus.textContent = '✅ Analysis complete (audio)';
+  recordingStatus.textContent = '✅ Analysis complete - 分析完成 (audio)';
   analyzeBtn.disabled = false;
 }
 
@@ -352,7 +352,7 @@ startBtn.addEventListener('click', ()=> {
   updateProgress();
   displayCurrent();
   clearFeedback();
-  recordingStatus.textContent = recogSupported ? 'SpeechRecognition available — STT preferred.' : 'SpeechRecognition not available — audio analysis will be used.';
+  recordingStatus.textContent = recogSupported ? 'SpeechRecognition available — STT preferred. - 提供语音识别功能——首选 STT。' : 'SpeechRecognition not available — audio analysis will be used. 语音识别功能不可用——将采用音频分析。';
 });
 nextBtn.addEventListener('click', ()=> {
   if (!selectedWords.length) return;
@@ -375,7 +375,7 @@ function displayCurrent(){
   const w = selectedWords[currentIndex];
   targetWordEl.textContent = w.hungarian;
   targetInfoEl.textContent = `Pinyin: ${w.pinyin || '-'} — Meaning: ${w.meaning || '-'}`;
-  recordingStatus.textContent = 'Click "Start speak", speak, then "Analyze"';
+  recordingStatus.textContent = 'Click "Start speak - 开始说话", speak, then "Analyze" - 说完后点'分析'';
   recordBtn.disabled = false;
   stopBtn.disabled = true;
   analyzeBtn.disabled = true;
@@ -393,5 +393,6 @@ document.addEventListener('keydown', (e)=>{
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available (Chromium).' : 'SpeechRecognition: unavailable — audio-based fallback (Firefox).';
 })();
+
 
 
