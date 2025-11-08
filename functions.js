@@ -256,26 +256,26 @@ async function startRecording(){
     lastTranscript = "";
 
     // if recognizer available, start it in parallel to capture transcript
-    if (recogSupported && recognizer) {
-      try {
-        recognizer.onresult = function(ev) {
-          if (ev.results && ev.results[0]) {
-            lastTranscript = ev.results[0][0].transcript;
-            console.log('✅ Böngésző felismert:', lastTranscript);
-            recordingStatus.textContent = `🗣 Recognized: "${lastTranscript}"`;
-          }
-        };
-        
-        recognizer.onerror = function(ev) {
-          console.warn('Recognizer error', ev);
-        };
-        
-        recognizer.start();
-      } catch(e) {
-        console.warn('Recognizer start failed', e);
-        recognizer = null;
+    // if recognizer available, start it in parallel to capture transcript
+if (recogSupported && recognizer) {
+  try {
+    // ⬇️⬇️⬇️ EGYSZERŰ, BIZTONSÁGOS VERZIÓ ⬇️⬇️⬇️
+    recognizer.onresult = (ev) => {
+      const result = ev.results?.[0]?.[0];
+      if (result) {
+        lastTranscript = result.transcript;
+        console.log('✅ Felismert szó:', lastTranscript);
+        recordingStatus.textContent = `🗣 Felismert: "${lastTranscript}"`;
       }
-    }
+    };
+    
+    recognizer.start();
+  } catch(e) {
+    console.log('🔄 SpeechRecognition nem elérhető, audio módra váltás');
+    recognizer = null;
+    recogSupported = false;
+  }
+}
     
   } catch(err) {
     console.error('Recording error', err);
@@ -432,4 +432,5 @@ recognizer.onresult = function(ev){
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available (Chromium).' : 'SpeechRecognition: unavailable — audio-based fallback (Firefox).';
 })();
+
 
