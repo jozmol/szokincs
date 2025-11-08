@@ -226,43 +226,42 @@ function phoneticCompare(spoken, target){
 
 /* ---------- Flow: recording ---------- */
 async function startRecording(){
-  try{
+  try {
     recordingStatus.textContent = '🔄 Accessing microphone...';
     
-    // ⬇️⬇️⬇️ NAGYON EGYSZERŰ FIREFOX VERZIÓ ⬇️⬇️⬇️
+    // EGYSZERŰ AUDIO
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     
-    // ⬇️⬇️⬇️ BIZTONSÁGOS MEDIARECORDER ⬇️⬇️⬇️
-try {
-  mediaRecorder = new MediaRecorder(stream);
-  
-  mediaRecorder.ondataavailable = e => { 
-    if (e.data && e.data.size > 0) audioChunks.push(e.data); 
-  };
-  
-  mediaRecorder.onstop = () => {
-    recordingStatus.textContent = '✅ Saved (ready to analyze)';
-    analyzeBtn.disabled = false;
-    try { 
-      stream.getTracks().forEach(t => t.stop()); 
-    } catch(e) {}
-  };
-  
-  // ⬇️⬇️⬇️ START BIZTONSÁGI CSOMAGOLÓVAL ⬇️⬇️⬇️
-  try {
+    audioChunks = [];
+    mediaRecorder = new MediaRecorder(stream);
+    
+    mediaRecorder.ondataavailable = e => {
+      if (e.data && e.data.size > 0) audioChunks.push(e.data);
+    };
+    
+    mediaRecorder.onstop = () => {
+      recordingStatus.textContent = '✅ Saved (ready to analyze)';
+      analyzeBtn.disabled = false;
+      stream.getTracks().forEach(t => t.stop());
+    };
+    
     mediaRecorder.start();
-    console.log('✅ MediaRecorder elindult');
-  } catch(startError) {
-    console.error('❌ MediaRecorder start hiba:', startError);
-    recordingStatus.textContent = '❌ Recording start failed';
-    return;
+    isRecording = true;
+    recordBtn.disabled = true;
+    stopBtn.disabled = false;
+    analyzeBtn.disabled = true;
+    recordingStatus.textContent = '🔴 Start speak... Speak now!';
+    lastTranscript = "";
+
+    // SPEECH RECOGNITION KI KAPCSOLVA
+    console.log('🎤 Recording started');
+
+  } catch(err) {
+    console.error('Recording error', err);
+    recordingStatus.textContent = '❌ Microphone access denied or error';
+    showFeedback('bad', 'Microphone error', 'Please allow microphone access and retry.');
   }
-  
-} catch(recorderError) {
-  console.error('❌ MediaRecorder creation hiba:', recorderError);
-  recordingStatus.textContent = '❌ Recording initialization failed';
-  return;
-}
+} // ⬅️ FONTOS: EZZEL ZÁROD A FÜGGVÉNYT
     // if recognizer available, start it in parallel to capture transcript
     // if recognizer available, start it in parallel to capture transcript
 // ⬇️⬇️⬇️ SPEECH RECOGNITION CSAK EDGE-BEN ⬇️⬇️⬇️
@@ -442,7 +441,3 @@ recognizer.onresult = function(ev){
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available (Chromium).' : 'SpeechRecognition: unavailable — audio-based fallback (Firefox).';
 })();
-
-
-
-
