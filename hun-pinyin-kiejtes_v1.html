@@ -322,15 +322,15 @@ async function analyzeRecordingFlow(){
     const sim = similarityScore(spoken, target);
     const pct = Math.round(sim * 100);
     if(pct === 0){
-      showFeedback('bad','Teljesen eltérő','A gép ezt ismerte fel: "'+spoken+'"<br>Várható: "'+target+'"',0);
+      showFeedback('bad','Teljesen eltérő','Felismerve: "'+spoken+'"<br>Várható: "'+target+'"',0);
     } else if(pct >= 0.9) {
-      showFeedback('good','Tökéletes','A gép ezt ismerte fel: "'+spoken+'"',pct);
+      showFeedback('good','Tökéletes','Felismerve: "'+spoken+'"',pct);
     } else if(pct >= 0.6){
-      showFeedback('good','Jó','A gép ezt ismerte fel: "'+spoken+'"',pct);
+      showFeedback('good','Jó','Felismerve: "'+spoken+'"',pct);
     } else {
-      showFeedback('warn','Próbáld újra','A gép ezt ismerte fel: "'+spoken+'"',pct);
+      showFeedback('warn','Próbáld újra','Felismerve: "'+spoken+'"',pct);
     }
-    recordingStatus.textContent = '✅ Elemzés (STT) kész';
+    recordingStatus.textContent = '✅ Elemzés kész...';
     return;
   }
 
@@ -447,4 +447,5 @@ document.addEventListener('keydown', (e)=>{
 </script>
 </body>
 </html>
+
 
