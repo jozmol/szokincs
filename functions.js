@@ -228,16 +228,30 @@ function phoneticCompare(spoken, target){
 async function startRecording(){
   try{
     recordingStatus.textContent = '🔄 Accessing microphone...';
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: { sampleRate:16000, channelCount:1, echoCancellation:true, noiseSuppression:true } });
+    const stream = await navigator.mediaDevices.getUserMedia({ 
+      audio: { 
+        sampleRate: 16000, 
+        channelCount: 1, 
+        echoCancellation: true, 
+        noiseSuppression: true 
+      } 
+    });
+    
     audioChunks = [];
     mediaRecorder = new MediaRecorder(stream);
-    mediaRecorder.ondataavailable = e => { if (e.data && e.data.size>0) audioChunks.push(e.data); };
+    
+    mediaRecorder.ondataavailable = e => {
+      if (e.data && e.data.size > 0) audioChunks.push(e.data);
+    };
+    
     mediaRecorder.onstop = () => {
       recordingStatus.textContent = '✅ Saved (ready to analyze)';
       analyzeBtn.disabled = false;
-      try{ stream.getTracks().forEach(t=>t.stop()); }catch(e){}
+      try {
+        stream.getTracks().forEach(t => t.stop());
+      } catch(e) {}
     };
-
+    
     mediaRecorder.start();
     isRecording = true;
     recordBtn.disabled = true;
@@ -245,28 +259,33 @@ async function startRecording(){
     analyzeBtn.disabled = true;
     recordingStatus.textContent = '🔴 Start speak... Speak now!';
     lastTranscript = "";
-  
+
     // if recognizer available, start it in parallel to capture transcript
-  
-if (recogSupported && recognizer) {
-  try {
-    recognizer.onresult = function(ev){
-      if (ev.results && ev.results[0]) {
-        lastTranscript = ev.results[0][0].transcript;
-        console.log('✅ Böngésző felismert:', lastTranscript, '| Cél szó:', selectedWords[currentIndex]?.hungarian);
-        recordingStatus.textContent = `🗣 Recognized: "${lastTranscript}"`;
+    if (recogSupported && recognizer) {
+      try {
+        recognizer.onresult = function(ev) {
+          if (ev.results && ev.results[0]) {
+            lastTranscript = ev.results[0][0].transcript;
+            console.log('✅ Böngésző felismert:', lastTranscript);
+            recordingStatus.textContent = `🗣 Recognized: "${lastTranscript}"`;
+          }
+        };
+        
+        recognizer.onerror = function(ev) {
+          console.warn('Recognizer error', ev);
+        };
+        
+        recognizer.start();
+      } catch(e) {
+        console.warn('Recognizer start failed', e);
+        recognizer = null;
       }
-    };
+    }
     
-    // Egyszerűsített error handler
-    recognizer.onerror = function(ev){ 
-      console.warn('Recognizer error', ev); 
-    };
-    
-    recognizer.start();
-  } catch(e) {
-    console.warn('Recognizer start failed', e);
-    recognizer = null; // ⬅️ FONTOS: ha egyszer hibázik, ne próbáljuk újra
+  } catch(err) {
+    console.error('Recording error', err);
+    recordingStatus.textContent = '❌ Microphone access denied or error';
+    showFeedback('bad', 'Microphone error', 'Please allow microphone access and retry.');
   }
 }
 function stopRecording(){
@@ -418,13 +437,3 @@ recognizer.onresult = function(ev){
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available (Chromium).' : 'SpeechRecognition: unavailable — audio-based fallback (Firefox).';
 })();
-
-
-
-
-
-
-
-
-
-
