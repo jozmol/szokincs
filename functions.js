@@ -205,7 +205,7 @@ function phoneticCompare(spoken,target){
   if (s>=0.75) return {match:true,score:80,type:'good'};
   if (s>=0.5) return {match:true,score:60,type:'partial'};
   //if (/[áéíóöőúüű]|sz|zs|cs|gy|ty|ny|ly/.test(spoken)) return //{match:false,score:15,type:'hungarian'};
-  return {match:false,score:30,type:'no_match'};
+  return {match:false,score:10,type:'no_match'};
 }
 
 /* ---------- Flow: recording ---------- */
@@ -393,4 +393,5 @@ document.addEventListener('keydown', (e)=>{
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available (Chromium).' : 'SpeechRecognition: unavailable — audio-based fallback (Firefox).';
 })();
+
 
