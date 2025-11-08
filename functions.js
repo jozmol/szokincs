@@ -228,17 +228,12 @@ function phoneticCompare(spoken, target){
 async function startRecording(){
   try{
     recordingStatus.textContent = '🔄 Accessing microphone...';
-    const stream = await navigator.mediaDevices.getUserMedia({ 
-      audio: { 
-        sampleRate: 16000, 
-        channelCount: 1, 
-        echoCancellation: true, 
-        noiseSuppression: true 
-      } 
-    });
+    
+    // ⬇️⬇️⬇️ NAGYON EGYSZERŰ FIREFOX VERZIÓ ⬇️⬇️⬇️
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     
     audioChunks = [];
-    mediaRecorder = new MediaRecorder(stream);
+    mediaRecorder = new MediaRecorder(stream); // ⬅️ CSAK ÍGY, OPTIONS NÉLKÜL
     
     mediaRecorder.ondataavailable = e => {
       if (e.data && e.data.size > 0) audioChunks.push(e.data);
@@ -437,3 +432,4 @@ recognizer.onresult = function(ev){
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available (Chromium).' : 'SpeechRecognition: unavailable — audio-based fallback (Firefox).';
 })();
+
