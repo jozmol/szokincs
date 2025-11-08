@@ -232,29 +232,37 @@ async function startRecording(){
     // ⬇️⬇️⬇️ NAGYON EGYSZERŰ FIREFOX VERZIÓ ⬇️⬇️⬇️
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     
-    audioChunks = [];
-    mediaRecorder = new MediaRecorder(stream); // ⬅️ CSAK ÍGY, OPTIONS NÉLKÜL
-    
-    mediaRecorder.ondataavailable = e => {
-      if (e.data && e.data.size > 0) audioChunks.push(e.data);
-    };
-    
-    mediaRecorder.onstop = () => {
-      recordingStatus.textContent = '✅ Saved (ready to analyze)';
-      analyzeBtn.disabled = false;
-      try {
-        stream.getTracks().forEach(t => t.stop());
-      } catch(e) {}
-    };
-    
+    // ⬇️⬇️⬇️ BIZTONSÁGOS MEDIARECORDER ⬇️⬇️⬇️
+try {
+  mediaRecorder = new MediaRecorder(stream);
+  
+  mediaRecorder.ondataavailable = e => { 
+    if (e.data && e.data.size > 0) audioChunks.push(e.data); 
+  };
+  
+  mediaRecorder.onstop = () => {
+    recordingStatus.textContent = '✅ Saved (ready to analyze)';
+    analyzeBtn.disabled = false;
+    try { 
+      stream.getTracks().forEach(t => t.stop()); 
+    } catch(e) {}
+  };
+  
+  // ⬇️⬇️⬇️ START BIZTONSÁGI CSOMAGOLÓVAL ⬇️⬇️⬇️
+  try {
     mediaRecorder.start();
-    isRecording = true;
-    recordBtn.disabled = true;
-    stopBtn.disabled = false;
-    analyzeBtn.disabled = true;
-    recordingStatus.textContent = '🔴 Start speak... Speak now!';
-    lastTranscript = "";
-
+    console.log('✅ MediaRecorder elindult');
+  } catch(startError) {
+    console.error('❌ MediaRecorder start hiba:', startError);
+    recordingStatus.textContent = '❌ Recording start failed';
+    return;
+  }
+  
+} catch(recorderError) {
+  console.error('❌ MediaRecorder creation hiba:', recorderError);
+  recordingStatus.textContent = '❌ Recording initialization failed';
+  return;
+}
     // if recognizer available, start it in parallel to capture transcript
     // if recognizer available, start it in parallel to capture transcript
 // ⬇️⬇️⬇️ SPEECH RECOGNITION CSAK EDGE-BEN ⬇️⬇️⬇️
@@ -434,6 +442,7 @@ recognizer.onresult = function(ev){
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available (Chromium).' : 'SpeechRecognition: unavailable — audio-based fallback (Firefox).';
 })();
+
 
 
 
