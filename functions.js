@@ -375,7 +375,7 @@ function displayCurrent(){
   const w = selectedWords[currentIndex];
   targetWordEl.textContent = w.hungarian;
   targetInfoEl.textContent = `Pinyin: ${w.pinyin || '-'} — Meaning: ${w.meaning || '-'}`;
-  recordingStatus.textContent = 'Click "Start speak - 开始说话", speak, then "Analyze" - 说完后点'分析'';
+  recordingStatus.textContent = 'Click "Start speak - 开始说话", speak, then "Analyze" - 说完后点"分析"';
   recordBtn.disabled = false;
   stopBtn.disabled = true;
   analyzeBtn.disabled = true;
@@ -393,6 +393,7 @@ document.addEventListener('keydown', (e)=>{
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available (Chromium).' : 'SpeechRecognition: unavailable — audio-based fallback (Firefox).';
 })();
+
 
 
 
