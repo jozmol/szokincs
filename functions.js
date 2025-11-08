@@ -257,31 +257,33 @@ async function startRecording(){
 
     // if recognizer available, start it in parallel to capture transcript
     // if recognizer available, start it in parallel to capture transcript
-if (recogSupported && recognizer) {
+// ⬇️⬇️⬇️ SPEECH RECOGNITION CSAK EDGE-BEN ⬇️⬇️⬇️
+if (recogSupported && recognizer && !isFirefox) {
   try {
-    // ⬇️⬇️⬇️ EGYSZERŰ, BIZTONSÁGOS VERZIÓ ⬇️⬇️⬇️
+    console.log('🎯 SpeechRecognition indítása (Edge)...');
     recognizer.onresult = (ev) => {
       const result = ev.results?.[0]?.[0];
       if (result) {
         lastTranscript = result.transcript;
-        console.log('✅ Felismert szó:', lastTranscript);
+        console.log('✅ Edge felismert:', lastTranscript);
         recordingStatus.textContent = `🗣 Felismert: "${lastTranscript}"`;
       }
     };
     
+    recognizer.onerror = (ev) => {
+      console.log('🔇 SpeechRecognition hiba, audio módra váltás');
+      recogSupported = false;
+      recognizer = null;
+    };
+    
     recognizer.start();
   } catch(e) {
-    console.log('🔄 SpeechRecognition nem elérhető, audio módra váltás');
-    recognizer = null;
+    console.log('🔇 SpeechRecognition nem indul, audio mód');
     recogSupported = false;
+    recognizer = null;
   }
-}
-    
-  } catch(err) {
-    console.error('Recording error', err);
-    recordingStatus.textContent = '❌ Microphone access denied or error';
-    showFeedback('bad', 'Microphone error', 'Please allow microphone access and retry.');
-  }
+} else {
+  console.log('🔇 SpeechRecognition nem elérhető, audio analízis használata');
 }
 function stopRecording(){
   if (mediaRecorder && isRecording) {
@@ -432,5 +434,6 @@ recognizer.onresult = function(ev){
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available (Chromium).' : 'SpeechRecognition: unavailable — audio-based fallback (Firefox).';
 })();
+
 
 
