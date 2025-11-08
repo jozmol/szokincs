@@ -313,7 +313,7 @@ async function analyzeRecording(){
     } else if (res.type === 'perfect') {
       showFeedback('good', 'Perfect! - 完美的！', `You said - 你说: "${spoken}" — Target - 目标: "${currentWord}"`);
     } else if (res.match) {
-      showFeedback('good', 'Good pronunciation', `You said - 你说: "${spoken}" — Target - 目标: "${currentWord}" (Score: ${res.score}%)`);
+      showFeedback('good', 'Good pronunciation - 发音清晰', `You said - 你说: "${spoken}" — Target - 目标: "${currentWord}" (Score: ${res.score}%)`);
     } else {
       showFeedback('warn', 'Different word - 不同的词', `You said - 你说: "${spoken}" — Target - 目标: "${currentWord}" (Score: ${res.score}%)`);
     }
@@ -434,5 +434,6 @@ document.addEventListener('keydown', (e)=>{
 </script>
 </body>
 </html>
+
 
 
