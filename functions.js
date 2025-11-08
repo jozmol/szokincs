@@ -188,24 +188,40 @@ const phoneticDictionary = {
   "térkép": ["térkép", "terkep", "ter-kep", "telkep"]
 
 };
-function simpleSimilarity(a,b){
-  if (!a||!b) return 0;
-  a=a.toLowerCase().trim(); b=b.toLowerCase().trim();
-  if (a===b) return 1;
-  const variants = phoneticDictionary[b]||[];
+function simpleSimilarity(a, b){
+  if (!a || !b) return 0;
+  
+  // Tisztítás - távolítsuk el a gyakori hibákat
+  a = a.toLowerCase().replace(/[.,!?]/g, '').trim();
+  b = b.toLowerCase().trim();
+  
+  // 1. Tökéletes egyezés
+  if (a === b) return 1;
+  
+  // 2. Phonetic dictionary egyezés
+  const variants = phoneticDictionary[b] || [];
   if (variants.includes(a)) return 0.85;
-  const minLen = Math.min(a.length,b.length);
-  let matches=0;
-  for (let i=0;i<minLen;i++) if (a[i]===b[i]) matches++;
-  return matches / Math.max(a.length,b.length);
+  
+  // 3. Részleges egyezés - LAZABB (ez a titok!)
+  const minLen = Math.min(a.length, b.length);
+  let matches = 0;
+  for (let i = 0; i < minLen; i++) {
+    if (a[i] === b[i]) matches++;
+  }
+  
+  // 60%-os küszöb helyett 40% - így több "jó" beszédet fog elfogadni
+  const similarity = matches / Math.max(a.length, b.length);
+  return similarity >= 0.4 ? 0.7 : similarity; // LAZABB!
 }
-function phoneticCompare(spoken,target){
-  const s = simpleSimilarity(spoken,target);
-  if (s>=0.9) return {match:true,score:95,type:'perfect'};
-  if (s>=0.75) return {match:true,score:80,type:'good'};
-  if (s>=0.5) return {match:true,score:60,type:'partial'};
-  //if (/[áéíóöőúüű]|sz|zs|cs|gy|ty|ny|ly/.test(spoken)) return //{match:false,score:15,type:'hungarian'};
-  return {match:false,score:10,type:'no_match'};
+
+function phoneticCompare(spoken, target){
+  const s = simpleSimilarity(spoken, target);
+  
+  if (s >= 0.9) return {match: true, score: 95, type: 'perfect'};
+  if (s >= 0.7) return {match: true, score: 80, type: 'good'};    // LAZABB!
+  if (s >= 0.5) return {match: true, score: 65, type: 'partial'}; // LAZABB!
+  
+  return {match: false, score: 20, type: 'no_match'};
 }
 
 /* ---------- Flow: recording ---------- */
@@ -388,11 +404,16 @@ function displayCurrent(){
 document.addEventListener('keydown', (e)=>{
   if (e.key === ' ' && document.activeElement === recordBtn) { e.preventDefault(); if (!isRecording) startRecording(); else stopRecording(); }
 });
-
+recognizer.onresult = function(ev){
+  lastTranscript = ev.results[0][0].transcript;
+  console.log('✅ Chrome felismert:', lastTranscript, '| Cél szó:', selectedWords[currentIndex]?.hungarian);
+  recordingStatus.textContent = `🗣 Recognized: "${lastTranscript}"`;
+};
 /* ---------- Init ---------- */
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available (Chromium).' : 'SpeechRecognition: unavailable — audio-based fallback (Firefox).';
 })();
+
 
 
 
