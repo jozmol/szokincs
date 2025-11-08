@@ -322,7 +322,7 @@ async function analyzeRecordingFlow(){
     const sim = similarityScore(spoken, target);
     const pct = Math.round(sim * 100);
     if(pct === 0){
-      showFeedback('bad','Teljesen eltérő','Felismerve: "'+spoken+'"<br>Várható: "'+target+'"',0);
+      showFeedback('bad','Teljesen eltérő','Felismerve: "'+spoken+'"<br>Elvárt szó: "'+target+'"',0);
     } else if(pct >= 0.9) {
       showFeedback('good','Tökéletes','Felismerve: "'+spoken+'"',pct);
     } else if(pct >= 0.6){
@@ -447,5 +447,6 @@ document.addEventListener('keydown', (e)=>{
 </script>
 </body>
 </html>
+
 
 
