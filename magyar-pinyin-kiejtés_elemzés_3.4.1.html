@@ -317,7 +317,7 @@ async function analyzeRecording(){
     } else {
       showFeedback('warn', 'Different word - 不同的词', `You said - 你说: "${spoken}" — Target - 目标: "${currentWord}" (Score: ${res.score}%)`);
     }
-    recordingStatus.textContent = '✅ Analysis complete (STT)';
+    recordingStatus.textContent = '✅ Analysis complete - 分析完成 (STT)';
     return;
   }
 
@@ -362,7 +362,7 @@ async function analyzeRecording(){
   } else {
     showFeedback('warn', 'Try again', `Acoustic similarity is low — try to match the reference more closely.`);
   }
-  recordingStatus.textContent = '✅ Analysis complete (audio)';
+  recordingStatus.textContent = '✅ Analysis complete - 分析完成 - (audio)';
   analyzeBtn.disabled = false;
 }
 
@@ -390,7 +390,7 @@ startBtn.addEventListener('click', ()=> {
   updateProgress();
   displayCurrent();
   clearFeedback();
-  recordingStatus.textContent = recogSupported ? 'SpeechRecognition available — STT preferred.' : 'SpeechRecognition not available — audio analysis will be used.';
+  recordingStatus.textContent = recogSupported ? 'SpeechRecognition available — STT preferred. - 语音识别功能可用——首选语音转文本技术。' : 'SpeechRecognition not available — audio analysis will be used. - 语音识别功能不可用——将使用音频分析。';
 });
 nextBtn.addEventListener('click', ()=> {
   if (!selectedWords.length) return;
@@ -413,7 +413,7 @@ function displayCurrent(){
   const w = selectedWords[currentIndex];
   targetWordEl.textContent = w.hungarian;
   targetInfoEl.textContent = `Pinyin: ${w.pinyin || '-'} — Meaning: ${w.meaning || '-'}`;
-  recordingStatus.textContent = 'Click "Start speak", speak, then "Analyze"';
+  recordingStatus.textContent = 'Click "Start speak - 开始说话", speak, then "Analyze - 说话，然后“分析"';
   recordBtn.disabled = false;
   stopBtn.disabled = true;
   analyzeBtn.disabled = true;
@@ -434,6 +434,7 @@ document.addEventListener('keydown', (e)=>{
 </script>
 </body>
 </html>
+
 
 
 
