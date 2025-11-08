@@ -245,7 +245,7 @@ async function startRecording(){
     analyzeBtn.disabled = true;
     recordingStatus.textContent = '🔴 Start speak... Speak now!';
     lastTranscript = "";
-  }
+  
     // if recognizer available, start it in parallel to capture transcript
   
 if (recogSupported && recognizer) {
@@ -418,6 +418,7 @@ recognizer.onresult = function(ev){
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available (Chromium).' : 'SpeechRecognition: unavailable — audio-based fallback (Firefox).';
 })();
+
 
 
 
