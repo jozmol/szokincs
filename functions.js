@@ -226,7 +226,7 @@ function phoneticCompare(spoken, target){
 
 /* ---------- Flow: recording ---------- */
 async function startRecording(){
-  try{
+  try {
     recordingStatus.textContent = '🔄 Accessing microphone...';
     const stream = await navigator.mediaDevices.getUserMedia({ audio: { sampleRate:16000, channelCount:1, echoCancellation:true, noiseSuppression:true } });
     audioChunks = [];
@@ -417,6 +417,7 @@ recognizer.onresult = function(ev){
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available (Chromium).' : 'SpeechRecognition: unavailable — audio-based fallback (Firefox).';
 })();
+
 
 
 
