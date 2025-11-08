@@ -309,13 +309,13 @@ async function analyzeRecording(){
     const spoken = lastTranscript.toLowerCase().trim();
     const res = phoneticCompare(spoken, currentWord);
     if (res.type === 'hungarian') {
-      showFeedback('bad', 'Please speak Hungarian', `You said: "${spoken}" — Target: "${currentWord}"`);
+      showFeedback('bad', 'Please speak Hungarian - 请说匈牙利语。', `You said - 你说: "${spoken}" — Target - 目标: "${currentWord}"`);
     } else if (res.type === 'perfect') {
-      showFeedback('good', 'Perfect!', `You said: "${spoken}" — Target: "${currentWord}"`);
+      showFeedback('good', 'Perfect! - 完美的！', `You said - 你说: "${spoken}" — Target - 目标: "${currentWord}"`);
     } else if (res.match) {
-      showFeedback('good', 'Good pronunciation', `You said: "${spoken}" — Target: "${currentWord}" (Score: ${res.score}%)`);
+      showFeedback('good', 'Good pronunciation', `You said - 你说: "${spoken}" — Target - 目标: "${currentWord}" (Score: ${res.score}%)`);
     } else {
-      showFeedback('warn', 'Different word', `You said: "${spoken}" — Target: "${currentWord}" (Score: ${res.score}%)`);
+      showFeedback('warn', 'Different word - 不同的词', `You said - 你说: "${spoken}" — Target - 目标: "${currentWord}" (Score: ${res.score}%)`);
     }
     recordingStatus.textContent = '✅ Analysis complete (STT)';
     return;
@@ -434,4 +434,5 @@ document.addEventListener('keydown', (e)=>{
 </script>
 </body>
 </html>
+
 
