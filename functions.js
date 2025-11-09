@@ -11,7 +11,41 @@ const fullWordDictionary = [
   {hungarian:"ebéd", pinyin:"ebéd", meaning:"午餐"},
   {hungarian:"vacsora", pinyin:"vacsora", meaning:"晚餐"},
   {hungarian:"leves", pinyin:"leves", meaning:"汤"},
-  {hungarian:"saláta", pinyin:"saláta", meaning:"沙拉"}
+  {hungarian:"saláta", pinyin:"saláta", meaning:"沙拉"},
+  {hungarian:  "szendvics",  pinyin: "szendvics", meaning: "早餐"},
+ {hungarian:  "hamburger",  pinyin: "hamburger", meaning: "早餐"},
+ {hungarian:  "pizza",  pinyin: "pizza", meaning: "早餐"},
+ {hungarian:  "spagetti",  pinyin: "spagetti", meaning: "早餐"},
+ {hungarian:  "rizs",  pinyin: "rizs", meaning: "早餐"},
+ {hungarian:  "tészta",  pinyin: "tészta", meaning: "早餐"},
+ {hungarian:  "gombóc",  pinyin: "gombóc", meaning: "早餐"},
+ {hungarian:  "gőzölt zsemle",  pinyin: "gőzölt zsemle", meaning: "早餐"},
+ {hungarian:  "gőzölt kenyér",  pinyin: "gőzölt kenyér", meaning: "早餐"},
+ {hungarian:  "torta",  pinyin: "torta", meaning: "早餐"},
+ {hungarian:  "keksz",  pinyin: "keksz", meaning: "早餐"},
+ {hungarian:  "csokoládé",  pinyin: "csokoládé", meaning: "早餐"},
+ {hungarian:  "fagylalt",  pinyin: "fagylalt", meaning: "早餐"},
+ {hungarian:  "cukorka",  pinyin: "cukorka", meaning: "早餐"},
+ {hungarian:  "alma",  pinyin: "alma", meaning: "早餐"},
+ {hungarian:  "banán",  pinyin: "banán", meaning: "早餐"},
+ {hungarian:  "narancs",  pinyin: "narancs", meaning: "早餐"},
+ {hungarian:  "eper",  pinyin: "eper", meaning: "早餐"},
+ {hungarian:  "szőlő",  pinyin: "szőlő", meaning: "早餐"},
+ {hungarian:  "görögdinnye",  pinyin: "görögdinnye", meaning: "早餐"},
+ {hungarian:  "paradicsom",  pinyin: "paradicsom", meaning: "早餐"},
+ {hungarian:  "sárgarépa",  pinyin: "sárgarépa", meaning: "早餐"},
+ {hungarian:  "burgonya",  pinyin: "burgonya", meaning: "早餐"},
+ {hungarian:  "hagyma",  pinyin: "hagyma", meaning: "早餐"},
+ {hungarian:  "fokhagyma",  pinyin: "fokhagyma", meaning: "早餐"},
+ {hungarian:  "tej",  pinyin: "tej", meaning: "早餐"},
+ {hungarian:  "gyümölcslé",  pinyin: "gyümölcslé", meaning: "早餐"},
+ {hungarian:  "kóla",  pinyin: "kóla", meaning: "早餐"},
+ {hungarian:  "ásványvíz",  pinyin: "ásványvíz", meaning: "早餐"},
+ {hungarian:  "vörösbor",  pinyin: "vörösbor", meaning: "早餐"},
+ {hungarian:  "szeszes ital",  pinyin: "szeszes ital", meaning: "早餐"},
+ {hungarian:  "koktél",  pinyin: "koktél", meaning: "早餐"},
+ {hungarian:  "whisky",  pinyin: "whisky", meaning: "早餐"},
+ {hungarian:  "vodka",  pinyin: "vodka", meaning: "早餐"}
 ];
 
 /* ---------- DOM ---------- */
@@ -150,7 +184,42 @@ const phoneticDictionary = {
   "ebéd": ["ebéd","ebed"],
   "vacsora": ["vachora", "vacora","vatsora"],
   "leves": ["leves", "lefes"],
-  "saláta": ["shalata", "shaláta"]
+  "saláta": ["shalata", "shaláta"],
+  "szendvics": ["sendvich”, "senvich”, "senvish”],
+"hamburger": "hambuge”, "hambulge”, "hamborger”],
+"pizza": ["piza”, "pizza”, "pissa”],
+"spagetti": ["shpageti”, "spageti”, "spagetti”],
+"rizs": ["riz”, "ris”, "rizs”],
+"tészta": ["testa”, "tésta”, "tészta”],
+"gombóc": ["gombos”, "gomboc”, "gombóc”],
+"gőzölt zsemle": ["gozolt zemle”, "gözölt zsemle”, "gozot zemle”],
+"gőzölt kenyér": ["gozolt kener”, "gozott kenyer”, "kozott kenyer”],
+"torta": ["tolta”, "toota”, "torta”],
+"keksz": ["keks”, "keksz”], 
+"csokoládé": ["shokolate”, "csokolade”, "csokolad”],
+"fagylalt": ["fagjlat”, "fagylalt”], 
+"cukorka": ["sukoka”, "cukoka”, "cukolka", "cukorka"],
+"alma": ["alma", "ama"],
+"banán": ["banan", "banán"], 
+"narancs": ["na anch", "nalanc", "na ansh", "nalanch", "na rancs", "narancs"],
+"eper": ["epel", "eper"],  
+"szőlő": ["so-lo", "sölö", "szőlö"],  
+"görögdinnye": ["golog-dinnje", "go-rog dinnje", "gö-rög dinnye"],  
+"paradicsom": ["par-di-chom", "pa-la-dishom", "pa-la-dichom"],  
+"sárgarépa": ["sar-ga-repa", "sal-ga-lepa", "sárga-répa", "sarga-repa"],   
+"burgonya":  ["bul-go-nja", "bur-go-nya"],
+"hagyma": ["hajma", "hadjma", "hagyma"],
+"fokhagyma": ["fok-hagy-ma", "fok-hajma", "fok-hagyma"],  
+"tej": ["tej"],  
+"gyümölcslé": ["dzsu-molch-le", "dzsu-molsh-le", "gyu-molc-le", "gyu-molch-lé", "gyü-mölcs-lé"],  
+"kóla": ["kola", "kóla", "cola"],  
+"ásványvíz": ["ásványvíz", "as-van-viz", "ash-vanj-viz", "ásh-vány-viz"],   
+"vörösbor": ["vo-losh-bol", "vö-rösh-bor", "vo-rozs-bo", "vo-osh-bor", "vörösbor"], 
+"szeszes ital": ["se-sesh itaa", "se-ses ital", "szeszes ital"],   
+"koktél": ["koktail", "koktel"],   
+"whisky": ["viski", "visky", "viszki"],  
+"vodka": ["vod-ka", "votka", "vodka"]
+
 };
 
 function simpleSimilarity(a, b){
@@ -382,4 +451,5 @@ document.addEventListener('keydown', (e)=>{
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available' : 'SpeechRecognition: unavailable';
 })();
+
 
