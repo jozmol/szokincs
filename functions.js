@@ -31,6 +31,7 @@ const wordCountSelect = document.getElementById('wordCount');
 
 let selectedWords = [], currentIndex = 0;
 
+
 /* ---------- Capabilities ---------- */
 const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition || null;
 let recognizer = null;
@@ -47,7 +48,7 @@ if (SpeechRec) {
     recogSupported = false;
   }
 }
-const isFirefox = typeof InstallTrigger !== 'undefined';
+const isFirefox = typeof InstallTrigger !== 'undefined'; 
 
 /* ---------- Recording state ---------- */
 let mediaRecorder = null;
@@ -370,13 +371,116 @@ function displayCurrent(){
   audioChunks = [];
   clearFeedback();
 }
+//*Eszköz azonosítás*
 
+const deviceInfo = {
+  isMobile: /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+  isEdge: navigator.userAgent.includes('Edg'),
+  isChrome: /Chrome/.test(navigator.userAgent) && !navigator.userAgent.includes('Edg'),
+  isFirefox: /Firefox|FxiOS/.test(navigator.userAgent), // ⬅️ JAVÍTVA
+  isDesktop: !/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+};
+
+/* ---------- Eszköz ajánlás megjelenítése ---------- */
+function showDeviceRecommendation() {
+  console.log('🔍 showDeviceRecommendation függvény elindult');
+  
+  let recommendationEl = document.getElementById('deviceRecommendation');
+  
+  if (!recommendationEl) {
+    console.log('📝 Létrehozom a deviceRecommendation elemet');
+    recommendationEl = document.createElement('div');
+    recommendationEl.id = 'deviceRecommendation';
+    recommendationEl.className = 'browser-recommendation';
+    recommendationEl.innerHTML = '<div id="recommendationContent"></div>';
+    
+    const wordCard = document.getElementById('wordCard');
+    const startBtn = document.getElementById('startBtn');
+    
+    if (wordCard) {
+      wordCard.parentNode.insertBefore(recommendationEl, wordCard);
+    } else if (startBtn) {
+      startBtn.parentNode.insertBefore(recommendationEl, startBtn);
+    } else {
+      document.body.prepend(recommendationEl);
+    }
+  }
+  const getExperienceLevel = () => {
+  if (deviceInfo.isMobile) return { 
+    level: "🔊 Alap", 
+    level_cn: "🔊 基础",
+    perfect: false, 
+    description: "Korlátozott kiejtés-ellenőrzés",
+    description_cn: "发音检查功能有限"
+  };
+  if (deviceInfo.isDesktop && deviceInfo.isEdge) return { 
+    level: "🤖 Prémium", 
+    level_cn: "🤖 高级", 
+    perfect: true, 
+    description: "Teljes beszéd-felismerés",
+    description_cn: "完整语音识别"
+  };
+  return { 
+    level: "🔊 Közepes", 
+    level_cn: "🔊 中等",
+    perfect: false, 
+    description: "Alap kiejtés-ellenőrzés",
+    description_cn: "基础发音检查"
+  };
+};
+
+  const contentEl = document.getElementById('recommendationContent');
+  const experience = getExperienceLevel();
+  
+  let message = '';
+  if (deviceInfo.isMobile) {
+    message = `
+      📱 <strong>Mobil eszköz észlelve / 检测到移动设备</strong><br>
+      🔄 ${experience.description} / ${experience.description_cn}<br>
+      💡 <em>Tökéletes élményért: Microsoft Edge asztali verzió<br>
+          完美体验请使用：Microsoft Edge 桌面版</em>
+    `;
+    recommendationEl.classList.add('warning');
+  } else if (!deviceInfo.isEdge) {
+    message = `
+      💻 <strong>Asztali számítógép / 桌面电脑</strong><br>
+      🔊 ${experience.description} / ${experience.description_cn}<br>  
+      🏆 <em>Tökéletes élményért: Microsoft Edge böngésző<br>
+          完美体验请使用：Microsoft Edge 浏览器</em>
+    `;
+    recommendationEl.classList.add('warning');
+  } else {
+    message = `
+      🏆 <strong>Microsoft Edge - Optimális konfiguráció<br>
+          Microsoft Edge - 最佳配置</strong><br>
+      🤖 ${experience.description} / ${experience.description_cn}<br>
+      ✅ Pontos kiejtés-értékelés / 准确发音评估
+    `;
+  }
+  
+  contentEl.innerHTML = message;
+  recommendationEl.style.display = 'block';
+  
+  console.log('✅ Üzenet beállítva');
+}
+
+// Biztosítsuk, hogy fusson
+setTimeout(showDeviceRecommendation, 500);
+// Biztosítsuk, hogy a DOM betöltődése után fusson
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', showDeviceRecommendation);
+} else {
+  showDeviceRecommendation();
+}
+// Oldal betöltésekor automatikusan megjelenítjük
+document.addEventListener('DOMContentLoaded', showDeviceRecommendation);
 document.addEventListener('keydown', (e)=>{
   if (e.key === ' ' && document.activeElement === recordBtn) { 
     e.preventDefault(); 
     if (!isRecording) startRecording(); else stopRecording(); 
   }
 });
+showDeviceRecommendation();
 
 /* ---------- Init ---------- */
 (function init(){
