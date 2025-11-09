@@ -263,7 +263,7 @@ async function analyzeRecording(){
   analyzeBtn.disabled = true;
 
   if (recogSupported && lastTranscript && lastTranscript.trim().length>0) {
-    const currentWord = selectedWords[currentIndex].hungarian.toLowerCase();
+    //const currentWord = selectedWords[currentIndex].hungarian.toLowerCase();
     const spoken = lastTranscript.toLowerCase().trim();
     const res = phoneticCompare(spoken, currentWord);
     
@@ -285,7 +285,7 @@ async function analyzeRecording(){
     return;
   }
 
-  const currentWord = selectedWords[currentIndex].hungarian;
+  //const currentWord = selectedWords[currentIndex].hungarian;
   recordingStatus.textContent = '▶ Playing reference...';
   await playTTS(currentWord);
   recordingStatus.textContent = '⏱ Processing audio...';
@@ -392,5 +392,6 @@ document.addEventListener('keydown', (e)=>{
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available' : 'SpeechRecognition: unavailable';
 })();
+
 
 
