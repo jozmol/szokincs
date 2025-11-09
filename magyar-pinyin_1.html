@@ -21,6 +21,13 @@
   .warn{background:#fff8e1;color:#856404;border:1px solid #ffecb3}
   .bad{background:#ffebee;color:#c62828;border:1px solid #ffcdd2}
   .small{font-size:.9rem;color:#555}
+ .browser-recommendation {
+  background: #ff4444 !important;  /* Piros - így biztosan látszik */
+  border: 3px solid yellow !important;
+  padding: 20px !important;
+  font-size: 18px !important;
+  color: white !important;
+
 </style>
 </head>
 <body>
@@ -71,7 +78,12 @@ Enable your microphone. In Chrome/Edge browsers, if available, the browser will 
       </div>
     </div>
   </div>
+ <div id="deviceRecommendation" class="browser-recommendation" style="display: none;">
+  <div id="recommendationContent"></div>
+</div>
+
 <script src="functions.js"></script>
 
 </body>
 </html>
+
