@@ -2,7 +2,6 @@
 const fullWordDictionary = [
   {hungarian:"köszönöm", pinyin:"köszönöm", meaning:"谢谢"},
   {hungarian:"jó napot", pinyin:"jó napot", meaning:"你好"},
-  {hungarian:"szeretlek", pinyin:"szeretlek", meaning:"我爱你"},
   {hungarian:"helló", pinyin:"helló", meaning:"你好"},
   {hungarian:"víz", pinyin:"víz", meaning:"水"},
   {hungarian:"anya", pinyin:"anya", meaning:"妈妈"},
@@ -141,7 +140,6 @@ function cosineSimilarity(a,b){
 const phoneticDictionary = {
   "köszönöm": ["kosonom","ko-so-nom"],
   "jó napot": ["jo napot"], 
-  "szeretlek": ["seretlek", "se-ret-lek"],
   "helló": ["hello", "helo","helou"],
   "víz": ["víz","viz"],
   "anya": ["anja","anya"],
@@ -171,10 +169,22 @@ function simpleSimilarity(a, b){
 
 function phoneticCompare(spoken, target){
   const s = simpleSimilarity(spoken, target);
-  if (s >= 0.9) return {match: true, score: 95, type: 'perfect'};
-  if (s >= 0.7) return {match: true, score: 80, type: 'good'};
-  if (s >= 0.5) return {match: true, score: 65, type: 'partial'};
-  return {match: false, score: 20, type: 'no_match'};
+  const percentage = Math.round(s * 100);
+  
+  // ⬇️⬇️⬇️ ÚJ SZÁZALÉKOS VÁLTOZAT ⬇️⬇️⬇️
+  if (percentage >= 95) {
+    return {match: true, score: percentage, type: 'perfect', message: `Tökéletes! ${percentage}%`};
+  } else if (percentage >= 80) {
+    return {match: true, score: percentage, type: 'good', message: `Nagyon jó! ${percentage}%`};
+  } else if (percentage >= 60) {
+    return {match: true, score: percentage, type: 'partial', message: `Jó! ${percentage}%`};
+  } else if (percentage >= 40) {
+    return {match: false, score: percentage, type: 'almost', message: `Majdnem jó! ${percentage}%`};
+  } else if (percentage >= 20) {
+    return {match: false, score: percentage, type: 'needs_work', message: `Próbáld újra! ${percentage}%`};
+  } else {
+    return {match: false, score: percentage, type: 'wrong_word', message: `Más szó: ${percentage}%`};
+  }
 }
 
 /* ---------- Recording functions ---------- */
@@ -382,3 +392,4 @@ document.addEventListener('keydown', (e)=>{
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available' : 'SpeechRecognition: unavailable';
 })();
+
