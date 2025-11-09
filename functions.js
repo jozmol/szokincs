@@ -168,25 +168,15 @@ function simpleSimilarity(a, b){
   const similarity = matches / Math.max(a.length, b.length);
   return similarity >= 0.4 ? 0.7 : similarity;
 }
+
 function phoneticCompare(spoken, target){
   const s = simpleSimilarity(spoken, target);
-  const percentage = Math.round(s * 100);
-  
-  // ⬇️⬇️⬇️ ÚJ SZÁZALÉKOS VÁLTOZAT ⬇️⬇️⬇️
-  if (percentage >= 95) {
-    return {match: true, score: percentage, type: 'perfect', message: `Tökéletes! ${percentage}%`};
-  } else if (percentage >= 80) {
-    return {match: true, score: percentage, type: 'good', message: `Nagyon jó! ${percentage}%`};
-  } else if (percentage >= 60) {
-    return {match: true, score: percentage, type: 'partial', message: `Jó! ${percentage}%`};
-  } else if (percentage >= 40) {
-    return {match: false, score: percentage, type: 'almost', message: `Majdnem jó! ${percentage}%`};
-  } else if (percentage >= 20) {
-    return {match: false, score: percentage, type: 'needs_work', message: `Próbáld újra! ${percentage}%`};
-  } else {
-    return {match: false, score: percentage, type: 'wrong_word', message: `Más szó: ${percentage}%`};
-  }
+  if (s >= 0.9) return {match: true, score: 95, type: 'perfect'};
+  if (s >= 0.7) return {match: true, score: 80, type: 'good'};
+  if (s >= 0.5) return {match: true, score: 65, type: 'partial'};
+  return {match: false, score: 20, type: 'no_match'};
 }
+
 /* ---------- Recording functions ---------- */
 async function startRecording(){
   try {
@@ -268,11 +258,12 @@ async function analyzeRecording(){
     const res = phoneticCompare(spoken, currentWord);
     
     if (res.type === 'perfect') {
-     showFeedback(
-      res.match ? 'good' : (res.score > 40 ? 'warn' : 'bad'),
-      res.message,
-      `Elmondtad: "${spoken}" — Cél szó: "${currentWord}"`
-    );
+      showFeedback('good', 'Perfect!', `You said: "${spoken}" — Target: "${currentWord}"`);
+    } else if (res.match) {
+      showFeedback('good', 'Good pronunciation', `You said: "${spoken}" — Target: "${currentWord}"`);
+    } else {
+      showFeedback('warn', 'Different word', `You said: "${spoken}" — Target: "${currentWord}"`);
+    }
     recordingStatus.textContent = '✅ Analysis complete (STT)';
     return;
   }
@@ -391,4 +382,3 @@ document.addEventListener('keydown', (e)=>{
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available' : 'SpeechRecognition: unavailable';
 })();
-
