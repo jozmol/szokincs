@@ -288,7 +288,7 @@ async function analyzeRecording(){
   const avgEnergy = userEnv.reduce((a,b)=>a+b,0)/userEnv.length;
   const maxEnergy = Math.max(...userEnv);
 
-  if (avgEnergy < 0.003 || maxEnergy < 0.008) {
+  if (avgEnergy < 0.001 || maxEnergy < 0.005) {
     recordingStatus.textContent = '⚠ No speech detected';
     showFeedback('bad', 'No speech detected', 'Please speak louder');
     analyzeBtn.disabled = false;
@@ -382,3 +382,4 @@ document.addEventListener('keydown', (e)=>{
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available' : 'SpeechRecognition: unavailable';
 })();
+
