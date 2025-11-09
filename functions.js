@@ -268,12 +268,12 @@ async function analyzeRecording(){
     const res = phoneticCompare(spoken, currentWord);
     
     if (res.type === 'perfect') {
-      showFeedback('good', 'Perfect!', `You said: "${spoken}" — Target: "${currentWord}"`);
-    } else if (res.match) {
-      showFeedback('good', 'Good pronunciation', `You said: "${spoken}" — Target: "${currentWord}"`);
-    } else {
-      showFeedback('warn', 'Different word', `You said: "${spoken}" — Target: "${currentWord}"`);
-    }
+     showFeedback(
+      res.match ? 'good' : (res.score > 40 ? 'warn' : 'bad'),
+      res.message,
+      `Elmondtad: "${spoken}" — Cél szó: "${currentWord}"`
+    );
+    
     recordingStatus.textContent = '✅ Analysis complete (STT)';
     return;
   }
@@ -392,4 +392,5 @@ document.addEventListener('keydown', (e)=>{
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available' : 'SpeechRecognition: unavailable';
 })();
+
 
