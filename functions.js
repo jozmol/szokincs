@@ -201,7 +201,7 @@ constphoneticDictionary={
 "cukorka":["sukoka","cukoka","cukolka","cukorka"],
 "alma":["alma","ama"],
 "banán":["banan","banán"],
-"narancs":["naanch","nalanc","naansh","nalanch","narancs","narancs"],
+"narancs":["naanch","nalanc","naansh","nalanch","narancs"],
 "eper":["epel","eper"],
 "szőlő":["so-lo","sölö","szőlö"],
 "görögdinnye":["golog-dinnje","go-rogdinnje","gö-rögdinnye"],
@@ -451,6 +451,7 @@ if(!isRecording)startRecording();elsestopRecording();
 (functioninit(){
 recordingStatus.textContent=recogSupported?'SpeechRecognition:available':'SpeechRecognition:unavailable';
 })();
+
 
 
 
