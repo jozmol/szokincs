@@ -185,20 +185,20 @@ const phoneticDictionary = {
   "vacsora": ["vachora", "vacora","vatsora"],
   "leves": ["leves", "lefes"],
   "saláta": ["shalata", "shaláta"],
-  "szendvics": ["sendvich”, "senvich”, "senvish”],
-"hamburger": "hambuge”, "hambulge”, "hamborger”],
-"pizza": ["piza”, "pizza”, "pissa”],
-"spagetti": ["shpageti”, "spageti”, "spagetti”],
-"rizs": ["riz”, "ris”, "rizs”],
-"tészta": ["testa”, "tésta”, "tészta”],
-"gombóc": ["gombos”, "gomboc”, "gombóc”],
-"gőzölt zsemle": ["gozolt zemle”, "gözölt zsemle”, "gozot zemle”],
-"gőzölt kenyér": ["gozolt kener”, "gozott kenyer”, "kozott kenyer”],
-"torta": ["tolta”, "toota”, "torta”],
-"keksz": ["keks”, "keksz”], 
-"csokoládé": ["shokolate”, "csokolade”, "csokolad”],
-"fagylalt": ["fagjlat”, "fagylalt”], 
-"cukorka": ["sukoka”, "cukoka”, "cukolka", "cukorka"],
+  "szendvics": ["sendvich", "senvich", "senvish"],
+  "hamburger": ["hambuge", "hambulge", "hamborger"],
+  "pizza": ["piza", "pizza", "pissa"],
+  "spagetti": ["shpageti", "spageti", "spagetti"],
+  "rizs": ["riz", "ris", "rizs"],
+  "tészta": ["testa", "tésta", "tészta"],
+  "gombóc": ["gombos", "gomboc", "gombóc"],
+"gőzölt zsemle": ["gozolt zemle", "gözölt zsemle", "gozot zemle"],
+"gőzölt kenyér": ["gozolt kener", "gozott kenyer", "kozott kenyer"],
+"torta": ["tolta", "toota", "torta"],
+"keksz": ["keks", "keksz"], 
+"csokoládé": ["shokolate", "csokolade", "csokolad"],
+"fagylalt": ["fagjlat", "fagylalt"], 
+"cukorka": ["sukoka", "cukoka", "cukolka", "cukorka"],
 "alma": ["alma", "ama"],
 "banán": ["banan", "banán"], 
 "narancs": ["na anch", "nalanc", "na ansh", "nalanch", "na rancs", "narancs"],
@@ -451,5 +451,6 @@ document.addEventListener('keydown', (e)=>{
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available' : 'SpeechRecognition: unavailable';
 })();
+
 
 
