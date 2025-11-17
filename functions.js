@@ -11,7 +11,8 @@ const fullWordDictionary = [
   {hungarian:"ebéd", pinyin:"ebéd", meaning:"午餐"},
   {hungarian:"vacsora", pinyin:"vacsora", meaning:"晚餐"},
   {hungarian:"leves", pinyin:"leves", meaning:"汤"},
-  {hungarian:"saláta", pinyin:"saláta", meaning:"沙拉"}
+  {hungarian:"saláta", pinyin:"saláta", meaning:"沙拉"},
+  {hungarian:"móka", pinyin:"móka", meaning:"乐趣"}
 ];
 
 /* ---------- DOM ---------- */
@@ -151,7 +152,8 @@ const phoneticDictionary = {
   "ebéd": ["ebéd","ebed"],
   "vacsora": ["vachora", "vacora","vatsora"],
   "leves": ["leves", "lefes"],
-  "saláta": ["shalata", "shaláta"]
+  "saláta": ["shalata", "shaláta"],
+  "móka": ["moka", "mooka","móka"]
 };
 
 function simpleSimilarity(a, b){
@@ -486,3 +488,4 @@ showDeviceRecommendation();
 (function init(){
   recordingStatus.textContent = recogSupported ? 'SpeechRecognition: available' : 'SpeechRecognition: unavailable';
 })();
+
