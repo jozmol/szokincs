@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Kiejtésgyakorló</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; }
+        .word-display { font-size: 2em; margin: 20px 0; text-align: center; }
+        .phonetic { color: #666; text-align: center; margin-bottom: 20px; }
+        .button { 
+            padding: 10px 20px; 
+            font-size: 1.2em; 
+            margin: 10px; 
+            cursor: pointer;
+            background: #007cba;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .result { 
+            margin: 20px 0; 
+            padding: 15px; 
+            border-radius: 5px;
+            text-align: center;
+        }
+        .correct { background: #d4edda; color: #155724; }
+        .incorrect { background: #f8d7da; color: #721c24; }
+        .similarity { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Kiejtésgyakorló</h1>
+    
+    <div class="word-display" id="currentWord">szia</div>
+    <div class="phonetic" id="phonetic">[siʲɒ]</div>
+    
+    <div style="text-align: center;">
+        <button class="button" id="listenBtn">Hallgasd meg</button>
+        <button class="button" id="speakBtn">Beszélj</button>
+        <button class="button" id="nextBtn">Következő</button>
+    </div>
+    
+    <div id="result"></div>
+
+    <script>
+        class PronunciationTrainer {
+            constructor() {
+                this.words = [
+                    { word: 'szia', phonetic: 'siʲɒ' },
+                    { word: 'köszönöm', phonetic: 'køsønøm' },
+                    { word: 'egészség', phonetic: 'ɛɡeːʃːeːɡ' },
+                    { word: 'repülőgép', phonetic: 'rɛpyløːɡeːp' },
+                    { word: 'könyvtár', phonetic: 'køɲftaːr' }
+                ];
+                
+                this.currentWordIndex = 0;
+                this.setupSpeechRecognition();
+                this.setupEventListeners();
+                this.displayCurrentWord();
+            }
+            
+            setupSpeechRecognition() {
+                if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                    this.recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                    this.recognition.continuous = false;
+                    this.recognition.interimResults = false;
+                    this.recognition.lang = 'hu-HU';
+                    
+                    this.recognition.onresult = (event) => {
+                        const spokenText = event.results[0][0].transcript.toLowerCase();
+                        this.checkPronunciation(spokenText);
+                    };
+                    
+                    this.recognition.onerror = (event) => {
+                        this.showResult('Hiba: ' + event.error, false);
+                    };
+                } else {
+                    alert('A böngésző nem támogatja a beszédfelismerést!');
+                }
+            }
+            
+            setupEventListeners() {
+                document.getElementById('speakBtn').addEventListener('click', () => {
+                    this.startListening();
+                });
+                
+                document.getElementById('listenBtn').addEventListener('click', () => {
+                    this.speakCurrentWord();
+                });
+                
+                document.getElementById('nextBtn').addEventListener('click', () => {
+                    this.nextWord();
+                });
+            }
+            
+            displayCurrentWord() {
+                const current = this.words[this.currentWordIndex];
+                document.getElementById('currentWord').textContent = current.word;
+                document.getElementById('phonetic').textContent = `[${current.phonetic}]`;
+            }
+            
+            startListening() {
+                if (this.recognition) {
+                    this.recognition.start();
+                    this.showResult('Hallgatás...', true);
+                }
+            }
+            
+            speakCurrentWord() {
+                const current = this.words[this.currentWordIndex];
+                const utterance = new SpeechSynthesisUtterance(current.word);
+                utterance.lang = 'hu-HU';
+                utterance.rate = 0.8;
+                speechSynthesis.speak(utterance);
+            }
+            
+            checkPronunciation(spokenText) {
+                const currentWord = this.words[this.currentWordIndex].word.toLowerCase();
+                const similarity = this.calculateSimilarity(spokenText, currentWord);
+                const isCorrect = similarity > 0.6;
+                
+                const resultHTML = `
+                    <div class="result ${isCorrect ? 'correct' : 'incorrect'}">
+                        <strong>Te mondtad:</strong> "${spokenText}"<br>
+                        <strong>Helyes:</strong> "${currentWord}"<br>
+                        <strong>Hasonlóság:</strong> <span class="similarity">${Math.round(similarity * 100)}%</span>
+                    </div>
+                `;
+                
+                document.getElementById('result').innerHTML = resultHTML;
+            }
+            
+            calculateSimilarity(str1, str2) {
+                const longer = str1.length > str2.length ? str1 : str2;
+                const shorter = str1.length > str2.length ? str2 : str1;
+                
+                if (longer.length === 0) return 1.0;
+                
+                const distance = this.levenshteinDistance(longer, shorter);
+                return (longer.length - distance) / parseFloat(longer.length);
+            }
+            
+            levenshteinDistance(str1, str2) {
+                const matrix = [];
+                for (let i = 0; i <= str2.length; i++) {
+                    matrix[i] = [i];
+                }
+                for (let j = 0; j <= str1.length; j++) {
+                    matrix[0][j] = j;
+                }
+                for (let i = 1; i <= str2.length; i++) {
+                    for (let j = 1; j <= str1.length; j++) {
+                        if (str2.charAt(i-1) === str1.charAt(j-1)) {
+                            matrix[i][j] = matrix[i-1][j-1];
+                        } else {
+                            matrix[i][j] = Math.min(
+                                matrix[i-1][j-1] + 1,
+                                matrix[i][j-1] + 1,
+                                matrix[i-1][j] + 1
+                            );
+                        }
+                    }
+                }
+                return matrix[str2.length][str1.length];
+            }
+            
+            nextWord() {
+                this.currentWordIndex = (this.currentWordIndex + 1) % this.words.length;
+                this.displayCurrentWord();
+                document.getElementById('result').innerHTML = '';
+            }
+            
+            showResult(message, isProcessing) {
+                const className = isProcessing ? '' : 'incorrect';
+                document.getElementById('result').innerHTML = 
+                    `<div class="result ${className}">${message}</div>`;
+            }
+        }
+        
+        // Alkalmazás indítása
+        document.addEventListener('DOMContentLoaded', () => {
+            new PronunciationTrainer();
+        });
+    </script>
+</body>
+</html>
