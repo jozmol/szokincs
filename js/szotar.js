@@ -168,7 +168,7 @@ const HU_DICT = {
 "Take the bus.":"Szállj fel a buszra.",
 "Take the underground.":"Szállj fel a metróra.",
 "Take the tram.":"Szállj fel a villamosra.",
-"It’s on the corner of Smith and Lodge street.":"A Smith és a Lodge utca sarkán van."
+"It’s on the corner of Smith and Lodge street.":"A Smith és a Lodge utca sarkán van.",
  // *** SZAVAK ***
   "about":"-ról -ről, miatt, körülbelül",
   "bedroom":"hálószoba",
