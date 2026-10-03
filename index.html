@@ -33,10 +33,11 @@ if('serviceWorker' in navigator){
   navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'text/javascript'})));
 }
 </script>
+  
 <script src="js/stories.js"></script>>
-// ========= IDE MÁSOLD BE A SAJÁT ADATAIDAT =========
+
 <script src="js/szotar.js"></script>
-// ========= szótár VÉGE =========
+
 <script>
 const storySelect=document.getElementById('storySelect'),storyBox=document.getElementById('storyBox'),status=document.getElementById('status'),gbBtn=document.getElementById('gbBtn'),usBtn=document.getElementById('usBtn'),dictLog=document.getElementById('dictLog');
 let voices=[],voiceGB=null,voiceUS=null,currentAccent='en-GB',currentVoice=null;
