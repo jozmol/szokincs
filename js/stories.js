@@ -18,4 +18,3 @@ const STORIES = {
   "Short sentences": "Hi.\nHello.\nGood morning.\nAre you on the phone?\nGood afternoon.\nWhat’s your phone number?\nwhat is your name?\nYes, I’m on the phone.\nGood evening.\nGood night.\nWelcome!\nHow do you do?\nHow are you?\nGood bye."
 
 };
-
