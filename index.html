@@ -5,16 +5,36 @@
 <title>Hangos Könyv</title>
 <style>
 body{max-width:700px;margin:20px auto;padding:10px;padding-bottom:120px;font-family:sans-serif;background:linear-gradient(135deg,#7cf2a1 0%,#91e5fa 100%);line-height:1.6}
-#storyBox{border-radius:10px;border:8px solid #e8efaf;padding:20px;font-size:18px;line-height:2;white-space:pre-wrap;min-height:400px;max-height:500px;background:linear-gradient(120deg,#94f8c8,#a8e9f5 80%);box-shadow:0 10px 30px rgba(0,0,0,.25);overflow-y:auto}
-.word{padding:2px 1px;border-radius:4px;cursor:pointer}
+#storyBox{border-radius:10px;border:8px solid #e8efaf;padding:20px;font-size:18px;line-height:2;white-space:pre-wrap;
+          min-height:400px;max-height:500px;background:linear-gradient(120deg,#94f8c8,#a8e9f5 80%);
+          box-shadow:0 10px 30px rgba(0,0,0,.25);overflow-y:auto}
+.word{padding:2px 1px;border-radius:4px;
+      cursor:pointer}
 .word.active{background:#fac97d;text-decoration:underline dotted}
-.controls{position:fixed;top:15px;left:50%;transform:translateX(-50%);background:#222;padding:10px;border-radius:30px;display:flex;gap:8px;z-index:100}
-.controls button{border:none;padding:10px 14px;border-radius:20px;background:white;font-weight:bold;cursor:pointer}
+.controls{position:fixed;top:15px;
+left:50%;transform:translateX(-50%);
+background:#222;padding:10px;
+border-radius:30px;
+ display:flex;gap:8px;z-index:100}
+.controls button{border:none;padding:10px 14px;
+                 border-radius:20px;
+                 background:white;
+                 font-weight:bold;
+                 cursor:pointer}
 .controls button:disabled{opacity:.3}
-.controls button.active-accent{background:#ffeb3b}
-select{width:100%;padding:8px;margin-bottom:10px;border-radius:10px;font-size:18px}
-#status{margin:8px 0;color:#555;font-size:14px}
-#dictLog{margin-top:12px;padding:12px 14px;background:#fff8c4;border-radius:10px;min-height:24px;font-size:18px;box-shadow:0 10px 28px rgba(0,0,0,.28);display:none;position:sticky;bottom:90px;z-index:50}
+.controls button.active-accent{
+  background:#ffeb3b}
+select{width:100%;
+       padding:8px;
+       margin-bottom:10px;
+       border-radius:10px;
+       font-size:18px}
+#status{margin:8px 0;
+        color:#555;
+        font-size:14px}
+#dictLog{margin-top:12px;
+         padding:12px 14px;
+         background:#fff8c4;border-radius:10px;min-height:24px;font-size:18px;box-shadow:0 10px 28px rgba(0,0,0,.28);display:none;position:sticky;bottom:90px;z-index:50}
 @media(max-width:600px){#storyBox{max-height:60vh;font-size:17px}}
 </style>
 <link rel="manifest" href="./manifest.json">
