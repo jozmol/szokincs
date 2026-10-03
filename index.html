@@ -36,8 +36,8 @@ if('serviceWorker' in navigator){
 <script src="js/stories.js"></script>>
 // ========= IDE MÁSOLD BE A SAJÁT ADATAIDAT =========
 <script src="js/szotar.js"></script>
-// ========= ADATOK VÉGE =========
-
+// ========= szótár VÉGE =========
+<script>
 const storySelect=document.getElementById('storySelect'),storyBox=document.getElementById('storyBox'),status=document.getElementById('status'),gbBtn=document.getElementById('gbBtn'),usBtn=document.getElementById('usBtn'),dictLog=document.getElementById('dictLog');
 let voices=[],voiceGB=null,voiceUS=null,currentAccent='en-GB',currentVoice=null;
 function loadVoices(){voices=speechSynthesis.getVoices();voiceGB=voices.find(v=>v.lang==='en-GB')||voices.find(v=>v.lang.startsWith('en'))||null;voiceUS=voices.find(v=>v.lang==='en-US')||voices.find(v=>v.lang.startsWith('en'))||null;setAccent(currentAccent);}
