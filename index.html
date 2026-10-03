@@ -44,8 +44,10 @@ let voices=[],voiceGB=null,voiceUS=null,currentAccent='en-GB',currentVoice=null;
 function loadVoices(){voices=speechSynthesis.getVoices();voiceGB=voices.find(v=>v.lang==='en-GB')||voices.find(v=>v.lang.startsWith('en'))||null;voiceUS=voices.find(v=>v.lang==='en-US')||voices.find(v=>v.lang.startsWith('en'))||null;setAccent(currentAccent);}
 function setAccent(a){currentAccent=a;currentVoice=a==='en-GB'?voiceGB:voiceUS;gbBtn.classList.toggle('active-accent',a==='en-GB');usBtn.classList.toggle('active-accent',a==='en-US');status.textContent=a+(currentVoice?' - '+currentVoice.name:'');}
 loadVoices();speechSynthesis.onvoiceschanged=loadVoices;
-gbBtn.onclick=()=>{setAccent('en-GB');if(speechSynthesis.speaking){speechSynthesis.cancel();speakFrom(pausedAtIndex);}};
-usBtn.onclick=()=>{setAccent('en-US');if(speechSynthesis.speaking){speechSynthesis.cancel();speakFrom(pausedAtIndex);}};
+gbBtn.onclick=()=>{setAccent('en-GB');
+if(speechSynthesis.speaking){speechSynthesis.cancel();speakFrom(pausedAtIndex);}};
+usBtn.onclick=()=>{setAccent('en-US');
+if(speechSynthesis.speaking){speechSynthesis.cancel();speakFrom(pausedAtIndex);}};
 let words=[],spans=[],active=null,pausedAtIndex=0,isPausedForDict=false,fullText='',isManualPause=false,sentences=[];
 function normalizeKey(s){return s.toLowerCase().replace(/['’`]/g,'').replace(/[-–—]/g,' ').replace(/[^a-z\s]/g,' ').replace(/\s+/g,' ').trim();}
 const NORM_DICT={};Object.entries(HU_DICT).forEach(([k,v])=>{NORM_DICT[normalizeKey(k)]=v;});
