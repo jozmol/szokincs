@@ -1,1 +1,8 @@
-
+{
+  "name": "Hangos Konyv",
+  "short_name": "HangosKonyv",
+  "display": "standalone",
+  "background_color": "#7cf2a1",
+  "theme_color": "#222",
+  "start_url": "./hangos_konyv_2002.html"
+}
