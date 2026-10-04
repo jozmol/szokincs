@@ -79,6 +79,14 @@ storySelect.onchange=e=>loadStory(e.target.value);
 playBtn.onclick=()=>{speechSynthesis.cancel();isPausedForDict=false;isManualPause=false;if(active===null)pausedAtIndex=0;speakFrom(pausedAtIndex);};
 pauseBtn.onclick=e=>{if(speechSynthesis.speaking){speechSynthesis.cancel();isManualPause=true;e.target.textContent='▶️';}else{isManualPause=false;e.target.textContent='⏸️';speakFrom(pausedAtIndex);}};
 stopBtn.onclick=()=>{speechSynthesis.cancel();isPausedForDict=false;isManualPause=false;clearActive();active=null;pausedAtIndex=0;pauseBtn.textContent='⏸️';dictLog.style.display='none';};
+document.addEventListener("mousemove", function (e) 
+{ // Ha az egér Y koordinátája nagyon kicsi (pl. 5px alatt), akkor felfelé távozik 
+if (e.clientY < 5) 
+{ 
+alert("🥹 El szeretnéd hagyni az oldalt? 🥹"); 
+onClick:window.close()
+} 
+});
 </script>
 </body>
 </html>
