@@ -169,7 +169,7 @@ const HU_DICT = {
  // *** SZAVAK ***
   "about":"-ról -ről, miatt, körülbelül",
   "full":"tele, teli",
-  "boxwoods":"puszpángok",
+  "boxwoods":"buxus",
   "hostas":"hosták (ázsiai növény)",
   "rain":"eső",
   "kitten":"cica, kismacska",
