@@ -1,9 +1,5 @@
 const HU_DICT = {
-  // We're Not Gonna Take It
-  "We're Not Gonna Take It":"Nem tűrjük tovább",
-  "No, we ain't gonna take it.":"Nem, nem tűrjük tovább.",
-  "We're not gonna take it anymore.":"Nem tűrjük tovább",
-  "We've got the right to choose and there ain't no way we'll lose it.":"Jogunk van a választáshoz, és semmiképpen sem fogjuk elveszíteni.",
+ 
   
   // *** How do I spot the International Space Station? ***
   "How do I spot the International Space Station?":"Hogyan pillanthatom meg a Nemzetközi Űrállomást?",
