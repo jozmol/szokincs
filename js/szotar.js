@@ -6,7 +6,7 @@ const HU_DICT = {
   "We've got the right to choose and there ain't no way we'll lose it.":"Jogunk van a választáshoz, és semmiképpen sem fogjuk elveszíteni.",
   
   // *** How do I spot the International Space Station? ***
-  "How do I spot the International Space Station?":"Hogyan pillanthatom meg a Nemzetközi Űrállomást?",
+  "How do I spot the International Space Station?":"Hogyan láthatom meg a Nemzetközi Űrállomást?",
   "Time is when the sighting opportunity will begin in the local time zone of a user’s preferred location.":"Ez az az időpont, amikor a megfigyelési lehetőség kezdetét veszi a felhasználó által választott helyszín helyi időzónája szerint.",
   "All International Space Station sightings will occur within a few hours before or after sunrise or sunset.":"A Nemzetközi Űrállomás észlelésére minden napkelte vagy napnyugta előtt, illetve után néhány órán belül kerül sor.",
   "This is the optimum viewing period as the Sun reflects off the space station and contrasts against the darker sky.":"Ez az optimális megfigyelési időszak, mivel a Nap fénye visszaverődik az űrállomásról, amely így élesen kirajzolódik a sötétebb égbolton a hátterében.",
