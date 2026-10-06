@@ -30,14 +30,31 @@
  display:flex;
  gap:8px;
  z-index:100}
- .controls button{border:none;padding:10px 14px;border-radius:20px;background:white;font-weight:bold;cursor:pointer}
- .controls button:disabled{opacity:.3} .controls button.active-accent{background:#ffeb3b}
- select{width:100%;padding:8px;margin-bottom:10px;border-radius:10px;font-size:18px}
- #status{margin:8px 0;color:#555;font-size:14px}
- #resultBox{margin-top:12px;padding:12px 14px;background:#fff8c4;
+ .controls button{
+ border:none;
+ padding:10px 14px;
+ border-radius:20px;
+ background:white;
+ font-weight:bold;
+ cursor:pointer}
+ .controls button:disabled{opacity:.3} 
+ .controls button.active-accent{background:#ffeb3b}
+ select{width:100%;
+ padding:8px;
+ margin-bottom:10px;
+ border-radius:10px;
+ font-size:18px}
+ #status{margin:8px 0;
+ color:#555;
+ font-size:14px}
+ #resultBox{
+ margin-top:12px;
+ padding:12px 14px;
+ background:#fff8c4;
  border-radius:10px;
  min-height:40px;
- font-size:18px;box-shadow:0 10px 28px rgba(0,0,0,.28);
+ font-size:18px;
+ box-shadow:0 10px 28px rgba(0,0,0,.28);
  position:sticky;
  bottom:10px;
  z-index:50}
@@ -49,7 +66,7 @@
  box-sizing:border-box}
  .hint{color:#777;
  font-size:14px}
- @media (min-width: 668px) {
+ @media (min-width: 700px) {
  .content {
  flex-direction: row;
             }
@@ -114,8 +131,8 @@ html+=text.substring(last); storyBox.innerHTML=html; spans=storyBox.querySelecto
   if(speechSynthesis.speaking){speechSynthesis.cancel(); 
   isPausedForDict=true; pausedAtIndex=f?f.start:idx;}});
   
- // s.addEventListener('dblclick',()=>{let idx=+s.dataset.i; clearActive(); spans[idx].classList.add('active'); 
-  
+ // s.addEventListener('dblclick',()=>{let idx=+s.dataset.i; clearActive(); 
+ // spans[idx].classList.add('active'); 
  // showSent(idx);});
  s.addEventListener('dblclick',()=>{
   let idx=+s.dataset.i;
@@ -143,7 +160,8 @@ function buildDictList(filter=""){
   if(key){
     let hu=HU_DICT[key]; 
     let tr=typeof hu==='string'?hu:hu.map(v=>v.hu).join(' | ');
-    resultBox.textContent=key+" ="+tr;
+   resultBox.textContent=key+" - [ " +tr+ " ]";
+   
   } else {
     resultBox.textContent="Nincs találat: "+filter;
   }
