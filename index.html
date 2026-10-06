@@ -4,7 +4,9 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hangos Könyv</title>
 <style>
- body{max-width:700px;margin:20px auto;padding:10px;padding-bottom:130px;font-family:sans-serif;
+ body{max-width:700px;margin:20px auto;padding:10px;
+ padding-bottom:130px;
+ font-family:sans-serif;
  /*background:linear-gradient(135deg,#7cf2a1 0%,#91e5fa 100%);line-height:1.6}*/
  background:#efeee5}
  #storyBox{border-radius:10px;
@@ -12,7 +14,7 @@
  padding:20px;font-size:18px;
  line-height:2;white-space:pre-wrap;
  min-height:400px;max-height:55vh;
- background:linear-gradient(120deg,#c7fae2,#a8e9f5 80%);
+ background:linear-gradient(120deg,#eefac7,#c1daae 80%);
  box-shadow:0 10px 30px rgba(0,0,0,.25);
  overflow-y:auto}
  .word{padding:2px 1px;
@@ -20,14 +22,37 @@
  cursor:pointer} 
  .word.active{background:#e6d486;
  text-decoration:underline dotted}
- .controls{position:fixed;top:15px;left:50%;transform:translateX(-50%);background:#222;padding:10px;border-radius:30px;display:flex;gap:8px;z-index:100}
+ .controls{position:fixed;top:15px;left:50%;
+ transform:translateX(-50%);
+ background:#222;
+ padding:10px;
+ border-radius:30px;
+ display:flex;
+ gap:8px;
+ z-index:100}
  .controls button{border:none;padding:10px 14px;border-radius:20px;background:white;font-weight:bold;cursor:pointer}
  .controls button:disabled{opacity:.3} .controls button.active-accent{background:#ffeb3b}
  select{width:100%;padding:8px;margin-bottom:10px;border-radius:10px;font-size:18px}
  #status{margin:8px 0;color:#555;font-size:14px}
- #resultBox{margin-top:12px;padding:12px 14px;background:#fff8c4;border-radius:10px;min-height:40px;font-size:18px;box-shadow:0 10px 28px rgba(0,0,0,.28);position:sticky;bottom:10px;z-index:50}
- #dictSearch{width:100%;padding:10px;margin:10px 0;border-radius:10px;border:2px solid #e8efaf;font-size:16px;box-sizing:border-box}
- .hint{color:#777;font-size:14px}
+ #resultBox{margin-top:12px;padding:12px 14px;background:#fff8c4;
+ border-radius:10px;
+ min-height:40px;
+ font-size:18px;box-shadow:0 10px 28px rgba(0,0,0,.28);
+ position:sticky;
+ bottom:10px;
+ z-index:50}
+ #dictSearch{width:100%;
+ padding:10px;margin:10px 0;
+ border-radius:10px;
+ border:2px solid #e8efaf;
+ font-size:16px;
+ box-sizing:border-box}
+ .hint{color:#777;
+ font-size:14px}
+ @media (min-width: 668px) {
+ .content {
+ flex-direction: row;
+            }
 </style>
 </head>
 <body>
@@ -150,7 +175,7 @@ speechSynthesis.speak(utt); }
 function loadStory(k){speechSynthesis.cancel(); build(STORIES[k]);pausedAtIndex=0; 
 active=null;isPausedForDict=false; 
 isManualPause=false; 
-resultBox.innerHTML='<span class="hint">Kattints egy szóra, vagy keress fent</span>'; 
+resultBox.innerHTML='<span class="hint">Kattints egy szóra, a teljes mondatért duplán, vagy keress fent</span>'; 
 dictSearch.value="";}
 Object.keys(STORIES).forEach(k=>{let o=document.createElement('option'); 
 o.value=k;o.textContent=k;storySelect.appendChild(o);}); 
