@@ -4,124 +4,93 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hangos Könyv</title>
 <style>
-body{max-width:700px;margin:20px auto;padding:10px;padding-bottom:120px;
-	 font-family:sans-serif;
-	 background:linear-gradient(135deg,#7cf2a1 0%,#91e5fa 100%);line-height:1.6}
-#storyBox{border-radius:10px;border:8px solid #e8efaf;padding:20px;font-size:18px;
-		  line-height:2;white-space:pre-wrap;
-          min-height:400px;max-height:500px;background:linear-gradient(120deg,#94f8c8,#a8e9f5 80%);
-          box-shadow:0 10px 30px rgba(0,0,0,.25);overflow-y:auto}
-.word{padding:2px 1px;
-	  border-radius:8px;
-      cursor:pointer}
-.word.active{background:#fac97d;
-			 text-decoration:underline dotted}
-.controls{position:
-	fixed;
-	top:15px;
-left:50%;
-		  transform:translateX(-50%);
-background:#222;padding:10px;
-border-radius:30px;
- display:flex;gap:8px;z-index:100}
-.controls button{border:none;padding:10px 14px;
-                 border-radius:20px;
-                 background:white;
-                 font-weight:bold;
-                 cursor:pointer}
-.controls button:disabled{opacity:.3}
-.controls button.active-accent{
-  background:#ffeb3b}
-select{width:100%;
-       padding:8px;
-       margin-bottom:10px;
-       border-radius:10px;
-       font-size:18px}
-#status{margin:8px 0;
-        color:#555;
-        font-size:14px}
-#dictLog{margin-top:12px;
-         padding:12px 14px;
-         background:#fff8c4;border-radius:10px;min-height:24px;font-size:18px;box-shadow:0 10px 28px rgba(0,0,0,.28);display:none;position:sticky;bottom:90px;z-index:50}
-@media(max-width:600px){#storyBox{max-height:60vh;font-size:17px}}
+ body{max-width:700px;margin:20px auto;padding:10px;padding-bottom:130px;font-family:sans-serif;
+ /*background:linear-gradient(135deg,#7cf2a1 0%,#91e5fa 100%);line-height:1.6}*/
+ background:#efeee5}
+ #storyBox{border-radius:10px;
+ border:8px solid #d6d7c7;
+ padding:20px;font-size:18px;
+ line-height:2;white-space:pre-wrap;
+ min-height:400px;max-height:55vh;
+ background:linear-gradient(120deg,#94f8c8,#a8e9f5 80%);
+ box-shadow:0 10px 30px rgba(0,0,0,.25);
+ overflow-y:auto}
+ .word{padding:2px 1px;
+ border-radius:4px;
+ cursor:pointer} 
+ .word.active{background:#e6d486;
+ text-decoration:underline dotted}
+ .controls{position:fixed;top:15px;left:50%;transform:translateX(-50%);background:#222;padding:10px;border-radius:30px;display:flex;gap:8px;z-index:100}
+ .controls button{border:none;padding:10px 14px;border-radius:20px;background:white;font-weight:bold;cursor:pointer}
+ .controls button:disabled{opacity:.3} .controls button.active-accent{background:#ffeb3b}
+ select{width:100%;padding:8px;margin-bottom:10px;border-radius:10px;font-size:18px}
+ #status{margin:8px 0;color:#555;font-size:14px}
+ #resultBox{margin-top:12px;padding:12px 14px;background:#fff8c4;border-radius:10px;min-height:40px;font-size:18px;box-shadow:0 10px 28px rgba(0,0,0,.28);position:sticky;bottom:10px;z-index:50}
+ #dictSearch{width:100%;padding:10px;margin:10px 0;border-radius:10px;border:2px solid #e8efaf;font-size:16px;box-sizing:border-box}
+ .hint{color:#777;font-size:14px}
 </style>
-<link rel="manifest" href="./manifest.json">
-
 </head>
 <body>
 <h3>Hangos Könyv</h3>
 <select id="storySelect"></select>
+<input type="text" id="dictSearch" placeholder="Keresés angol szóra... pl: went">
 <div id="storyBox"></div>
 <div id="status"></div>
-<div id="dictLog"></div>
+<div id="resultBox"><span class="hint">Kattints egy szóra, vagy keress fent</span></div>
 <div class="controls"><button id="playBtn">▶️</button><button id="pauseBtn" disabled>⏸️</button><button id="stopBtn" disabled>⏹️</button><button id="gbBtn" class="active-accent">GB</button><button id="usBtn">US</button></div>
 
-  
 <script src="js/stories.js"></script>
-
 <script src="js/szotar.js"></script>
-
 <script>
-const storySelect=document.getElementById('storySelect'),storyBox=document.getElementById('storyBox'),status=document.getElementById('status'),gbBtn=document.getElementById('gbBtn'),usBtn=document.getElementById('usBtn'),dictLog=document.getElementById('dictLog');
+const storySelect=document.getElementById('storySelect'),storyBox=document.getElementById('storyBox'),status=document.getElementById('status'),gbBtn=document.getElementById('gbBtn'),usBtn=document.getElementById('usBtn'),resultBox=document.getElementById('resultBox'),dictSearch=document.getElementById('dictSearch');
 let voices=[],voiceGB=null,voiceUS=null,currentAccent='en-GB',currentVoice=null;
-function loadVoices(){voices=speechSynthesis.getVoices();
-voiceGB=voices.find(v=>v.lang==='en-GB')||voices.find(v=>v.lang.startsWith('en'))||null;voiceUS=voices.find(v=>v.lang==='en-US')||voices.find(v=>v.lang.startsWith('en'))||null;setAccent(currentAccent);}
-function setAccent(a){currentAccent=a;currentVoice=a==='en-GB'?voiceGB:voiceUS;gbBtn.classList.toggle('active-accent',a==='en-GB');
-usBtn.classList.toggle('active-accent',a==='en-US');status.textContent=a+(currentVoice?' - '+currentVoice.name:'');}
+function loadVoices(){voices=speechSynthesis.getVoices();voiceGB=voices.find(v=>v.lang==='en-GB')||voices.find(v=>v.lang.startsWith('en'))||null; voiceUS=voices.find(v=>v.lang==='en-US')||voices.find(v=>v.lang.startsWith('en'))||null; setAccent(currentAccent); }
+function setAccent(a){currentAccent=a; currentVoice=a==='en-GB'?voiceGB:voiceUS;gbBtn.classList.toggle('active-accent',a==='en-GB'); usBtn.classList.toggle('active-accent',a==='en-US');status.textContent=a+(currentVoice?' - '+currentVoice.name:''); }
 loadVoices();speechSynthesis.onvoiceschanged=loadVoices;
-gbBtn.onclick=()=>{setAccent('en-GB');
-if(speechSynthesis.speaking){speechSynthesis.cancel();speakFrom(pausedAtIndex);}};
-usBtn.onclick=()=>{setAccent('en-US');
-if(speechSynthesis.speaking){speechSynthesis.cancel();speakFrom(pausedAtIndex);}};
+gbBtn.onclick=()=>{setAccent('en-GB'); if(speechSynthesis.speaking){speechSynthesis.cancel(); speakFrom(pausedAtIndex);} };
+usBtn.onclick=()=>{setAccent('en-US'); if(speechSynthesis.speaking){speechSynthesis.cancel(); speakFrom(pausedAtIndex);} };
 let words=[],spans=[],active=null,pausedAtIndex=0,isPausedForDict=false,fullText='',isManualPause=false,sentences=[];
 function normalizeKey(s){return s.toLowerCase().replace(/['’`]/g,'').replace(/[-–—]/g,' ').replace(/[^a-z\s]/g,' ').replace(/\s+/g,' ').trim();}
-const NORM_DICT={};Object.entries(HU_DICT).forEach(([k,v])=>{NORM_DICT[normalizeKey(k)]=v;});
-function findPhraseAt(i,max=5){for(let len=max;len>=1;len--){for(let st=Math.max(0,i-len+1);st<=i;st++){if(st+len>words.length)continue;let sl=words.slice(st,st+len).map(w=>w.clean).join(' ');let n=normalizeKey(sl);if(NORM_DICT[n]){if(sl.split(' ').length>6&&sentences.some(s=>s.norm===n))continue;return{data:NORM_DICT[n],start:st,end:st+len-1,phrase:words.slice(st,st+len).map(w=>w.text).join(' ')}}} }return null;}
+const NORM_DICT={}; Object.entries(HU_DICT).forEach(([k,v])=>{NORM_DICT[normalizeKey(k)]=v;});
+function findPhraseAt(i,max=5){for(let len=max;len>=1; len--){for(let st=Math.max(0,i-len+1); st<=i;st++){if(st+len>words.length)continue; let sl=words.slice(st,st+len).map(w=>w.clean).join(' '); let n=normalizeKey(sl); if(NORM_DICT[n]){if(len>1 && sentences.some(s=>s.norm===n))continue; return{data:NORM_DICT[n], phrase:sl, start:st, end:st+len-1};}}} return null;}
 function clearActive(){spans.forEach(s=>s.classList.remove('active'));}
-function build(text){fullText=text;words=[];sentences=[];let tf=text.replace(/[-–—]/g,' ');let re=/\S+/g,m;while((m=re.exec(tf))!==null){let orig=text.substring(m.index,m.index+m[0].length);let cl=normalizeKey(m[0]);if(cl)words.push({text:orig,start:m.index,end:m.index+m[0].length,clean:cl});}let sr=/[^.!?]+[.!?]+/g,sm;while((sm=sr.exec(text))!==null){sentences.push({text:sm[0],start:sm.index,end:sm.index+sm[0].length,norm:normalizeKey(sm[0])});}if(!sentences.length&&text.trim())sentences.push({text:text,start:0,end:text.length,norm:normalizeKey(text)});let last=0,html='';words.forEach((w,i)=>{html+=text.substring(last,w.start);html+=`<span class="word" data-i="${i}">${w.text}</span>`;last=w.end;});html+=text.substring(last);storyBox.innerHTML=html;spans=storyBox.querySelectorAll('.word');spans.forEach(s=>{s.addEventListener('mouseenter',()=>{let idx=+s.dataset.i;let f=findPhraseAt(idx,4);clearActive();if(!f){spans[idx].classList.add('active');return;}for(let k=f.start;k<=f.end;k++)spans[k].classList.add('active');});s.addEventListener('mouseleave',()=>{if(!isPausedForDict)clearActive();});
-s.addEventListener('click',()=>{let idx=+s.dataset.i;let f=findPhraseAt(idx,2);
-if(!f){showSent(idx);return;}if(speechSynthesis.speaking){speechSynthesis.cancel();isPausedForDict=true;pausedAtIndex=f.start;}
-clearActive();for(let k=f.start;k<=f.end;k++)spans[k].classList.add('active');let t=typeof f.data==='string'?f.data:f.data.map(v=>v.hu).join(' | ');dictLog.textContent=f.phrase+' → '+t;dictLog.style.display='block';});});}
-function showSent(i){let cp=words[i]?.start??0;let sent=sentences.find(s=>cp>=s.start&&cp<s.end);if(sent&&NORM_DICT[sent.norm]){let h=typeof NORM_DICT[sent.norm]==='string'?NORM_DICT[sent.norm]:NORM_DICT[sent.norm].map(v=>v.hu).join(' | ');dictLog.textContent=h;dictLog.style.display='block';}}
-function speakFrom(idx){if(idx>=words.length)return;showSent(idx);
-let utt=new SpeechSynthesisUtterance(fullText.substring(words[idx].start));utt.lang=currentAccent;if(currentVoice)utt.voice=currentVoice;utt.rate=0.9;let lastS=-1;utt.onboundary=e=>{if(e.name!=='word'||isPausedForDict||isManualPause)return;let abs=e.charIndex+words[idx].start;for(let i=idx;i<words.length;i++){if(abs>=words[i].start&&abs<words[i].end){clearActive();
-spans[i].classList.add('active');spans[i].scrollIntoView({block:'nearest',behavior:'smooth'});
-active=i;pausedAtIndex=i;
-let s=sentences.find(s=>abs>=s.start&&abs<s.end);if(s&&s.start!==lastS){lastS=s.start;if(NORM_DICT[s.norm]){let h=typeof NORM_DICT[s.norm]==='string'?NORM_DICT[s.norm]:NORM_DICT[s.norm].map(v=>v.hu).join(' | ');
-dictLog.textContent=h;dictLog.style.display='block';}}break;}}};
-utt.onstart=()=>{pauseBtn.disabled=false;stopBtn.disabled=false;};utt.onend=()=>{clearActive();active=null;};speechSynthesis.speak(utt);}
-function loadStory(k){speechSynthesis.cancel();build(STORIES[k]);pausedAtIndex=0;active=null;isPausedForDict=false;isManualPause=false;dictLog.style.display='none';}
-Object.keys(STORIES).forEach(k=>{let o=document.createElement('option');o.value=k;o.textContent=k;storySelect.appendChild(o);});
-loadStory(Object.keys(STORIES)[0]);
-storySelect.onchange=e=>loadStory(e.target.value);
-playBtn.onclick=()=>{speechSynthesis.cancel();isPausedForDict=false;isManualPause=false;if(active===null)pausedAtIndex=0;speakFrom(pausedAtIndex);};
-pauseBtn.onclick=e=>{if(speechSynthesis.speaking){speechSynthesis.cancel();isManualPause=true;e.target.textContent='▶️';}else{isManualPause=false;e.target.textContent='⏸️';speakFrom(pausedAtIndex);}};
-stopBtn.onclick=()=>{speechSynthesis.cancel();isPausedForDict=false;isManualPause=false;clearActive();active=null;pausedAtIndex=0;pauseBtn.textContent='⏸️';dictLog.style.display='none';};
-document.addEventListener("mousemove", function (e) 
-{ // Ha az egér Y koordinátája nagyon kicsi (pl. 5px alatt), akkor felfelé távozik 
-if (e.clientY < 3) 
-{ 
-alert("🥹 El szeretnéd hagyni az oldalt? 🥹"); 
-onClick:window.close()
-} 
+function build(text){fullText=text; words=[]; sentences=[]; let tf=text.replace(/[-–—]/g,' '); let re=/\S+/g,m; while((m=re.exec(tf))!==null){let orig=text.substring(m.index,m.index+m[0].length); let cl=normalizeKey(m[0]); if(cl)words.push({text:orig,start:m.index,end:m.index+m[0].length,clean:cl});} let sr=/[^.!?]+[.!?]+/g,sm; while((sm=sr.exec(text))!==null){sentences.push({text:sm[0],start:sm.index,end:sm.index+sm[0].length,norm:normalizeKey(sm[0])});} if(!sentences.length&&text.trim())sentences.push({text:text,start:0,end:text.length,norm:normalizeKey(text)}); let last=0,html=''; words.forEach((w,i)=>{html+=text.substring(last,w.start);html+=`<span class="word" data-i="${i}">${w.text}</span>`; last=w.end;}); html+=text.substring(last); storyBox.innerHTML=html; spans=storyBox.querySelectorAll('.word');
+ spans.forEach(s=>{
+  s.addEventListener('mouseenter',()=>{let idx=+s.dataset.i; let f=findPhraseAt(idx,4); clearActive(); if(!f){spans[idx].classList.add('active');} else {for(let k=f.start;k<=f.end;k++)spans[k].classList.add('active');}});
+  s.addEventListener('mouseleave',()=>{if(!isPausedForDict)clearActive();});
+  s.addEventListener('click',()=>{let idx=+s.dataset.i; let f=findPhraseAt(idx,5); clearActive(); if(!f){showSent(idx); spans[idx].classList.add('active');}else{for(let k=f.start;k<=f.end;k++)spans[k].classList.add('active'); let t=typeof f.data==='string'?f.data:f.data.map(v=>v.hu).join(' | '); resultBox.textContent=f.phrase+' → '+t;} if(speechSynthesis.speaking){speechSynthesis.cancel(); isPausedForDict=true; pausedAtIndex=f?f.start:idx;}});
+  s.addEventListener('dblclick',()=>{let idx=+s.dataset.i; clearActive(); spans[idx].classList.add('active'); showSent(idx);});
+ });
+}
+function showSent(i){let cp=words[i]?.start??0; let sent=sentences.find(s=>cp>=s.start&&cp<s.end); let idxClean=words[i]?.clean; let out=""; if(sent&&NORM_DICT[sent.norm]){let h=typeof NORM_DICT[sent.norm]==='string'?NORM_DICT[sent.norm]:NORM_DICT[sent.norm].map(v=>v.hu).join(' | '); out=h;} if(NORM_DICT[idxClean]){let w=typeof NORM_DICT[idxClean]==='string'?NORM_DICT[idxClean]:NORM_DICT[idxClean].map(v=>v.hu).join(' | '); out = out ? words[i].text+" = "+w+" | "+out : words[i].text+" = "+w;} if(out){resultBox.textContent=out;}}
 
-});
-document.addEventListener('contextmenu', function(event) {
-    // Megakadályozza az esemény alapértelmezett cselekvését (pl. contextmenü megjelenítése)
-    event.preventDefault(); 
-    console.log("A jobb klikk le lett tiltva ezen a weboldalon.");
-	//alert("🚫 Do you want to exit?");
-	onClick:window.close()
-
+function buildDictList(filter=""){
+  if(!filter.trim()){resultBox.innerHTML='<span class="hint">Kattints egy szóra, vagy keress fent</span>'; return;}
+  let f=normalizeKey(filter);
+  let key=Object.keys(HU_DICT).find(k=>normalizeKey(k)===f);
+  if(!key){ key=Object.keys(HU_DICT).find(k=>normalizeKey(k).includes(f)); }
+  if(key){
+    let hu=HU_DICT[key]; let tr=typeof hu==='string'?hu:hu.map(v=>v.hu).join(' | ');
+    resultBox.textContent=key+" = "+tr;
+  } else {
+    resultBox.textContent="Nincs találat: "+filter;
+  }
+}
+dictSearch.addEventListener('input',e=>buildDictList(e.target.value));
+// enterre felolvas
+dictSearch.addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    let t=dictSearch.value.trim(); if(!t)return;
+    let u=new SpeechSynthesisUtterance(t); u.lang=currentAccent; if(currentVoice)u.voice=currentVoice; speechSynthesis.speak(u);
+  }
 });
 
-document.addEventListener('keydown', function(event) {
-            if (event.ctrlKey && event.keyCode == 67) {
-                event.preventDefault();
-alert("Do you want to exit?");
-window.close();
-            }
-        });
+function speakFrom(idx){if(idx>=words.length)return;showSent(idx); let utt=new SpeechSynthesisUtterance(fullText.substring(words[idx].start)); utt.lang=currentAccent; if(currentVoice)utt.voice=currentVoice;utt.rate=0.9; let lastS=-1;utt.onboundary=e=>{if(e.name!=='word'||isPausedForDict||isManualPause)return; let abs=e.charIndex+words[idx].start;for(let i=idx;i<words.length;i++){if(abs>=words[i].start&&abs<words[i].end){clearActive();spans[i].classList.add('active');spans[i].scrollIntoView({block:'nearest',behavior:'smooth'}); active=i;pausedAtIndex=i;let s=sentences.find(s=>abs>=s.start&&abs<s.end);if(s&&s.start!==lastS){lastS=s.start; if(NORM_DICT[s.norm]){let h=typeof NORM_DICT[s.norm]==='string'?NORM_DICT[s.norm]:NORM_DICT[s.norm].map(v=>v.hu).join(' | '); resultBox.textContent=h;}}break;}}}; utt.onstart=()=>{pauseBtn.disabled=false;stopBtn.disabled=false;}; utt.onend=()=>{clearActive();active=null;}; speechSynthesis.speak(utt); }
+function loadStory(k){speechSynthesis.cancel(); build(STORIES[k]);pausedAtIndex=0; active=null;isPausedForDict=false; isManualPause=false; resultBox.innerHTML='<span class="hint">Kattints egy szóra, vagy keress fent</span>'; dictSearch.value="";}
+Object.keys(STORIES).forEach(k=>{let o=document.createElement('option'); o.value=k;o.textContent=k;storySelect.appendChild(o);}); loadStory(Object.keys(STORIES)[0]); storySelect.onchange=e=>loadStory(e.target.value);
+playBtn.onclick=()=>{speechSynthesis.cancel(); isPausedForDict=false; isManualPause=false; if(active===null)pausedAtIndex=0; speakFrom(pausedAtIndex);};
+pauseBtn.onclick=e=>{if(speechSynthesis.speaking){speechSynthesis.cancel(); isManualPause=true;e.target.textContent='▶️'; }else {isManualPause=false;e.target.textContent='⏸️';speakFrom(pausedAtIndex);}};
+stopBtn.onclick=()=>{speechSynthesis.cancel();isPausedForDict=false;isManualPause=false; clearActive(); active=null; pausedAtIndex=0; pauseBtn.textContent='⏸️'; resultBox.innerHTML='<span class="hint">Kattints egy szóra, vagy keress fent</span>';};
 </script>
 </body>
 </html>
