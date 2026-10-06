@@ -12,7 +12,7 @@
  padding:20px;font-size:18px;
  line-height:2;white-space:pre-wrap;
  min-height:400px;max-height:55vh;
- background:linear-gradient(120deg,#94f8c8,#a8e9f5 80%);
+ background:linear-gradient(120deg,#c7fae2,#a8e9f5 80%);
  box-shadow:0 10px 30px rgba(0,0,0,.25);
  overflow-y:auto}
  .word{padding:2px 1px;
@@ -52,17 +52,63 @@ usBtn.onclick=()=>{setAccent('en-US'); if(speechSynthesis.speaking){speechSynthe
 let words=[],spans=[],active=null,pausedAtIndex=0,isPausedForDict=false,fullText='',isManualPause=false,sentences=[];
 function normalizeKey(s){return s.toLowerCase().replace(/['’`]/g,'').replace(/[-–—]/g,' ').replace(/[^a-z\s]/g,' ').replace(/\s+/g,' ').trim();}
 const NORM_DICT={}; Object.entries(HU_DICT).forEach(([k,v])=>{NORM_DICT[normalizeKey(k)]=v;});
-function findPhraseAt(i,max=5){for(let len=max;len>=1; len--){for(let st=Math.max(0,i-len+1); st<=i;st++){if(st+len>words.length)continue; let sl=words.slice(st,st+len).map(w=>w.clean).join(' '); let n=normalizeKey(sl); if(NORM_DICT[n]){if(len>1 && sentences.some(s=>s.norm===n))continue; return{data:NORM_DICT[n], phrase:sl, start:st, end:st+len-1};}}} return null;}
-function clearActive(){spans.forEach(s=>s.classList.remove('active'));}
-function build(text){fullText=text; words=[]; sentences=[]; let tf=text.replace(/[-–—]/g,' '); let re=/\S+/g,m; while((m=re.exec(tf))!==null){let orig=text.substring(m.index,m.index+m[0].length); let cl=normalizeKey(m[0]); if(cl)words.push({text:orig,start:m.index,end:m.index+m[0].length,clean:cl});} let sr=/[^.!?]+[.!?]+/g,sm; while((sm=sr.exec(text))!==null){sentences.push({text:sm[0],start:sm.index,end:sm.index+sm[0].length,norm:normalizeKey(sm[0])});} if(!sentences.length&&text.trim())sentences.push({text:text,start:0,end:text.length,norm:normalizeKey(text)}); let last=0,html=''; words.forEach((w,i)=>{html+=text.substring(last,w.start);html+=`<span class="word" data-i="${i}">${w.text}</span>`; last=w.end;}); html+=text.substring(last); storyBox.innerHTML=html; spans=storyBox.querySelectorAll('.word');
+function findPhraseAt(i,max=5){for(let len=max;len>=1; len--){for(let st=Math.max(0,i-len+1); st<=i;st++){if(st+len>words.length)continue; 
+let sl=words.slice(st,st+len).map(w=>w.clean).join(' '); 
+let n=normalizeKey(sl); if(NORM_DICT[n]){if(len>1 && sentences.some(s=>s.norm===n))continue;
+return{data:NORM_DICT[n], phrase:sl, start:st, end:st+len-1};
+}}} return null;}
+function clearActive(){spans.forEach(s=>s.classList.remove('active'));
+}
+function build(text){fullText=text; words=[]; 
+sentences=[]; let tf=text.replace(/[-–—]/g,' ');
+let re=/\S+/g,m; while((m=re.exec(tf))!==null){
+let orig=text.substring(m.index,m.index+m[0].length); 
+let cl=normalizeKey(m[0]); 
+if(cl)words.push({text:orig,start:m.index,end:m.index+m[0].length,clean:cl});} 
+let sr=/[^.!?]+[.!?]+/g,sm; while((sm=sr.exec(text))!==null){
+sentences.push({text:sm[0],start:sm.index,end:sm.index+sm[0].length,norm:normalizeKey(sm[0])});} 
+if(!sentences.length&&text.trim())sentences.push({text:text,start:0,end:text.length,norm:normalizeKey(text)}); 
+let last=0,html=''; words.forEach((w,i)=>{html+=text.substring(last,w.start);
+html+=`<span class="word" data-i="${i}">${w.text}</span>`; last=w.end;}); 
+html+=text.substring(last); storyBox.innerHTML=html; spans=storyBox.querySelectorAll('.word');
  spans.forEach(s=>{
-  s.addEventListener('mouseenter',()=>{let idx=+s.dataset.i; let f=findPhraseAt(idx,4); clearActive(); if(!f){spans[idx].classList.add('active');} else {for(let k=f.start;k<=f.end;k++)spans[k].classList.add('active');}});
+  s.addEventListener('mouseenter',()=>{let idx=+s.dataset.i; 
+  let f=findPhraseAt(idx,4); clearActive(); if(!f){spans[idx].classList.add('active');
+  } else 
+  {for(let k=f.start;k<=f.end;k++)spans[k].classList.add('active');
+  }});
   s.addEventListener('mouseleave',()=>{if(!isPausedForDict)clearActive();});
-  s.addEventListener('click',()=>{let idx=+s.dataset.i; let f=findPhraseAt(idx,5); clearActive(); if(!f){showSent(idx); spans[idx].classList.add('active');}else{for(let k=f.start;k<=f.end;k++)spans[k].classList.add('active'); let t=typeof f.data==='string'?f.data:f.data.map(v=>v.hu).join(' | '); resultBox.textContent=f.phrase+' → '+t;} if(speechSynthesis.speaking){speechSynthesis.cancel(); isPausedForDict=true; pausedAtIndex=f?f.start:idx;}});
-  s.addEventListener('dblclick',()=>{let idx=+s.dataset.i; clearActive(); spans[idx].classList.add('active'); showSent(idx);});
+  s.addEventListener('click',()=>{let idx=+s.dataset.i; 
+  let f=findPhraseAt(idx,5); clearActive(); 
+  if(!f){showSent(idx); spans[idx].classList.add('active');
+  }else
+  {for(let k=f.start;k<=f.end;k++)spans[k].classList.add('active'); 
+  let t=typeof f.data==='string'?f.data:f.data.map(v=>v.hu).join(' | '); 
+  resultBox.innerHTML = `${f.phrase} [ <b style="color:#2f33d3">${t}</b> ]`;}
+  //resultBox.textContent=f.phrase+' [ ' +t+ ' ]';} 
+  if(speechSynthesis.speaking){speechSynthesis.cancel(); 
+  isPausedForDict=true; pausedAtIndex=f?f.start:idx;}});
+  
+ // s.addEventListener('dblclick',()=>{let idx=+s.dataset.i; clearActive(); spans[idx].classList.add('active'); 
+  
+ // showSent(idx);});
+ s.addEventListener('dblclick',()=>{
+  let idx=+s.dataset.i;
+  clearActive();
+  spans[idx].classList.add('active');
+  showSent(idx);
+});
  });
 }
-function showSent(i){let cp=words[i]?.start??0; let sent=sentences.find(s=>cp>=s.start&&cp<s.end); let idxClean=words[i]?.clean; let out=""; if(sent&&NORM_DICT[sent.norm]){let h=typeof NORM_DICT[sent.norm]==='string'?NORM_DICT[sent.norm]:NORM_DICT[sent.norm].map(v=>v.hu).join(' | '); out=h;} if(NORM_DICT[idxClean]){let w=typeof NORM_DICT[idxClean]==='string'?NORM_DICT[idxClean]:NORM_DICT[idxClean].map(v=>v.hu).join(' | '); out = out ? words[i].text+" = "+w+" | "+out : words[i].text+" = "+w;} if(out){resultBox.textContent=out;}}
+function showSent(i){let cp=words[i]?.start??0; 
+let sent=sentences.find(s=>cp>=s.start&&cp<s.end); 
+let idxClean=words[i]?.clean; let out=""; 
+if(sent&&NORM_DICT[sent.norm]){
+let h=typeof NORM_DICT[sent.norm]==='string'?NORM_DICT[sent.norm]:NORM_DICT[sent.norm].map(v=>v.hu).join(' | '); 
+out=h;} if(NORM_DICT[idxClean]){
+let w=typeof NORM_DICT[idxClean]==='string'?NORM_DICT[idxClean]:NORM_DICT[idxClean].map(v=>v.hu).join(' ] '); 
+out = out ? words[i].text+" -[ "+w+ " ]- " +out : words[i].text+" = "+w;} 
+if(out){resultBox.textContent=out;}}
 
 function buildDictList(filter=""){
   if(!filter.trim()){resultBox.innerHTML='<span class="hint">Kattints egy szóra, vagy keress fent</span>'; return;}
@@ -70,8 +116,9 @@ function buildDictList(filter=""){
   let key=Object.keys(HU_DICT).find(k=>normalizeKey(k)===f);
   if(!key){ key=Object.keys(HU_DICT).find(k=>normalizeKey(k).includes(f)); }
   if(key){
-    let hu=HU_DICT[key]; let tr=typeof hu==='string'?hu:hu.map(v=>v.hu).join(' | ');
-    resultBox.textContent=key+" = "+tr;
+    let hu=HU_DICT[key]; 
+    let tr=typeof hu==='string'?hu:hu.map(v=>v.hu).join(' | ');
+    resultBox.textContent=key+" ="+tr;
   } else {
     resultBox.textContent="Nincs találat: "+filter;
   }
@@ -80,17 +127,53 @@ dictSearch.addEventListener('input',e=>buildDictList(e.target.value));
 // enterre felolvas
 dictSearch.addEventListener('keydown',e=>{
   if(e.key==='Enter'){
-    let t=dictSearch.value.trim(); if(!t)return;
-    let u=new SpeechSynthesisUtterance(t); u.lang=currentAccent; if(currentVoice)u.voice=currentVoice; speechSynthesis.speak(u);
+    let t=dictSearch.value.trim(); 
+    if(!t)return;
+    let u=new SpeechSynthesisUtterance(t); u.lang=currentAccent; 
+    if(currentVoice)u.voice=currentVoice; speechSynthesis.speak(u);
   }
 });
 
-function speakFrom(idx){if(idx>=words.length)return;showSent(idx); let utt=new SpeechSynthesisUtterance(fullText.substring(words[idx].start)); utt.lang=currentAccent; if(currentVoice)utt.voice=currentVoice;utt.rate=0.9; let lastS=-1;utt.onboundary=e=>{if(e.name!=='word'||isPausedForDict||isManualPause)return; let abs=e.charIndex+words[idx].start;for(let i=idx;i<words.length;i++){if(abs>=words[i].start&&abs<words[i].end){clearActive();spans[i].classList.add('active');spans[i].scrollIntoView({block:'nearest',behavior:'smooth'}); active=i;pausedAtIndex=i;let s=sentences.find(s=>abs>=s.start&&abs<s.end);if(s&&s.start!==lastS){lastS=s.start; if(NORM_DICT[s.norm]){let h=typeof NORM_DICT[s.norm]==='string'?NORM_DICT[s.norm]:NORM_DICT[s.norm].map(v=>v.hu).join(' | '); resultBox.textContent=h;}}break;}}}; utt.onstart=()=>{pauseBtn.disabled=false;stopBtn.disabled=false;}; utt.onend=()=>{clearActive();active=null;}; speechSynthesis.speak(utt); }
-function loadStory(k){speechSynthesis.cancel(); build(STORIES[k]);pausedAtIndex=0; active=null;isPausedForDict=false; isManualPause=false; resultBox.innerHTML='<span class="hint">Kattints egy szóra, vagy keress fent</span>'; dictSearch.value="";}
-Object.keys(STORIES).forEach(k=>{let o=document.createElement('option'); o.value=k;o.textContent=k;storySelect.appendChild(o);}); loadStory(Object.keys(STORIES)[0]); storySelect.onchange=e=>loadStory(e.target.value);
-playBtn.onclick=()=>{speechSynthesis.cancel(); isPausedForDict=false; isManualPause=false; if(active===null)pausedAtIndex=0; speakFrom(pausedAtIndex);};
-pauseBtn.onclick=e=>{if(speechSynthesis.speaking){speechSynthesis.cancel(); isManualPause=true;e.target.textContent='▶️'; }else {isManualPause=false;e.target.textContent='⏸️';speakFrom(pausedAtIndex);}};
-stopBtn.onclick=()=>{speechSynthesis.cancel();isPausedForDict=false;isManualPause=false; clearActive(); active=null; pausedAtIndex=0; pauseBtn.textContent='⏸️'; resultBox.innerHTML='<span class="hint">Kattints egy szóra, vagy keress fent</span>';};
+function speakFrom(idx){if(idx>=words.length)return;
+showSent(idx); 
+let utt=new SpeechSynthesisUtterance(fullText.substring(words[idx].start)); 
+utt.lang=currentAccent; 
+if(currentVoice)utt.voice=currentVoice;utt.rate=0.75; 
+let lastS=-1;utt.onboundary=e=>{if(e.name!=='word'||isPausedForDict||isManualPause)return; 
+let abs=e.charIndex+words[idx].start;
+for(let i=idx;i<words.length;i++){if(abs>=words[i].start&&abs<words[i].end){clearActive();spans[i].classList.add('active');spans[i].scrollIntoView({block:'nearest',behavior:'smooth'}); 
+active=i;pausedAtIndex=i;let s=sentences.find(s=>abs>=s.start&&abs<s.end);if(s&&s.start!==lastS){lastS=s.start; 
+if(NORM_DICT[s.norm]){let h=typeof NORM_DICT[s.norm]==='string'?NORM_DICT[s.norm]:NORM_DICT[s.norm].map(v=>v.hu).join(' | '); 
+resultBox.textContent=h;}}break;}}}; utt.onstart=()=>{pauseBtn.disabled=false;stopBtn.disabled=false;}; utt.onend=()=>{clearActive();
+active=null;}; 
+speechSynthesis.speak(utt); }
+function loadStory(k){speechSynthesis.cancel(); build(STORIES[k]);pausedAtIndex=0; 
+active=null;isPausedForDict=false; 
+isManualPause=false; 
+resultBox.innerHTML='<span class="hint">Kattints egy szóra, vagy keress fent</span>'; 
+dictSearch.value="";}
+Object.keys(STORIES).forEach(k=>{let o=document.createElement('option'); 
+o.value=k;o.textContent=k;storySelect.appendChild(o);}); 
+loadStory(Object.keys(STORIES)[0]); 
+storySelect.onchange=e=>loadStory(e.target.value);
+playBtn.onclick=()=>{speechSynthesis.cancel(); 
+isPausedForDict=false; isManualPause=false; 
+if(active===null)pausedAtIndex=0; 
+speakFrom(pausedAtIndex);};
+pauseBtn.onclick=e=>{if(speechSynthesis.speaking){speechSynthesis.cancel(); 
+isManualPause=true;e.target.textContent='▶️'; 
+}else 
+{isManualPause=false;e.target.textContent='⏸️';
+speakFrom(pausedAtIndex);
+}};
+stopBtn.onclick=()=>{speechSynthesis.cancel();
+isPausedForDict=false;
+isManualPause=false; 
+clearActive(); 
+active=null; 
+pausedAtIndex=0; 
+pauseBtn.textContent='⏸️'; 
+resultBox.innerHTML='<span class="hint">Kattints egy szóra, vagy keress fent</span>';};
 </script>
 </body>
 </html>
