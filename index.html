@@ -98,18 +98,33 @@
 <script>
 const storySelect=document.getElementById('storySelect'),storyBox=document.getElementById('storyBox'),status=document.getElementById('status'),gbBtn=document.getElementById('gbBtn'),usBtn=document.getElementById('usBtn'),resultBox=document.getElementById('resultBox'),dictSearch=document.getElementById('dictSearch');
 let voices=[],voiceGB=null,voiceUS=null,currentAccent='en-GB',currentVoice=null;
-function loadVoices(){voices=speechSynthesis.getVoices();voiceGB=voices.find(v=>v.lang==='en-GB')||voices.find(v=>v.lang.startsWith('en'))||null; voiceUS=voices.find(v=>v.lang==='en-US')||voices.find(v=>v.lang.startsWith('en'))||null; setAccent(currentAccent); }
-function setAccent(a){currentAccent=a; currentVoice=a==='en-GB'?voiceGB:voiceUS;gbBtn.classList.toggle('active-accent',a==='en-GB'); 
+function loadVoices(){voices=speechSynthesis.getVoices();
+voiceGB=voices.find(v=>v.lang==='en-GB')||voices.find(v=>v.lang.startsWith('en'))||null; 
+voiceUS=voices.find(v=>v.lang==='en-US')||voices.find(v=>v.lang.startsWith('en'))||null; 
+setAccent(currentAccent); }
+function setAccent(a){currentAccent=a; currentVoice=a==='en-GB'?voiceGB:voiceUS;
+gbBtn.classList.toggle('active-accent',a==='en-GB'); 
 usBtn.classList.toggle('active-accent',a==='en-US');status.textContent=a+(currentVoice?' - '+currentVoice.name:''); }
 loadVoices();speechSynthesis.onvoiceschanged=loadVoices;
-gbBtn.onclick=()=>{setAccent('en-GB'); if(speechSynthesis.speaking){speechSynthesis.cancel(); speakFrom(pausedAtIndex);} };
-usBtn.onclick=()=>{setAccent('en-US'); if(speechSynthesis.speaking){speechSynthesis.cancel(); speakFrom(pausedAtIndex);} };
+gbBtn.onclick=()=>{setAccent('en-GB'); 
+if(speechSynthesis.speaking){speechSynthesis.cancel(); 
+speakFrom(pausedAtIndex);} };
+usBtn.onclick=()=>{setAccent('en-US'); 
+if(speechSynthesis.speaking){speechSynthesis.cancel(); 
+speakFrom(pausedAtIndex);} 
+};
 let words=[],spans=[],active=null,pausedAtIndex=0,isPausedForDict=false,fullText='',isManualPause=false,sentences=[];
 function normalizeKey(s){return s.toLowerCase().replace(/['’`]/g,'').replace(/[-–—]/g,' ').replace(/[^a-z\s]/g,' ').replace(/\s+/g,' ').trim();}
-const NORM_DICT={}; Object.entries(HU_DICT).forEach(([k,v])=>{NORM_DICT[normalizeKey(k)]=v;});
-function findPhraseAt(i,max=5){for(let len=max;len>=1; len--){for(let st=Math.max(0,i-len+1); st<=i;st++){if(st+len>words.length)continue; 
+const NORM_DICT={}; Object.entries(HU_DICT).forEach(([k,v])=>{NORM_DICT[normalizeKey(k)]=v;
+});
+
+function findPhraseAt(i,max=5){for(let len=max;len>=1; 
+len--){for(let st=Math.max(0,i-len+1); 
+st<=i;st++){if(st+len>words.length)continue; 
 let sl=words.slice(st,st+len).map(w=>w.clean).join(' '); 
-let n=normalizeKey(sl); if(NORM_DICT[n]){if(len>1 && sentences.some(s=>s.norm===n))continue;
+let n=normalizeKey(sl);
+
+if(NORM_DICT[n]){if(len>1 && sentences.some(s=>s.norm===n))continue;
 return{data:NORM_DICT[n], phrase:sl, start:st, end:st+len-1};
 }}} return null;}
 function clearActive(){spans.forEach(s=>s.classList.remove('active'));
@@ -123,27 +138,9 @@ let orig=text.substring(m.index,m.index+m[0].length);
 let cl=normalizeKey(m[0]); 
 if(cl)words.push({
 text:orig,start:m.index,end:m.index+m[0].length,clean:cl});} 
-let sr=/[^.!?]+[.!?]+/gs,sm; let raw=[];
-while((sm=sr.exec(text))!==null){raw.push({text:sm[0],start:sm.index,end:sm.index+sm[0].length});}
-// párbeszédek egyben tartása:?/-asked
-sentences=[];
-for(let j=0;j<raw.length;j++){
-  let cur=raw[j];
-  let next=raw[j+1];
-  if(next && /[?!]\s*$/.test(cur.text) && /^\s*[-–—]/.test(next.text)){
-    let merged={text:cur.text+next.text, start:cur.start, end:next.end};
-    sentences.push({text:merged.text,start:merged.start,end:merged.end,norm:normalizeKey(merged.text)});
-    j++; // átugorjuk a következőt
-  } else {
-    sentences.push({text:cur.text,start:cur.start,end:cur.end,norm:normalizeKey(cur.text)});
-  }
-}
-if(!sentences.length&&text.trim())sentences.push({text:text,start:0,end:text.length,norm:normalizeKey(text)});
-
-
-
-
-
+let sr=/[^.!?]+[.!?]+/g,sm; while((sm=sr.exec(text))!==null){
+sentences.push({text:sm[0],start:sm.index,end:sm.index+sm[0].length,norm:normalizeKey(sm[0])});
+} 
 if(!sentences.length&&text.trim())sentences.push({text:text,start:0,end:text.length,norm:normalizeKey(text)}); 
 let last=0,html=''; words.forEach((w,i)=>{html+=text.substring(last,w.start);
 html+=`<span class="word" data-i="${i}">${w.text}</span>`; last=w.end;}); 
@@ -177,42 +174,31 @@ html+=text.substring(last); storyBox.innerHTML=html; spans=storyBox.querySelecto
 });
  });
 }
-function showSent(i){
-  let cp=words[i]?.start??0;
-  let sent=sentences.find(s=>cp>=s.start&&cp<s.end);
-  if(!sent) return;
-  let idxClean=words[i]?.clean;
+function showSent(i){let cp=words[i]?.start??0; 
+let sent=sentences.find(s=>cp>=s.start&&cp<s.end); 
+let idxClean=words[i]?.clean; let out=""; 
+if(sent&&NORM_DICT[sent.norm]){
+let h=typeof NORM_DICT[sent.norm]==='string'?NORM_DICT[sent.norm]:NORM_DICT[sent.norm].map(v=>v.hu).join(' | '); 
+out=h;} if(NORM_DICT[idxClean]){
+let w=typeof NORM_DICT[idxClean]==='string'?NORM_DICT[idxClean]:NORM_DICT[idxClean].map(v=>v.hu).join(' ] '); 
+out = out ? words[i].text+" - [ "+w+ " ] - " +out : words[i].text+" = "+w;} 
+if(out){resultBox.textContent=out;}}
 
-  // 1. pontos mondat fordítás
-  let huSent = NORM_DICT[sent.norm];
-  let foundKey = sent.norm;
-
-  // 2. ha nem találja?! miatt, keresse tartalmazás alapján
-  if(!huSent){
-    let sNorm = sent.norm;
-    // keressük a leghosszabb kulcsot ami benne van a mondatban
-    let best="";
-    for(let k in NORM_DICT){
-      if(k.length>8 && (sNorm.includes(k) || k.includes(sNorm))){
-        if(k.length>best.length){ best=k; }
-      }
-    }
-    if(best){ huSent=NORM_DICT[best]; foundKey=best; }
-  }
-
-  let outHu = huSent? (typeof huSent==='string'?huSent:huSent.map(v=>v.hu).join(' | ')) : "";
-
-  if(NORM_DICT[idxClean]){
-    let w=typeof NORM_DICT[idxClean]==='string'?NORM_DICT[idxClean]:NORM_DICT[idxClean].map(v=>v.hu).join(' | ');
-    if(outHu){
-      resultBox.innerHTML = `${words[i].text} [ <b style="color:#2f33d3">${w}</b> ] | ${sent.text.trim()} [ <b style="color:#2f33d3">${outHu}</b> ]`;
-    } else {
-      resultBox.innerHTML = `${words[i].text} [ <b style="color:#2f33d3">${w}</b> ]`;
-    }
-  } else if(outHu) {
-    resultBox.innerHTML = `${sent.text.trim()} [ <b style="color:#2f33d3">${outHu}</b> ]`;
+function buildDictList(filter=""){
+  if(!filter.trim()){resultBox.innerHTML='<span class="hint">Kattints egy szóra, vagy keress fent</span>'; return;}
+  let f=normalizeKey(filter);
+  let key=Object.keys(HU_DICT).find(k=>normalizeKey(k)===f);
+  if(!key){ key=Object.keys(HU_DICT).find(k=>normalizeKey(k).includes(f)); }
+  if(key){
+    let hu=HU_DICT[key]; 
+    let tr=typeof hu==='string'?hu:hu.map(v=>v.hu).join(' | ');
+   resultBox.textContent=key+" - [ " +tr+ " ]";
+   
+  } else {
+    resultBox.textContent="Nincs találat: "+filter;
   }
 }
+dictSearch.addEventListener('input',e=>buildDictList(e.target.value));
 // enterre felolvas
 dictSearch.addEventListener('keydown',e=>{
   if(e.key==='Enter'){
@@ -227,13 +213,19 @@ function speakFrom(idx){if(idx>=words.length)return;
 showSent(idx); 
 let utt=new SpeechSynthesisUtterance(fullText.substring(words[idx].start)); 
 utt.lang=currentAccent; 
-if(currentVoice)utt.voice=currentVoice;utt.rate=0.75; 
-let lastS=-1;utt.onboundary=e=>{if(e.name!=='word'||isPausedForDict||isManualPause)return; 
+if(currentVoice)utt.voice=currentVoice;
+utt.rate=0.75; 
+let lastS=-1;
+utt.onboundary=e=>{if(e.name!=='word'||isPausedForDict||isManualPause)
+return; 
 let abs=e.charIndex+words[idx].start;
-for(let i=idx;i<words.length;i++){if(abs>=words[i].start&&abs<words[i].end){clearActive();spans[i].classList.add('active');spans[i].scrollIntoView({block:'nearest',behavior:'smooth'}); 
-active=i;pausedAtIndex=i;let s=sentences.find(s=>abs>=s.start&&abs<s.end);if(s&&s.start!==lastS){lastS=s.start; 
+for(let i=idx;i<words.length;i++){if(abs>=words[i].start&&abs<words[i].end){clearActive();spans[i].classList.add('active');
+spans[i].scrollIntoView({block:'nearest',behavior:'smooth'}); 
+active=i;pausedAtIndex=i;let s=sentences.find(s=>abs>=s.start&&abs<s.end);
+if(s&&s.start!==lastS){lastS=s.start; 
 if(NORM_DICT[s.norm]){let h=typeof NORM_DICT[s.norm]==='string'?NORM_DICT[s.norm]:NORM_DICT[s.norm].map(v=>v.hu).join(' | '); 
-resultBox.textContent=h;}}break;}}}; utt.onstart=()=>{pauseBtn.disabled=false;stopBtn.disabled=false;}; utt.onend=()=>{clearActive();
+resultBox.textContent=h;}}break;}}}; utt.onstart=()=>{pauseBtn.disabled=false;
+stopBtn.disabled=false;}; utt.onend=()=>{clearActive();
 active=null;}; 
 speechSynthesis.speak(utt); }
 function loadStory(k){speechSynthesis.cancel(); build(STORIES[k]);pausedAtIndex=0; 
@@ -246,7 +238,8 @@ o.value=k;o.textContent=k;storySelect.appendChild(o);});
 loadStory(Object.keys(STORIES)[0]); 
 storySelect.onchange=e=>loadStory(e.target.value);
 playBtn.onclick=()=>{speechSynthesis.cancel(); 
-isPausedForDict=false; isManualPause=false; 
+isPausedForDict=false;
+isManualPause=false; 
 if(active===null)pausedAtIndex=0; 
 speakFrom(pausedAtIndex);};
 pauseBtn.onclick=e=>{if(speechSynthesis.speaking){speechSynthesis.cancel(); 
@@ -255,6 +248,7 @@ isManualPause=true;e.target.textContent='▶️';
 {isManualPause=false;e.target.textContent='⏸️';
 speakFrom(pausedAtIndex);
 }};
+
 stopBtn.onclick=()=>{speechSynthesis.cancel();
 isPausedForDict=false;
 isManualPause=false; 
