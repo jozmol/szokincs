@@ -11,8 +11,9 @@ const HU_DICT = {
   "All International Space Station sightings will occur within a few hours before or after sunrise or sunset.":"A Nemzetközi Űrállomás észlelésére minden napkelte vagy napnyugta előtt, illetve után néhány órán belül kerül sor.",
   "This is the optimum viewing period as the Sun reflects off the space station and contrasts against the darker sky.":"Ez az optimális megfigyelési időszak, mivel a Nap fénye visszaverődik az űrállomásról, amely így élesen kirajzolódik a sötétebb égbolton a hátterében.",
   "Above the Horizon is the amount of time the space station is visible before crossing back below the Earth’s horizon.":"Az „Above the Horizon” (horizont felett) az az időtartam, ameddig az űrállomás látható, mielőtt újra a Föld horizontja alá kerülne.",
+  
   //**********The Hunt for H.G. Growmore *****
-  "the Hunt for H G Growmore.":"H.G. Growmore nyomában",
+  "The Hunt for H G Growmore.":"H.G. Growmore nyomában",
   "This is awful, muttered Isabella in a low, wobbly voice.":"– Ez borzalmasmormogta Isabella halk, remegő hangon.",
   "Behind her on the only bed in the room Kay did not react.":"Mögötte, a szoba egyetlen ágyán Kay nem reagált.",
   "The half-length mirror in front of Isabella showed him clearl, lying on her pillows, absentmindedly rubbing his upper lip with a finger.":"Az Isabella előtti félalakos tükör tisztán mutatta őt, amint a párnáin fekve, szétszórtan az ujjával dörzsölgette a felső ajkát.",
@@ -337,13 +338,19 @@ const HU_DICT = {
 // *** BEST FRIENDS ***
  "Zindzi and Tim Tam were best friends.":"Zindzi és Tim Tam legjobb barátok voltak.",
  "They did everything together.":"Mindent együtt csináltak.",
- "Do you want to play dress-up? -asked Oswin":"Szeretnél beöltöztetőst játszani? -kérdezte Oswin",
- "No thank you, said Zindzi.":"– Nem, köszönöm – mondta Zindzi.",
+ "Do you want to play dress-up? -asked Oswin":"Szeretnél beöltöztetőst játszani -kérdezte Oswin",
+ "Do you want to play dress-up?":"Szeretnél beöltöztetőst játszani?",
+ "-asked Oswin":"-kérdezte Oswin",
+ "No thank you, said Zindzi.":"Nem, köszönöm – mondta Zindzi.",
  "I’ll play dress-up with Tim Tam.":"Beöltöztetőst játszom majd Tim Tammal.",
- "Do you want to do a puzzle with me? -asked Kaya.":"– Szeretnél kirakózni velem? – kérdezte Kaya.",
+ "Do you want to do a puzzle with me? -asked Kaya.":"– Szeretnél kirakózni velem – kérdezte Kaya.",
+ "Do you want to do a puzzle with me?":"– Szeretnél kirakózni velem?",
+ " -asked Kaya.":"– kérdezte Kaya.",
  "No thank you, -said Zindzi.":"– Nem, köszönöm – mondta Zindzi.",
  "I like doing puzzles with Tim Tam.":"Tim Tammal szeretek kirakózni.",
- "Do you want to join our scooter race? -asked The Twins.":"– Szeretnétek csatlakozni a rollerversenyünkhöz? – kérdezték az ikrek.",
+ "Do you want to join our scooter race? -asked The Twins.":"– Szeretnétek csatlakozni a rollerversenyünkhöz – kérdezték az ikrek.",
+ "Do you want to join our scooter race?":"– Szeretnétek csatlakozni a rollerversenyünkhöz?",
+ "-asked The Twins.":"– kérdezték az ikrek.",
  "No thank you, -said Zindzi.":"– Nem, köszönöm – mondta Zindzi.",
  "I’ll race with Tim Tam.":"Majd Tim Tammal versenyzek.",
  "One day, Tim Tam didn’t come to school.":"Egy nap Tim Tam nem jött iskolába.",
@@ -367,6 +374,8 @@ const HU_DICT = {
 
  // *** SZAVAK ***
   "about":"-ról -ről, miatt, körülbelül",
+  "three":"három",
+  "hopscotch":"ugróiskola",
   "Let’s":"gyerünk",
   "Okay":"rendben",
   "Should":"kellene",
