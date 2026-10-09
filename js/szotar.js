@@ -390,6 +390,9 @@ const HU_DICT = {
 "A green dragoon could hold out no longer; finding himself in dire need, he decided to stay behind—regardless of whatever punishment might await him—so he dismounted and remained there for seventy-seven years.":"Egy zöld dragonyos már nem bírta tovább; mivel nagy bajba került, úgy döntött, hogy hátramarad – függetlenül attól, milyen büntetés várhat rá –, ezért leszállt a lováról, és hetvenhét évig ott is maradt.",
 "Indeed, the widowed queen, who had marched with her army to strike at the enemy, was so thoroughly defeated that she was even driven out of her own city.":"Csakugyan az özvegy királyné, aki táborával az ellenségre ütött, meggyőzetett oly annyira, hogy még lakó városából is kinyomatott.",
 "And the queen had a beautiful daughter; so the queen cast a spell upon the princess and her royal palace, decreeing that no one could reach her without first passing three great trials.":"A királynénak volt egy gyönyörű lánya; varázslattal vette hát körül a hercegnőt és a királyi palotát, és elrendelte, hogy senki sem közelítheti meg a lányt anélkül, hogy előbb három nagy próbát kiállna.",
+"After seventy-seven years, the poor dragoon came to his senses and entered the royal city—which lay under a curse—and went into a tavern; he asked for a measure of wine and prepared to pay, for he did indeed have money on him, yet it was the very coin he had received when they first marched off to war, and so it was no longer valid currency.":"Hetvenhét esztendő elteltével a szegény dragonyos észhez tért, bement az átok sújtotta királyi városba, és betért egy fogadóba; bort kért, és fizetni készült – hiszen volt nála pénz –, ám éppen azt az érmét nyújtotta át, amelyet még a háborúba induláskor kapott,",
+"The innkeeper told him that the money was no longer accepted in the land, as it bore the image of the queen who had lost her kingdom seventy-seven years prior.":"A fogadós elmondta neki, hogy a pénzt már nem fogadják el az országban, mivel azon annak a királynénak az arcképe szerepelt, aki hetvenhét évvel korábban elveszítette királyságát.",
+"The innkeeper explained that the princess—along with the royal seat itself—was under a curse; seeing that the green dragoon was a man of proven mettle—for he had recounted his experiences— the innkeeper suggested he try his luck at breaking the spell.":"A fogadós elmagyarázta, hogy a hercegnő – s vele együtt maga a királyi székhely is – átok alatt áll; látván, hogy a zöldruhás dragonyos bizonyítottan bátor ember – hiszen elmesélte kalandjait –, a fogadós azt tanácsolta neki, próbáljon szerencsét az átok megtörésében.",
 
 
 
@@ -413,13 +416,17 @@ const HU_DICT = {
 "so the queen cast a spell upon the princess and her royal palace,":"varázslattal vette hát körül a hercegnőt és a királyi palotát,",
 "decreeing that no one could reach her without":"hogy senki sem közelítheti meg a lányt anélkül,",
 "first passing three great trials.":"hogy előbb három nagy próbát kiállna.",
+
 "After seventy-seven years, the poor dragoon came to his senses":"Hetvenhét esztendő elteltével a szegény dragonyos észhez tért,",
 "and entered the royal city—which lay under a curse—and went into a tavern;":"bement az átok sújtotta királyi városba, és betért egy fogadóba;",
 "he asked for a measure of wine and prepared to pay, for he did indeed have money on him,":"bort kért, és fizetni készült – hiszen volt nála pénz –,",
+
 "yet it was the very coin he had received when they first marched off to war,":"ám éppen azt az érmét nyújtotta át, amelyet még a háborúba induláskor kapott,",
 "and so it was no longer valid currency.":"így az már nem volt érvényes fizetőeszköz.",
+
 "The innkeeper told him that the money was no longer accepted in the land,":"A fogadós elmondta neki, hogy a pénzt már nem fogadják el az országban,",
 "as it bore the image of the queen who had lost her kingdom seventy-seven years prior.":"mivel azon annak a királynénak az arcképe szerepelt, aki hetvenhét évvel korábban elveszítette királyságát.",
+
 "The innkeeper explained that the princess—along with the royal seat itself—was under a curse;":"A fogadós elmagyarázta, hogy a hercegnő – s vele együtt maga a királyi székhely is – átok alatt áll;",
 "seeing that the green dragoon was a man of proven mettle—for he had recounted his experiences—":"látván, hogy a zöldruhás dragonyos bizonyítottan bátor ember – hiszen elmesélte kalandjait –,",
 "the innkeeper suggested he try his luck at breaking the spell.":"a fogadós azt tanácsolta neki, próbáljon szerencsét az átok megtörésében.",
