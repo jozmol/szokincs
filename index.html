@@ -2,8 +2,10 @@
 <html lang="hu">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hangos Könyv</title>
 <style>
+ .content { display: flex; }
  body{max-width:700px;
  margin:20px auto;
  padding:10px;
@@ -14,17 +16,20 @@
  }
  #storyBox{
  border-radius:20px;
- border:8px solid #d6d7c7;
+ border:4px solid #d6d7c7;
  padding:20px;font-size:18px;
  line-height:2;white-space:pre-wrap;
- min-height:200px;
- max-height:55vh;
+ min-height:300px;
+ max-height:300px;
+ max-width:550px;
  background:linear-gradient(120deg,#eefac7,#eefac7 80%);
  box-shadow:0 10px 30px rgba(0,0,0,.25);
  overflow-y:auto}
+ 
  .word{padding:2px 1px;
  border-radius:4px;
  cursor:pointer} 
+ 
  .word.active{background:#91e9f7;
  text-decoration:underline dotted}
  .controls{position:fixed;top:15px;left:50%;
@@ -35,6 +40,7 @@
  display:flex;
  gap:8px;
  z-index:100}
+ 
  .controls button{
  border:none;
  padding:10px 14px;
@@ -42,11 +48,12 @@
  background:white;
  font-weight:bold;
  cursor:pointer}
+ 
  .controls button:disabled{opacity:.3} 
  .controls button.active-accent{background:#ffeb3b}
  
  select{
- width:100%;
+ width:85%;
  padding:8px;
  margin-top:30px;
  margin-bottom:10px;
@@ -61,16 +68,18 @@
  margin-top:12px;
  padding:12px 14px;
  background:#fff8c4;
- border-radius:10px;
+ border:4px solid #c8d0ca;
+ border-radius:19px;
+ box-shadow:0 10px 30px rgba(0,50,0,.40);
  min-height:40px;
+ max-width:550px;
  font-size:18px;
- box-shadow:0 10px 28px rgba(0,0,0,.28);
  position:sticky;
  bottom:10px;
  z-index:50}
  
  #dictSearch{
- width:100%;
+ width:85%;
  padding:10px;margin:10px 0;
  border-radius:10px;
  border:2px solid #e8efaf;
@@ -78,14 +87,16 @@
  box-sizing:border-box}
  .hint{color:#777;
  font-size:14px}
- @media (min-width: 700px) {
- .content {
- flex-direction: row;
-            }
+  @media (max-width: 600px){
+    .content { 
+      flex-direction: column; 
+      font-size: 25px; 
+    }
+  }
 </style>
 </head>
 <body>
-<h3>Hangos Könyv</h3>
+<h3><center><br><br>Hangos Könyv</center></br></h3>
 <select id="storySelect"></select>
 <input type="text" id="dictSearch" placeholder="Keresés angol szóra... pl: went">
 <div id="storyBox"></div>
@@ -115,7 +126,8 @@ speakFrom(pausedAtIndex);}
 };
 let words=[],spans=[],active=null,pausedAtIndex=0,isPausedForDict=false,fullText='',isManualPause=false,sentences=[];
 function normalizeKey(s){return s.toLowerCase().replace(/['’`]/g,'').replace(/[-–—]/g,' ').replace(/[^a-z\s]/g,' ').replace(/\s+/g,' ').trim();}
-const NORM_DICT={}; Object.entries(HU_DICT).forEach(([k,v])=>{NORM_DICT[normalizeKey(k)]=v;
+const NORM_DICT={}; 
+Object.entries(HU_DICT).forEach(([k,v])=>{NORM_DICT[normalizeKey(k)]=v;
 });
 
 function findPhraseAt(i,max=5){for(let len=max;len>=1; 
@@ -124,11 +136,14 @@ st<=i;st++){if(st+len>words.length)continue;
 let sl=words.slice(st,st+len).map(w=>w.clean).join(' '); 
 let n=normalizeKey(sl);
 
-if(NORM_DICT[n]){if(len>1 && sentences.some(s=>s.norm===n))continue;
+if(NORM_DICT[n]){
+if(len>1 && sentences.some(s=>s.norm===n))continue;
 return{data:NORM_DICT[n], phrase:sl, start:st, end:st+len-1};
-}}} return null;}
+}}} 
+return null;}
 function clearActive(){spans.forEach(s=>s.classList.remove('active'));
 }
+
 function build(text){fullText=text; 
 words=[]; 
 sentences=[]; 
@@ -138,27 +153,42 @@ let orig=text.substring(m.index,m.index+m[0].length);
 let cl=normalizeKey(m[0]); 
 if(cl)words.push({
 text:orig,start:m.index,end:m.index+m[0].length,clean:cl});} 
-let sr=/[^.!?]+[.!?]+/g,sm; while((sm=sr.exec(text))!==null){
+let sr=/[^.!?]+[.!?]+/g,sm; 
+while((sm=sr.exec(text))!==null){
 sentences.push({text:sm[0],start:sm.index,end:sm.index+sm[0].length,norm:normalizeKey(sm[0])});
 } 
 if(!sentences.length&&text.trim())sentences.push({text:text,start:0,end:text.length,norm:normalizeKey(text)}); 
-let last=0,html=''; words.forEach((w,i)=>{html+=text.substring(last,w.start);
-html+=`<span class="word" data-i="${i}">${w.text}</span>`; last=w.end;}); 
-html+=text.substring(last); storyBox.innerHTML=html; spans=storyBox.querySelectorAll('.word');
+let last=0,html=''; 
+words.forEach((w,i)=>{html+=text.substring(last,w.start);
+html+=`<span class="word" data-i="${i}">${w.text}</span>`; 
+last=w.end;}); 
+html+=text.substring(last); 
+storyBox.innerHTML=html; 
+
+spans=storyBox.querySelectorAll('.word');
  spans.forEach(s=>{
   s.addEventListener('mouseenter',()=>{let idx=+s.dataset.i; 
-  let f=findPhraseAt(idx,4); clearActive(); if(!f){spans[idx].classList.add('active');
+  let f=findPhraseAt(idx,30); clearActive(); 
+  
+  if(!f){spans[idx].classList.add('active');
+  
   } else 
   {for(let k=f.start;k<=f.end;k++)spans[k].classList.add('active');
   }});
-  s.addEventListener('mouseleave',()=>{if(!isPausedForDict)clearActive();});
+  
+  s.addEventListener('mouseleave',()=>{
+  if(!isPausedForDict)clearActive();
+  });
+  
   s.addEventListener('click',()=>{let idx=+s.dataset.i; 
-  let f=findPhraseAt(idx,5); clearActive(); 
-  if(!f){showSent(idx); spans[idx].classList.add('active');
+  let f=findPhraseAt(idx,30); 
+  clearActive(); 
+  if(!f){showSent(idx); 
+  spans[idx].classList.add('active');
   }else
   {for(let k=f.start;k<=f.end;k++)spans[k].classList.add('active'); 
   let t=typeof f.data==='string'?f.data:f.data.map(v=>v.hu).join(' | '); 
-  resultBox.innerHTML = `${f.phrase} [ <b style="color:#2f33d3">${t}</b> ]`;}
+  resultBox.innerHTML = `${f.phrase}</i><br><b style="color:#2f33d3"><i>${t}</b></i>`;}
   //resultBox.textContent=f.phrase+' [ ' +t+ ' ]';} 
   if(speechSynthesis.speaking){speechSynthesis.cancel(); 
   isPausedForDict=true; pausedAtIndex=f?f.start:idx;}});
@@ -170,22 +200,29 @@ html+=text.substring(last); storyBox.innerHTML=html; spans=storyBox.querySelecto
   let idx=+s.dataset.i;
   clearActive();
   spans[idx].classList.add('active');
-  showSent(idx);
+ showSent(idx);
+  resultBox.innerHTML = `${f.phrase} <br>[ <b style="color:#2f33d3">${t}-]</b></i></br>`;
 });
  });
 }
-function showSent(i){let cp=words[i]?.start??0; 
-let sent=sentences.find(s=>cp>=s.start&&cp<s.end); 
-let idxClean=words[i]?.clean; let out=""; 
-if(sent&&NORM_DICT[sent.norm]){
-let h=typeof NORM_DICT[sent.norm]==='string'?NORM_DICT[sent.norm]:NORM_DICT[sent.norm].map(v=>v.hu).join(' | '); 
-out=h;} if(NORM_DICT[idxClean]){
-let w=typeof NORM_DICT[idxClean]==='string'?NORM_DICT[idxClean]:NORM_DICT[idxClean].map(v=>v.hu).join(' ] '); 
-out = out ? words[i].text+" - [ "+w+ " ] - " +out : words[i].text+" = "+w;} 
-if(out){resultBox.textContent=out;}}
+function showSent(i){
+  let cp=words[i]?.start??0; let sent=sentences.find(s=>cp>=s.start&&cp<s.end); if(!sent) return;
+  let idxClean=words[i]?.clean; let huSent=NORM_DICT[sent.norm];
+  if(!huSent){ // fallback?- miatt
+    let best=""; let sNorm=sent.norm;
+    for(let k in NORM_DICT){ if(k.length>30 && (sNorm.includes(k) || k.includes(sNorm))){ if(k.length>best.length) best=k; } }
+    if(best) huSent=NORM_DICT[best];
+  }
+  let outHu=huSent? (typeof huSent==='string'?huSent:huSent.map(v=>v.hu).join(' | ')):"";
+  if(NORM_DICT[idxClean]){
+    let w=typeof NORM_DICT[idxClean]==='string'?NORM_DICT[idxClean]:NORM_DICT[idxClean].map(v=>v.hu).join(' | ');
+    if(outHu){ resultBox.innerHTML=`[<b style="color:#925926">${w}</b>]</i><br><br><i><b style="color:#2f33d3"> ${outHu} </b></i>`; }
+    else { resultBox.innerHTML=`<br>[ <b style="color:#2f33d3"><i>${w}</b></i>]`; }
+  } else if(outHu){ resultBox.innerHTML=`${sent.text.trim()} [ <b style="color:#2f33d3"><i>${outHu}</b> ]`; }
+}
 
 function buildDictList(filter=""){
-  if(!filter.trim()){resultBox.innerHTML='<span class="hint">Kattints egy szóra, vagy keress fent</span>'; return;}
+  if(!filter.trim()){resultBox.innerHTML='<span class="hint">Kattints egy szóra, a teljes mondatért duplán, vagy keress fent</span>'; return;}
   let f=normalizeKey(filter);
   let key=Object.keys(HU_DICT).find(k=>normalizeKey(k)===f);
   if(!key){ key=Object.keys(HU_DICT).find(k=>normalizeKey(k).includes(f)); }
@@ -209,12 +246,13 @@ dictSearch.addEventListener('keydown',e=>{
   }
 });
 
-function speakFrom(idx){if(idx>=words.length)return;
+function speakFrom(idx){
+if(idx>=words.length)return;
 showSent(idx); 
 let utt=new SpeechSynthesisUtterance(fullText.substring(words[idx].start)); 
 utt.lang=currentAccent; 
 if(currentVoice)utt.voice=currentVoice;
-utt.rate=0.75; 
+utt.rate=0.8; 
 let lastS=-1;
 utt.onboundary=e=>{if(e.name!=='word'||isPausedForDict||isManualPause)
 return; 
@@ -234,7 +272,8 @@ isManualPause=false;
 resultBox.innerHTML='<span class="hint">Kattints egy szóra, a teljes mondatért duplán, vagy keress fent</span>'; 
 dictSearch.value="";}
 Object.keys(STORIES).forEach(k=>{let o=document.createElement('option'); 
-o.value=k;o.textContent=k;storySelect.appendChild(o);}); 
+o.value=k;o.textContent=k;
+storySelect.appendChild(o);}); 
 loadStory(Object.keys(STORIES)[0]); 
 storySelect.onchange=e=>loadStory(e.target.value);
 playBtn.onclick=()=>{speechSynthesis.cancel(); 
@@ -256,7 +295,7 @@ clearActive();
 active=null; 
 pausedAtIndex=0; 
 pauseBtn.textContent='⏸️'; 
-resultBox.innerHTML='<span class="hint">Kattints egy szóra, vagy keress fent</span>';};
+resultBox.innerHTML='<span class="hint">Kattints egy szóra, a teljes mondatért duplán, vagy keress fent</span>';};
 </script>
 </body>
 </html>
