@@ -222,7 +222,7 @@ const HU_DICT = {
 "Excuse me, can you help me?":"Elnézést, tudnál segíteni nekem?",
 "Could you help me?":"Tudnál segíteni?",
 "Would you, please, help me?":"Tudnál, kérlek, segíteni nekem?",
-"Of course":"Természetesen.",
+"Of course.":"Természetesen.",
 "How can I help you?":"Hogyan segíthetek?",
 "I’d be happy to help you.":"Örömmel segítek neked.",
 "Could you tell me where the … is, please?":"Meg tudnád mondani, kérlek, hol van a …?",
@@ -247,7 +247,7 @@ const HU_DICT = {
 "help you?":"segíthetek?",
 "I’d be happy":"Örömmel",
 "to help you.":"segítek neked. (segítek)",
-
+"Of course.":"Természetesen",
 //Személyes névmások
 "I":"– én",
 "You":"– te",
@@ -356,7 +356,7 @@ const HU_DICT = {
 "Second":"másodperc",
  // *** The Cursed Princess elátkozott királykisasszony ***
  // MONDATOK EGYBEN
-"There was once a widowed queen who issued a decree that anyone who went ten paces ahead or fell ten paces behind the camp was to be shot dead on the spot.":"Volt egyszer egy özvegy királynő, aki rendeletet adott ki: bárkit, aki tíz lépéssel a tábor előtt haladt, vagy tíz lépéssel lemaradt mögötte, azonnal le kellett lőni.",
+"There was once a widowed queen who issued a decree that anyone who went ten paces ahead or fell ten paces behind the camp was to be shot dead on the spot.":"Volt egyszer egy özvegy királynő, aki rendeletet adott ki: bárkit, aki tíz lépéssel a tábor előtt haladt, vagy tíz lépéssel mögötte lemaradt, azonnal lőjék agyon.",
 "A green dragoon could hold out no longer; finding himself in dire need, he decided to stay behind—regardless of whatever punishment might await him—so he dismounted and remained there for seventy-seven years.":"Egy zöld dragonyos már nem bírta tovább; mivel nagy bajba került, úgy döntött, hogy hátramarad – függetlenül attól, milyen büntetés várhat rá –, ezért leszállt a lováról, és hetvenhét évig ott is maradt.",
 "Indeed, the widowed queen, who had marched with her army to strike at the enemy, was so thoroughly defeated that she was even driven out of her own city.":"Csakugyan az özvegy királyné, aki táborával az ellenségre ütött, meggyőzetett oly annyira, hogy még lakó városából is kinyomatott.",
 "And the queen had a beautiful daughter; so the queen cast a spell upon the princess and her royal palace, decreeing that no one could reach her without first passing three great trials.":"A királynénak volt egy gyönyörű lánya; varázslattal vette hát körül a hercegnőt és a királyi palotát, és elrendelte, hogy senki sem közelítheti meg a lányt anélkül, hogy előbb három nagy próbát kiállna.",
@@ -369,6 +369,9 @@ const HU_DICT = {
 "'Well then,'replied the princess, stay here, and if you complete three nights, you shall set me free and receive both the kingdom and my hand.":"– Nos hát – felelte a hercegnő –, maradj itt, és ha kibírod mind a három éjszakát, megszabadítasz, és tiéd lesz mind a királyság, mind a kezem.",
 "The dragoon agreed to it; the princess vanished.":"A dragonyos beleegyezett; a hercegnő eltűnt.",
 "All manner of dishes appear right here on the table, without a fire being lit in the kitchen or anyone being seen bringing them in.":"Mindenféle étel megjelenik itt az asztalon anélkül, hogy tüzet gyújtanának a konyhában, vagy bárkit is látnának, amint behozza őket.",
+"Everything he thought would be nice sprang up to his liking; that is how he spent the day.":"Minden, amit jónak vélt, kedve szerint szökkent szárba; így töltötte a napot.",
+
+"Evening falls; the princess arrives, bringing a candle, a book, and a black kerchief, and places them before him, saying:  I ask only this—do not be startled, do not be afraid; simply light this candle and—here is the book—read. No matter who enters, do not look at them, nor speak.":"Leszáll az este; megérkezik a hercegnő, gyertyát, könyvet és fekete kendőt hozva, s eléjük helyezi ezeket e szavakkal: „Csak annyit kérek: ne ijedj meg, ne félj; egyszerűen gyújtsd meg ezt a gyertyát, és – íme a könyv – olvass. Bárki lépjen is be, ne nézz rá, és ne szólalj meg.”",
 
 
 
@@ -376,12 +379,19 @@ const HU_DICT = {
 // MONDATOK TAGOLVA
 
 // "who had marched with her army to strike at the enemy,":"aki táborával az ellenségre ütött",
+"nor speak.":"és ne szólalj meg.",
+"No matter who enters, do not look at them,":"Bárki lépjen is be, ne nézz rá,",
+"simply light this candle and—here is the book—read.":"egyszerűen gyújtsd meg ezt a gyertyát, és – íme a könyv – olvass.",
+"do not be startled, do not be afraid;":"„Csak annyit kérek: ne ijedj meg, ne félj;",
+"and places them before him, saying:":"s eléjük helyezi ezeket e szavakkal:",
+"the princess arrives, bringing a candle, a book, and a black kerchief,":"megérkezik a hercegnő, gyertyát, könyvet és fekete kendőt hozva,",
+"Evening falls;":"Leszáll az este;",
 "was so utterly defeated that she was driven even from her own dwelling city":"meggyőzetett oly annyira, hogy még lakó városából is kinyomatott.",
 "There was once a widowed queen":"Volt egyszer egy özvegy királynő,",
 "who issued a decree that":"aki rendeletet adott ki:",
 "anyone who went ten paces ahead":"bárkit, aki tíz lépéssel a tábor előtt haladt",
-"or fell ten paces behind the camp was ":"vagy tíz lépéssel lemaradt mögötte, ",
-"to be shot dead on the spot":"azonnal le kellett lőni.",
+"or fell ten paces behind the camp was ":"vagy tíz lépéssel mögötte lemaradt, ",
+"to be shot dead on the spot":"azonnal lőjék agyon.",
 "A green dragoon could hold out no longer;":"Egy zöld dragonyos már nem bírta tovább;",
 "finding himself in dire need, he decided to stay behind":"mivel nagy bajba került, úgy döntött, hogy hátramarad",
 "regardless of whatever punishment might await him":"függetlenül attól, milyen büntetés várhat rá",
@@ -416,14 +426,20 @@ const HU_DICT = {
 "the princess vanished.":"a hercegnő eltűnt.",
 "All manner of dishes appear right here on the table,":"Mindenféle étel megjelenik itt az asztalon,",
 "without a fire being lit in the kitchen or anyone being seen bringing them in.":"anélkül, hogy tüzet gyújtanának a konyhában, vagy bárkit is látnának, amint behozza őket.",
+"Everything he thought would be nice sprang up to his liking;":"Minden, amit jónak vélt, kedve szerint szökkent szárba;",
+"that is how he spent the day.":"így töltötte a napot.",
 
 
 
 
  // *** SZAVAK ***
   "widowed":"megözvegyült",
+  "nice":"szép, kedves",
+  "liking":"szeretet",
+  "sprang":"ugrott",
+  "I am here":"itt vagyok",
+  "water":"víz",
   "acould":"tudnék, tudna",
-  "to be shot dead on the spot":"helyszínen agyon lövik",
   "wine":"bor",
   "replied":"válaszolt",
   "shall":"kell, fog",
