@@ -1,9 +1,5 @@
 const HU_DICT = {
-  // We're Not Gonna Take It
-  "We're Not Gonna Take It":"Nem tűrjük tovább",
-  "No, we ain't gonna take it.":"Nem, nem tűrjük tovább.",
-  "We're not gonna take it anymore.":"Nem tűrjük tovább",
-  "We've got the right to choose and there ain't no way we'll lose it.":"Jogunk van a választáshoz, és semmiképpen sem fogjuk elveszíteni.",
+  
   
   // *** How do I spot the International Space Station? ***
   "How do I spot the International Space Station?":"Hogyan láthatom meg a Nemzetközi Űrállomást?",
@@ -13,6 +9,8 @@ const HU_DICT = {
   "Above the Horizon is the amount of time the space station is visible before crossing back below the Earth’s horizon.":"Az „Above the Horizon” (horizont felett) az az időtartam, ameddig az űrállomás látható, mielőtt újra a Föld horizontja alá kerülne.",
   
   // TAGMONDATOK ****
+  "How do I spot":"Hogyan láthatom meg",
+  "the International Space Station?":"a Nemzetközi Űrállomást?",
   "All International Space Station sightings will occur within":"A Nemzetközi Űrállomás észlelésére",
   "a few hours before or after sunrise or sunset.":"minden napkelte vagy napnyugta előtt, illetve után néhány órán belül kerül sor.",
   "This is the optimum viewing period":"Ez az optimális megfigyelési időszak",
@@ -241,6 +239,15 @@ const HU_DICT = {
 "Do you know Matilda?":"Ismered Matildát?",
 "I knew that.":"Tudtam. / Ezt tudtam.",
 
+// *** tagolva **
+"Would you, please,":"Tudnál, kérlek,",
+"help me?":"segíteni nekem?",
+"can you help me?":"tudnál segíteni nekem? (tudnál segíteni?), (segítenél?)",
+"How can I":"Hogyan",
+"help you?":"segíthetek?",
+"I’d be happy":"Örömmel",
+"to help you.":"segítek neked. (segítek)",
+
 //Személyes névmások
 "I":"– én",
 "You":"– te",
@@ -357,17 +364,24 @@ const HU_DICT = {
 "The innkeeper told him that the money was no longer accepted in the land, as it bore the image of the queen who had lost her kingdom seventy-seven years prior.":"A fogadós elmondta neki, hogy a pénzt már nem fogadják el az országban, mivel azon annak a királynénak az arcképe szerepelt, aki hetvenhét évvel korábban elveszítette királyságát.",
 "The innkeeper explained that the princess—along with the royal seat itself—was under a curse; seeing that the green dragoon was a man of proven mettle—for he had recounted his experiences— the innkeeper suggested he try his luck at breaking the spell.":"A fogadós elmagyarázta, hogy a hercegnő – s vele együtt maga a királyi székhely is – átok alatt áll; látván, hogy a zöldruhás dragonyos bizonyítottan bátor ember – hiszen elmesélte kalandjait –, a fogadós azt tanácsolta neki, próbáljon szerencsét az átok megtörésében.",
 
+"The dragoon made up his mind and went to the palace; and as he wandered from room to room, the enchanted young lady—clad in a black bearskin—came before him and asked what he was looking for, and whether he did not know the decree that anyone who fell behind the camp would be most severely punished.":"A dragonyos elszánta magát, és bement a palotába; ahogy pedig szobáról szobára járt, elébe lépett az elvarázsolt kisasszony – fekete medvebőrbe öltözve –, és megkérdezte, mit keres, s vajon nem ismeri-e azt a rendeletet, amely szerint a tábortól lemaradókat a legsúlyosabb büntetés éri.",
+"The dragoon replies that he has lost his way.":"A dragonyos azt feleli, hogy eltévedt.",
+"'Well then,'replied the princess, stay here, and if you complete three nights, you shall set me free and receive both the kingdom and my hand.":"– Nos hát – felelte a hercegnő –, maradj itt, és ha kibírod mind a három éjszakát, megszabadítasz, és tiéd lesz mind a királyság, mind a kezem.",
+"The dragoon agreed to it; the princess vanished.":"A dragonyos beleegyezett; a hercegnő eltűnt.",
+"All manner of dishes appear right here on the table, without a fire being lit in the kitchen or anyone being seen bringing them in.":"Mindenféle étel megjelenik itt az asztalon anélkül, hogy tüzet gyújtanának a konyhában, vagy bárkit is látnának, amint behozza őket.",
+
 
 
 
 // MONDATOK TAGOLVA
-"There was once a widowed queen":"Volt egyszer egy özvegy királynő,",
-"who had marched with her army to strike at the enemy,":"aki táborával az ellenségre ütött",
+
+// "who had marched with her army to strike at the enemy,":"aki táborával az ellenségre ütött",
 "was so utterly defeated that she was driven even from her own dwelling city":"meggyőzetett oly annyira, hogy még lakó városából is kinyomatott.",
+"There was once a widowed queen":"Volt egyszer egy özvegy királynő,",
 "who issued a decree that":"aki rendeletet adott ki:",
-"anyone who went ten paces ahead":"bárkit, aki tíz lépéssel a tábor előtt halad",
+"anyone who went ten paces ahead":"bárkit, aki tíz lépéssel a tábor előtt haladt",
 "or fell ten paces behind the camp was ":"vagy tíz lépéssel lemaradt mögötte, ",
-"to be shot dead on the spot":"azonnal le kell lőni.",
+"to be shot dead on the spot":"azonnal le kellett lőni.",
 "A green dragoon could hold out no longer;":"Egy zöld dragonyos már nem bírta tovább;",
 "finding himself in dire need, he decided to stay behind":"mivel nagy bajba került, úgy döntött, hogy hátramarad",
 "regardless of whatever punishment might await him":"függetlenül attól, milyen büntetés várhat rá",
@@ -379,23 +393,72 @@ const HU_DICT = {
 "so the queen cast a spell upon the princess and her royal palace,":"varázslattal vette hát körül a hercegnőt és a királyi palotát,",
 "decreeing that no one could reach her without":"hogy senki sem közelítheti meg a lányt anélkül,",
 "first passing three great trials.":"hogy előbb három nagy próbát kiállna.",
-
 "After seventy-seven years, the poor dragoon came to his senses":"Hetvenhét esztendő elteltével a szegény dragonyos észhez tért,",
 "and entered the royal city—which lay under a curse—and went into a tavern;":"bement az átok sújtotta királyi városba, és betért egy fogadóba;",
 "he asked for a measure of wine and prepared to pay, for he did indeed have money on him,":"bort kért, és fizetni készült – hiszen volt nála pénz –,",
-
 "yet it was the very coin he had received when they first marched off to war,":"ám éppen azt az érmét nyújtotta át, amelyet még a háborúba induláskor kapott,",
 "and so it was no longer valid currency.":"így az már nem volt érvényes fizetőeszköz.",
-
 "The innkeeper told him that the money was no longer accepted in the land,":"A fogadós elmondta neki, hogy a pénzt már nem fogadják el az országban,",
 "as it bore the image of the queen who had lost her kingdom seventy-seven years prior.":"mivel azon annak a királynénak az arcképe szerepelt, aki hetvenhét évvel korábban elveszítette királyságát.",
-
 "The innkeeper explained that the princess—along with the royal seat itself—was under a curse;":"A fogadós elmagyarázta, hogy a hercegnő – s vele együtt maga a királyi székhely is – átok alatt áll;",
 "seeing that the green dragoon was a man of proven mettle—for he had recounted his experiences—":"látván, hogy a zöldruhás dragonyos bizonyítottan bátor ember – hiszen elmesélte kalandjait –,",
 "the innkeeper suggested he try his luck at breaking the spell.":"a fogadós azt tanácsolta neki, próbáljon szerencsét az átok megtörésében.",
+"The dragoon made up his mind and went to the palace;":"A dragonyos elszánta magát, és bement a palotába;",
+"and as he wandered from room to room,":"ahogy pedig szobáról szobára járt,",
+"the enchanted young lady—clad in a black bearskin—came before him and asked what he was looking for,":"elébe lépett az elvarázsolt kisasszony – fekete medvebőrbe öltözve –, és megkérdezte, mit keres,",
+"and whether he did not know the decree that anyone who fell behind the camp would be most severely punished.":"s vajon nem ismeri-e azt a rendeletet, amely szerint a tábortól lemaradókat a legsúlyosabb büntetés éri.",
+"The dragoon replies,":"A dragonyos azt feleli,",
+"that he has lost his way.":"hogy eltévedt.",
+"'Well then,'replied the princess, stay here,":"– Nos hát – felelte a hercegnő –, maradj itt,",
+"and if you complete three nights,":"és ha kibírod mind a három éjszakát,",
+"you shall set me free and receive both the kingdom and my hand.":"megszabadítasz, és tiéd lesz mind a királyság, mind a kezem.",
+"The dragoon agreed to it;":"A dragonyos beleegyezett;",
+"the princess vanished.":"a hercegnő eltűnt.",
+"All manner of dishes appear right here on the table,":"Mindenféle étel megjelenik itt az asztalon,",
+"without a fire being lit in the kitchen or anyone being seen bringing them in.":"anélkül, hogy tüzet gyújtanának a konyhában, vagy bárkit is látnának, amint behozza őket.",
+
+
+
 
  // *** SZAVAK ***
   "widowed":"megözvegyült",
+  "acould":"tudnék, tudna",
+  "to be shot dead on the spot":"helyszínen agyon lövik",
+  "wine":"bor",
+  "replied":"válaszolt",
+  "shall":"kell, fog",
+  "both":"mindfét, mindketten",
+  "receive":"kap, részesül",
+  "lay":"világi, fektet, ráterít",
+  "tavern":"kocsma",
+  "prepared":"előkészített",
+  "pay":"fizet, fizetés",
+  "vanish":"eltűnik, elenyészik, láthatatlanná válik",
+  "Indeed":"valóban, tényleg",
+  "seen":"látott",
+  "bringing":"hozás",
+  "lit":"megvilágított",
+  "kitchen":"konyha",
+  "being":"lény, létező",
+  "appear":"megjelenik, feltűnik",
+  "fire":"tűz, elbocsát, kicsap",
+  "manner":"modor, mód, módszer",
+  "dishes":"edények",
+  "agreed":"egyeztetett, elfogad",
+  "complete":"teljes, befejez, kiegészít",
+  "replies":"válaszok",
+  "nights":"éjszakák",
+  "night":"éjszaka, este, éj",
+  "replie":"válasz",
+  "enchanted":"elvarázsolt, bűbályos",
+  "punished":"megbüntetve, büntetve",
+  "severely":"szigorúan",
+  "looking for":"keres",
+  "whether":"vajon, hogy",
+  "clad":"öltözött",
+  "bearskin":"medvebőr",
+  "black":"fekete",
+  "wandered":"bolyongott",
   "coin":"érme, pénzérme, fémpénz",
   "explained":"megmagyarázta",
   "prior":"előzetes",
