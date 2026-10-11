@@ -23,7 +23,7 @@ const STORIES = {
 
 // Az elátkozott királykisasszony
 
-"The Cursed Princess / Az elátkozott királykisasszony":"There was once a widowed queen who issued a decree that anyone who went ten paces ahead or fell ten paces behind the camp was to be shot dead on the spot.\nA green dragoon could hold out no longer; finding himself in dire need, he decided to stay behind—regardless of whatever punishment might await him—so he dismounted and remained there for seventy-seven years.\nIndeed, the widowed queen, who had marched with her army to strike at the enemy, was so thoroughly defeated that she was even driven out of her own city.\nAnd the queen had a beautiful daughter so the queen cast a spell upon the princess and her royal palace, decreeing that no one could reach her without first passing three great trials.\nAfter seventy-seven years, the poor dragoon came to his senses and entered the royal city—which lay under a curse—and went into a tavern he asked for a measure of wine and prepared to pay, for he did indeed have money on him, yet it was the very coin he had received when they first marched off to war, and so it was no longer valid currency.\nThe innkeeper told him that the money was no longer accepted in the land, as it bore the image of the queen who had lost her kingdom seventy-seven years prior.\nThe innkeeper explained that the princess—along with the royal seat itself—was under a curse seeing that the green dragoon was a man of proven mettle—for he had recounted his experiences—the innkeeper suggested he try his luck at breaking the spell.\nThe dragoon made up his mind and went to the palace; and as he wandered from room to room, the enchanted young lady—clad in a black bearskin—came before him and asked what he was looking for, and whether he did not know the decree that anyone who fell behind the camp would be most severely punished.\nThe dragoon replies that he has lost his way.\nWell then, -replied the princess, stay here, and if you complete three nights, you shall set me free and receive both the kingdom and my hand.\nThe dragoon agreed to it; the princess vanished.\nAll manner of dishes appear right here on the table, without a fire being lit in the kitchen or anyone being seen bringing them in.",
+"The Cursed Princess / Az elátkozott királykisasszony":"There was once a widowed queen who issued a decree that anyone who went ten paces ahead or fell ten paces behind the camp was to be shot dead on the spot.\nA green dragoon could hold out no longer; finding himself in dire need, he decided to stay behind—regardless of whatever punishment might await him—so he dismounted and remained there for seventy-seven years.\nIndeed, the widowed queen, who had marched with her army to strike at the enemy, was so thoroughly defeated that she was even driven out of her own city.\nAnd the queen had a beautiful daughter so the queen cast a spell upon the princess and her royal palace, decreeing that no one could reach her without first passing three great trials.\nAfter seventy-seven years, the poor dragoon came to his senses and entered the royal city—which lay under a curse—and went into a tavern he asked for a measure of wine and prepared to pay, for he did indeed have money on him, yet it was the very coin he had received when they first marched off to war, and so it was no longer valid currency.\nThe innkeeper told him that the money was no longer accepted in the land, as it bore the image of the queen who had lost her kingdom seventy-seven years prior.\nThe innkeeper explained that the princess—along with the royal seat itself—was under a curse seeing that the green dragoon was a man of proven mettle—for he had recounted his experiences—the innkeeper suggested he try his luck at breaking the spell.\nThe dragoon made up his mind and went to the palace; and as he wandered from room to room, the enchanted young lady—clad in a black bearskin—came before him and asked what he was looking for, and whether he did not know the decree that anyone who fell behind the camp would be most severely punished.\nThe dragoon replies that he has lost his way.\nWell then, -replied the princess, stay here, and if you complete three nights, you shall set me free and receive both the kingdom and my hand.\nThe dragoon agreed to it; the princess vanished.\nAll manner of dishes appear right here on the table, without a fire being lit in the kitchen or anyone being seen bringing them in.\nEverything he thought would be nice sprang up to his liking; that is how he spent the day.\nEvening falls; the princess arrives, bringing a candle, a book, and a black kerchief, and places them before him, saying:  I ask only this—do not be startled, do not be afraid; simply light this candle and—here is the book—read. No matter who enters, do not look at them, nor speak.",
 
 
 
@@ -32,21 +32,3 @@ const STORIES = {
 
   };
   
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
