@@ -129,8 +129,10 @@ usBtn=document.getElementById('usBtn'),
 auBtn=document.getElementById('auBtn'),
 resultBox=document.getElementById('resultBox'),
 dictSearch=document.getElementById('dictSearch');
-let voices=[],voiceGB=null,
-voiceUS=null,currentAccent='en-GB',
+let voices=[],
+voiceGB=null,
+voiceUS=null,
+currentAccent='en-GB',
 currentVoice=null;
 
 function loadVoices(){
@@ -155,13 +157,22 @@ function setAccent(a){
 
 loadVoices();
 speechSynthesis.onvoiceschanged=loadVoices;
-
-gbBtn.onclick=()=>{setAccent('en-GB'); if(speechSynthesis.speaking){speechSynthesis.cancel(); speakFrom(pausedAtIndex);} };
-usBtn.onclick=()=>{setAccent('en-US'); if(speechSynthesis.speaking){speechSynthesis.cancel(); speakFrom(pausedAtIndex);} };
-auBtn.onclick=()=>{setAccent('en-AU'); if(speechSynthesis.speaking){speechSynthesis.cancel(); speakFrom(pausedAtIndex);} };
-let words=[],spans=[],active=null,
-pausedAtIndex=0,isPausedForDict=false,
-fullText='',isManualPause=false,
+gbBtn.onclick=()=>{setAccent('en-GB'); 
+if(speechSynthesis.speaking){speechSynthesis.cancel(); 
+speakFrom(pausedAtIndex);} };
+usBtn.onclick=()=>{setAccent('en-US'); 
+if(speechSynthesis.speaking){speechSynthesis.cancel(); 
+speakFrom(pausedAtIndex);} };
+auBtn.onclick=()=>{setAccent('en-AU'); 
+if(speechSynthesis.speaking){speechSynthesis.cancel(); 
+speakFrom(pausedAtIndex);} };
+let words=[],
+spans=[],
+active=null,
+pausedAtIndex=0,
+isPausedForDict=false,
+fullText='',
+isManualPause=false,
 sentences=[];
 function normalizeKey(s){return s.toLowerCase().replace(/['’`]/g,'').replace(/[-–—]/g,' ').replace(/[^a-z\s]/g,' ').replace(/\s+/g,' ').trim();}
 const NORM_DICT={}; 
@@ -260,7 +271,8 @@ function showSent(i){
 }
 
 function buildDictList(filter=""){
-  if(!filter.trim()){resultBox.innerHTML='<span class="hint">Kattints egy szóra, a teljes mondatért duplán, vagy keress fent</span>'; return;}
+  if(!filter.trim()){resultBox.innerHTML='<span class="hint">Kattints egy szóra, a teljes mondatért duplán, vagy keress fent</span>'; 
+  return;}
   let f=normalizeKey(filter);
   let key=Object.keys(HU_DICT).find(k=>normalizeKey(k)===f);
   if(!key){ key=Object.keys(HU_DICT).find(k=>normalizeKey(k).includes(f)); }
@@ -290,11 +302,12 @@ showSent(idx);
 let utt=new SpeechSynthesisUtterance(fullText.substring(words[idx].start)); 
 utt.lang=currentAccent; 
 if(currentVoice)utt.voice=currentVoice;
-utt.rate=0.75; 
+utt.rate=0.8; 
 let lastS=-1;
 utt.onboundary=e=>{if(e.name!=='word'||isPausedForDict||isManualPause)
 return; 
 let abs=e.charIndex+words[idx].start;
+
 for(let i=idx;i<words.length;i++){if(abs>=words[i].start&&abs<words[i].end){clearActive();spans[i].classList.add('active');
 spans[i].scrollIntoView({block:'nearest',behavior:'smooth'}); 
 active=i;pausedAtIndex=i;let s=sentences.find(s=>abs>=s.start&&abs<s.end);
