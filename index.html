@@ -111,29 +111,58 @@
 <div id="storyBox"></div>
 <div id="status"></div>
 <div id="resultBox"><span class="hint">Kattints egy szóra, vagy keress fent</span></div>
-<div class="controls"><button id="playBtn">▶️</button><button id="pauseBtn" disabled>⏸️</button><button id="stopBtn" disabled>⏹️</button><button id="gbBtn" class="active-accent">GB</button><button id="usBtn">US</button></div>
+<div class="controls"><button id="playBtn">▶️</button>
+<button id="pauseBtn" disabled>⏸️</button>
+<button id="stopBtn" disabled>⏹️</button>
+<button id="gbBtn" class="active-accent">GB</button>
+<button id="usBtn">US</button>
+<button id="auBtn">Aus</button></div>
 
 <script src="js/stories.js"></script>
 <script src="js/szotar.js"></script>
 <script>
-const storySelect=document.getElementById('storySelect'),storyBox=document.getElementById('storyBox'),status=document.getElementById('status'),gbBtn=document.getElementById('gbBtn'),usBtn=document.getElementById('usBtn'),resultBox=document.getElementById('resultBox'),dictSearch=document.getElementById('dictSearch');
-let voices=[],voiceGB=null,voiceUS=null,currentAccent='en-GB',currentVoice=null;
-function loadVoices(){voices=speechSynthesis.getVoices();
-voiceGB=voices.find(v=>v.lang==='en-GB')||voices.find(v=>v.lang.startsWith('en'))||null; 
-voiceUS=voices.find(v=>v.lang==='en-US')||voices.find(v=>v.lang.startsWith('en'))||null; 
-setAccent(currentAccent); }
-function setAccent(a){currentAccent=a; currentVoice=a==='en-GB'?voiceGB:voiceUS;
-gbBtn.classList.toggle('active-accent',a==='en-GB'); 
-usBtn.classList.toggle('active-accent',a==='en-US');status.textContent=a+(currentVoice?' - '+currentVoice.name:''); }
-loadVoices();speechSynthesis.onvoiceschanged=loadVoices;
-gbBtn.onclick=()=>{setAccent('en-GB'); 
-if(speechSynthesis.speaking){speechSynthesis.cancel(); 
-speakFrom(pausedAtIndex);} };
-usBtn.onclick=()=>{setAccent('en-US'); 
-if(speechSynthesis.speaking){speechSynthesis.cancel(); 
-speakFrom(pausedAtIndex);} 
-};
-let words=[],spans=[],active=null,pausedAtIndex=0,isPausedForDict=false,fullText='',isManualPause=false,sentences=[];
+const storySelect=document.getElementById('storySelect'),
+storyBox=document.getElementById('storyBox'),
+status=document.getElementById('status'),
+gbBtn=document.getElementById('gbBtn'),
+usBtn=document.getElementById('usBtn'),
+auBtn=document.getElementById('auBtn'),
+resultBox=document.getElementById('resultBox'),
+dictSearch=document.getElementById('dictSearch');
+let voices=[],voiceGB=null,
+voiceUS=null,currentAccent='en-GB',
+currentVoice=null;
+
+function loadVoices(){
+  voices=speechSynthesis.getVoices();
+  voiceGB=voices.find(v=>v.lang==='en-GB')||null;
+  voiceUS=voices.find(v=>v.lang==='en-US')||null;
+  voiceAU=voices.find(x=>x.lang==='en-AU')||null;
+  setAccent(currentAccent);
+}
+
+function setAccent(a){
+  currentAccent=a;
+  if(a==='en-GB') currentVoice=voiceGB;
+  else if(a==='en-US') currentVoice=voiceUS;
+  else if(a==='en-AU') currentVoice=voiceAU;
+  
+  gbBtn.classList.toggle('active-accent',a==='en-GB');
+  usBtn.classList.toggle('active-accent',a==='en-US');
+  auBtn.classList.toggle('active-accent',a==='en-AU');
+  status.textContent=a+(currentVoice?' - '+currentVoice.name:' (nincs ilyen hang)');
+}
+
+loadVoices();
+speechSynthesis.onvoiceschanged=loadVoices;
+
+gbBtn.onclick=()=>{setAccent('en-GB'); if(speechSynthesis.speaking){speechSynthesis.cancel(); speakFrom(pausedAtIndex);} };
+usBtn.onclick=()=>{setAccent('en-US'); if(speechSynthesis.speaking){speechSynthesis.cancel(); speakFrom(pausedAtIndex);} };
+auBtn.onclick=()=>{setAccent('en-AU'); if(speechSynthesis.speaking){speechSynthesis.cancel(); speakFrom(pausedAtIndex);} };
+let words=[],spans=[],active=null,
+pausedAtIndex=0,isPausedForDict=false,
+fullText='',isManualPause=false,
+sentences=[];
 function normalizeKey(s){return s.toLowerCase().replace(/['’`]/g,'').replace(/[-–—]/g,' ').replace(/[^a-z\s]/g,' ').replace(/\s+/g,' ').trim();}
 const NORM_DICT={}; 
 Object.entries(HU_DICT).forEach(([k,v])=>{NORM_DICT[normalizeKey(k)]=v;
