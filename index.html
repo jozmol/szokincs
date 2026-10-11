@@ -22,7 +22,7 @@
  min-height:300px;
  max-height:300px;
  max-width:550px;
- background:linear-gradient(120deg,#eefac7,#eefac7 80%);
+ background:linear-gradient(10deg,#eefac7 0%,#eefac7 50%);
  box-shadow:0 10px 30px rgba(0,0,0,.25);
  overflow-y:auto}
  
@@ -30,9 +30,18 @@
  border-radius:4px;
  cursor:pointer} 
  
- .word.active{background:#91e9f7;
- text-decoration:underline dotted}
- .controls{position:fixed;top:15px;left:50%;
+ .word.active{
+ background:#91e9f7;
+ /*font-style:italic;*/
+ font-weight:700 !important;
+ color:#bf641b !important;
+ font-size: 18px;
+ text-decoration:underline dotted
+ }
+ .controls{
+ position:fixed;
+ top:15px;
+ left:50%;
  transform:translateX(-50%);
  background:#222;
  padding:10px;
@@ -217,7 +226,7 @@ function showSent(i){
   if(NORM_DICT[idxClean]){
     let w=typeof NORM_DICT[idxClean]==='string'?NORM_DICT[idxClean]:NORM_DICT[idxClean].map(v=>v.hu).join(' | ');
     if(outHu){ resultBox.innerHTML=`[<b style="color:#925926">${w}</b>]</i><br><br><i><b style="color:#2f33d3"> ${outHu} </b></i>`; }
-    else { resultBox.innerHTML=`<br>[ <b style="color:#2f33d3"><i>${w}</b></i>]`; }
+    else { resultBox.innerHTML=`${f.phrase}<br>[ <b style="color:#2f33d3"><i>${w}</b></i>]`; }
   } else if(outHu){ resultBox.innerHTML=`${sent.text.trim()} [ <b style="color:#2f33d3"><i>${outHu}</b> ]`; }
 }
 
@@ -264,23 +273,41 @@ if(s&&s.start!==lastS){lastS=s.start;
 if(NORM_DICT[s.norm]){let h=typeof NORM_DICT[s.norm]==='string'?NORM_DICT[s.norm]:NORM_DICT[s.norm].map(v=>v.hu).join(' | '); 
 resultBox.textContent=h;}}break;}}}; utt.onstart=()=>{pauseBtn.disabled=false;
 stopBtn.disabled=false;}; utt.onend=()=>{clearActive();
-active=null;}; 
-speechSynthesis.speak(utt); }
-function loadStory(k){speechSynthesis.cancel(); build(STORIES[k]);pausedAtIndex=0; 
-active=null;isPausedForDict=false; 
+active=null;
+}; 
+speechSynthesis.speak(utt); 
+}
+
+function loadStory(k){speechSynthesis.cancel(); 
+build(STORIES[k]);
+pausedAtIndex=0; 
+active=null;
+isPausedForDict=false; 
 isManualPause=false; 
 resultBox.innerHTML='<span class="hint">Kattints egy szóra, a teljes mondatért duplán, vagy keress fent</span>'; 
-dictSearch.value="";}
-Object.keys(STORIES).forEach(k=>{let o=document.createElement('option'); 
-o.value=k;o.textContent=k;
-storySelect.appendChild(o);}); 
-loadStory(Object.keys(STORIES)[0]); 
+dictSearch.value="";
+}
+// tartalomjegyzék a-z
+//storySelect.innerHTML = '';
+Object.keys(STORIES).sort((a,b)=>a.localeCompare(b,'hu',{sensitivity:'base'})).forEach(k=>{
+ let o=document.createElement('option');
+  o.value=k;
+  o.textContent=k;
+  storySelect.appendChild(o);
+});
+//loadStory(storySelect.value);
+//Object.keys(STORIES).forEach(k=>{let o=document.createElement('option'); 
+//o.value=k;
+//o.textContent=k;
+//storySelect.appendChild(o);}); 
+//loadStory(Object.keys(STORIES)[0]); 
 storySelect.onchange=e=>loadStory(e.target.value);
 playBtn.onclick=()=>{speechSynthesis.cancel(); 
 isPausedForDict=false;
 isManualPause=false; 
 if(active===null)pausedAtIndex=0; 
-speakFrom(pausedAtIndex);};
+speakFrom(pausedAtIndex);
+};
 pauseBtn.onclick=e=>{if(speechSynthesis.speaking){speechSynthesis.cancel(); 
 isManualPause=true;e.target.textContent='▶️'; 
 }else 
