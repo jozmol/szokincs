@@ -290,7 +290,7 @@ showSent(idx);
 let utt=new SpeechSynthesisUtterance(fullText.substring(words[idx].start)); 
 utt.lang=currentAccent; 
 if(currentVoice)utt.voice=currentVoice;
-utt.rate=0.8; 
+utt.rate=0.75; 
 let lastS=-1;
 utt.onboundary=e=>{if(e.name!=='word'||isPausedForDict||isManualPause)
 return; 
