@@ -366,5 +366,18 @@ pausedAtIndex=0;
 pauseBtn.textContent='⏸️'; 
 resultBox.innerHTML='<span class="hint">Kattints egy szóra, a teljes mondatért duplán, vagy keress fent</span>';};
 </script>
+<script>
+window.onload = () => {
+  document.documentElement.requestFullscreen().catch(()=>{});
+}
+document.addEventListener('contextmenu', function(event) {
+    // Megakadályozza az esemény alapértelmezett cselekvését (pl. contextmenü megjelenítése)
+    event.preventDefault(); 
+    console.log("A jobb klikk le lett tiltva ezen a weboldalon.");
+	alert("😭 😭 😭 😭");
+	window.close()
+
+});
+</script>
 </body>
 </html>
