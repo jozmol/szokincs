@@ -164,13 +164,11 @@ const HU_DICT = {
   "After gulping it down, she sang friendly meows.":"Miután gyorsan lenyelte, barátságos nyávogásba kezdett.",
   "We invited her in, but she lingered outside.":"Hívtuk be, de ő kint maradt.",
   "We wondered if Cally had something to hide.":"Azon tűnődtünk, vajon Cally rejteget-e valamit.",
-  
-  
-  
+
   "Right at the moment, however, Isabella’s nose was the last thing on her mind":"Ebben a pillanatban azonban Isabella orra volt az utolsó dolog, amire gondolt.",
   "Are you on the phone":"Telefonálsz?","She really couldn’t bear it":"Egyszerűen nem tudta elviselni.",
   "It was a totally awful, awful thing to be happening!":"Egészen szörnyű, szörnyű dolog volt ez!",
-  "So I ran to the bushes and yanked them apart, but whatever it was shot off like a dart.":"Így hát a bokrokhoz rohantam, és széttéptem az ágakat, de bármi is volt az, nyílvesszőként lőtt ki onnan.",
+  "So I ran to the bushes and yanked them apart, but whatever it was shot off like a dart.":"Így hát a bokrokhoz rohantam, és széttéptem az ágakat, de bármi is volt az, 	nyílvesszőként lőtt ki onnan.",
   
 "In the late afternoon, winds blew in from the West.":"Késő délután nyugat felől feltámadt a szél.",
 "Raindrops pelted the ground.":"Esőcseppek doboltak a földön.",
@@ -197,7 +195,10 @@ const HU_DICT = {
 "Time to visit the vet.":"Ideje elmenni az állatorvoshoz.","Time to find them new homes.":"Ideje új otthont találni nekik.",
 "Cally saw the vet, too for a check up and spay.":"Cally is vittük az állatorvoshoz vizsgálatra és ivartalanításra.",
 "Her new home was with me, and forever she'd stay!":"Nálam lett az új otthona, és örökre itt is maradt!",
+	
 	// rövid mondatok ***
+"I would like to travel somewhere.":"Szeretnék elutazni valahová.",
+"Do you want to play dress-up?":"Szeretnél jelmezbe öltözni?",
 "It’s nice to meet you!":"Örülök, hogy találkozunk!",
 "My pleasure.":"Örömömre szolgál. (Én is örülök.)",
 "How are you doing?":"Hogy vagy?",
@@ -238,6 +239,25 @@ const HU_DICT = {
 "I would be happy to meet you at your convenience.":"Örömmel találkoznék veled, amikor neked megfelel.",
 "Do you know Matilda?":"Ismered Matildát?",
 "I knew that.":"Tudtam. / Ezt tudtam.",
+"I would like to make a purchase!":"Vásárolni szeretnék!",
+"Let's go to the movies!":"Menjünk moziba!",
+"Get in the car!":"Get in the car!",
+"get it!":"Értem!",
+"got it!":"Étrettem!",
+"You got it!":"Így van! / Pontosan!",
+"He got it!":"Megszerezte!",
+"He get it!":"Érti, érti a dolgot",
+"I gotta go home!":"Haza kell mennem! (szleng)",
+"I'm gonna go home.":"Hazamegyek (szleng)",
+"I should have known better.":"Jobban tudhattam volna.",
+"If only I had known better.":"Bárcsak jobban tudtam volna.",
+"I should have known.":"Tudhattam volna.",
+"He should have known.":"Tudnia kellett volna.",
+"She should have known.":"Tudnia kellett volna.",
+"You should have known.":"Tudnod kellett volna.",
+"They should have known.":"Tudniuk kellett volna.",
+
+
 
 // *** tagolva **
 "Would you, please,":"Tudnál, kérlek,",
@@ -257,7 +277,6 @@ const HU_DICT = {
 "We":"– mi",
 "They":"– ők",
 //Birtokos névmások (Possessive Pronouns)
-
 "My":"– az én …-m",
 "Your":"– a te …-d",
 "His":"az ő …-ja (férfi)",
@@ -277,7 +296,6 @@ const HU_DICT = {
 "Whom":"kit, kinek",
 "How many":"hány, mennyi, hány darab",
 //Mindennapi tárgyak (Everyday Objects)
-
 "Book.":"könyv",
 "Table.":"asztal",
 "Phone":"telefon",
@@ -293,7 +311,6 @@ const HU_DICT = {
 "TV":"televízió",
 "Bottle":"üveg",
 "Cup":"csésze",
-
 //Helyek és irányok (Places and Directions)
 "Here":"itt",
 "There":"ott",
@@ -311,7 +328,6 @@ const HU_DICT = {
 "Near":"közel",
 "Far":"messze",
 //Melléknevek (Adjectives)
-
 "Good":"jó, szép, kitűnő",
 "New":"új",
 "First":"első",
@@ -338,7 +354,6 @@ const HU_DICT = {
 "Same":"ugyanaz",
 "Able":"képes valamire",
 // dő kifejezése (Time Expressions)
-
 "Time":"idő",
 "Year":"év",
 "Day":"nap",
@@ -372,10 +387,6 @@ const HU_DICT = {
 "Everything he thought would be nice sprang up to his liking; that is how he spent the day.":"Minden, amit jónak vélt, kedve szerint szökkent szárba; így töltötte a napot.",
 
 "Evening falls; the princess arrives, bringing a candle, a book, and a black kerchief, and places them before him, saying:  I ask only this—do not be startled, do not be afraid; simply light this candle and—here is the book—read. No matter who enters, do not look at them, nor speak.":"Leszáll az este; megérkezik a hercegnő, gyertyát, könyvet és fekete kendőt hozva, s eléjük helyezi ezeket e szavakkal: „Csak annyit kérek: ne ijedj meg, ne félj; egyszerűen gyújtsd meg ezt a gyertyát, és – íme a könyv – olvass. Bárki lépjen is be, ne nézz rá, és ne szólalj meg.”",
-
-
-
-
 // MONDATOK TAGOLVA
 
 // "who had marched with her army to strike at the enemy,":"aki táborával az ellenségre ütött",
@@ -432,14 +443,23 @@ const HU_DICT = {
 
 
 
+//  *** rövid mondatok tagolása ***
+"I would like to travel":"Szeretnék elutazni",
+
+
+
  // *** SZAVAK ***
+ "pleasure":"öröm, örömet okoz",
+ "pleasures":"örömök",
   "widowed":"megözvegyült",
+  "known":"ismert, tudott",
+  "somewhere":"valahol, valahová",
   "nice":"szép, kedves",
   "liking":"szeretet",
   "sprang":"ugrott",
   "I am here":"itt vagyok",
   "water":"víz",
-  "acould":"tudnék, tudna",
+  "could":"tudnék, tudna",
   "wine":"bor",
   "replied":"válaszolt",
   "shall":"kell, fog",
@@ -824,7 +844,7 @@ const HU_DICT = {
   "vanished":"eltűnt",
   "herself":"önmaga, ő maga, őt magát (nő)",
   "himself":"önmaga, ő maga, őt magát (férfi)",
-  "itself":"maga (semleges)",
+  "itself":"maga, önmaga -(semleges)",
   "glimpse":"pillantás, futó pillantás, pislákoló fény",
   "caught":"elkapott",
   "smile":"mosoly, mosolyog",
