@@ -34,10 +34,10 @@ function loadJS(f){
   s.src=f;
   document.head.appendChild(s);
 }
-loadJS("data/szavak.js");
+loadJS("js/szavak.js");
 function loadJS_sync(file) {
   document.write('<script src="' + file + '"><\/script>');
 }
-loadJS_sync("data/szavak.js");
+loadJS_sync("js/szavak.js");
 //loadJS_sync("szotar3.js");
   
