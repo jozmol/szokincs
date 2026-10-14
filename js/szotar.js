@@ -1,27 +1,6 @@
+
 const HU_DICT = {
-  
-  
-  // *** How do I spot the International Space Station? ***
-  "How do I spot the International Space Station?":"Hogyan láthatom meg a Nemzetközi Űrállomást?",
-  "Time is when the sighting opportunity will begin in the local time zone of a user’s preferred location.":"Ez az az időpont, amikor a megfigyelési lehetőség kezdetét veszi a felhasználó által választott helyszín helyi időzónája szerint.",
-  "All International Space Station sightings will occur within a few hours before or after sunrise or sunset.":"A Nemzetközi Űrállomás észlelésére minden napkelte vagy napnyugta előtt, illetve után néhány órán belül kerül sor.",
-  "This is the optimum viewing period as the Sun reflects off the space station and contrasts against the darker sky.":"Ez az optimális megfigyelési időszak, mivel a Nap fénye visszaverődik az űrállomásról, amely így élesen kirajzolódik a hátterében sötétebb égbolton.",
-  "Above the Horizon is the amount of time the space station is visible before crossing back below the Earth’s horizon.":"Az „Above the Horizon” (horizont felett) az az időtartam, ameddig az űrállomás látható, mielőtt újra a Föld horizontja alá kerülne.",
-  
-  // TAGMONDATOK ****
-  "How do I spot":"Hogyan láthatom meg",
-  "the International Space Station?":"a Nemzetközi Űrállomást?",
-  "All International Space Station sightings will occur within":"A Nemzetközi Űrállomás észlelésére",
-  "a few hours before or after sunrise or sunset.":"minden napkelte vagy napnyugta előtt, illetve után néhány órán belül kerül sor.",
-  "This is the optimum viewing period":"Ez az optimális megfigyelési időszak",
-  "as the Sun reflects off the space station ":"mivel a Nap fénye visszaverődik az űrállomásról,",
-  "the Sun reflects off the space station and contrasts against the darker sky.":"amely így élesen kirajzolódik a hátterében sötétebb égbolton.",
-  "Above the Horizon is the amount of time":"Az „Above the Horizon” (horizont felett) az az időtartam,",
-  "the space station is visible before crossing back below the Earth’s horizon.":"ameddig az űrállomás látható, mielőtt újra a Föld horizontja alá kerülne.",
-  
-  
-  
-  //**********The Hunt for H.G. Growmore *****
+ //**********The Hunt for H.G. Growmore *****
   "The Hunt for H G Growmore.":"H.G. Growmore nyomában",
   "This is awful, muttered Isabella in a low, wobbly voice.":"– Ez borzalmas mormogta Isabella halk, remegő hangon.",
   "Behind her on the only bed in the room Kay did not react.":"Mögötte, a szoba egyetlen ágyán Kay nem reagált.",
@@ -68,50 +47,14 @@ const HU_DICT = {
  "The bedroom was Barbie recommended pink, violet, and white.":"A hálószobában a Barbie által ajánlott rózsaszín, ibolyakék és fehér színek domináltak.",
  "Pictures of animated heroines, ballet dancers, singers, and actresses decorated the walls.":"Animációs filmek hősnőiről, balett-táncosokról, énekesnőkről és színésznőkről készült képek díszítették a falakat.",
  
- // *** Rescue pup ***
-  
-  "On the far edge of town in the thick of the woods curved a long winding road where a tiny house stood.":"A város szélétől távol, az erdő sűrűjében kanyargott egy hosszú, tekervényes út, amely mellett egy apró ház állt.",
-  "All alone in that house sat a pup who was sad.":"Abban a házban magányosan ült egy szomorú kiskutya.",
-  "There was no one to play with no friends to be had.":"Nem volt kivel játszania, nem voltak barátai.",
-  "While he waited and watched for the door to unlock, it grew dark in the house . . .":"Miközben várakozott, és azt figyelte, mikor nyílik ki az ajtó, besötétedett házban.",
-  "Then he heard a loud knock!":"Aztán egy hangos... KOPOGÁST hallott!",
-  "There was no one outside, just the wicked old winds that ripped through the trees and tore down the limbs!":"Kint nem volt senki, csak a gonosz, vén szelek, amelyek végigsöpörtek a fákon, és letördelték az ágakat!",
-  "As dark gloomy clouds blew over the moon, lightning bolts flashed and thunder ka-BOOMED!":"Ahogy sötét, komor felhők úsztak a hold elé, villámok cikáztak, a mennydörgés pedig hatalmas dörrenéssel tört ki.",
-  "The little dog dashed up the stairs, down the hall, and he shook all night long from the sounds of the squall.":"A kiskutya felrohant a lépcsőn, végigszaladt a folyosón, és egész éjjel remegett a vihar zajától.",
-  "By morning the storm was over and done.":"Reggelre a vihar véget ért.",
-  "The rain cleared up and out came the sun.":"Elállt az eső, és kisütött a nap.",
-  "The puppy was hungry.":"A kiskutya éhes volt.",
-  "He looked all around for water and food.":"Körülnézett víz és élelem után.",
-  "There was none to be found.":"Nem talált semmit.",
-  "Soon day became night and then daytime once more, but no one came home to unlock the front door.":"Hamarosan nappalból éjszaka, majd újra nappal lett, ám senki sem jött haza, hogy kinyissa a bejárati ajtót.",
-  "So he howled and he whimpered in terrible fear that no one would rescue him — no one would hear!":"Így hát üvöltött és nyüszített, szörnyű félelem gyötörte, hogy senki sem menti megsenki sem hallja meg!",
-  "This poor lonesome pup couldn't wait any more, so he clawed at the windows and pawed on the doors.":"Ez a szegény, magányos kiskutya már nem bírt tovább várni, ezért az ablakokat kaparta, az ajtókat pedig a mancsával döngette.",
-  "He pushed on a screen, scratched a hole ‘til it grew.":"Megnyomott egy rácsot, és addig kaparta, míg lyuk nem keletkezett rajta, és az nagyobbra nem nőtt.",
-  "Then he twisted and shoved and squeezed his way through.":"Aztán csavarodva, lökdösődve és préselődve átjutott.",
-  "He was free now at last as he crept very slow through the woods and the darkness not sure where to go.":"Végre kiszabadult, miközben nagyon lassan lopakodott át a sötét erdőn, és a bizonytal volt afelől, merre is menjen.",
-  "Coming out of the trees, he found danger too soon.":"Ahogy kiért a fák közül, hamar veszélybe került.",
-  "He was chased down the path by a mean old raccoon.":"Egy gonosz öreg mosómedve kergette végig az ösvényen.",
-  "As he ran through a field, there were sharp prickly burrs that stuck to his toes, and his legs, and his fur.":"Ahogy átfutott a mezőn, éles, szúrós bogáncsok tapadtak a lábujjaira, a lábára és a bundájára.",
-  "He was hurt once again on his way into town when he stepped on some glass all scattered around.":"A városba menet ismét megsérült, amikor rálépett valami összetört pohárra.",
-  "He kept looking for someone, a friend who might care, but instead he heard Scram!":"Folyamatosan keresett valakitegy barátot, akit talán érdekelne a dolog –, ám ehelyett csak annyit hallott: „Tűnés!”",
-  "So he ran far from there.":"Így hát messzire futott onnan.",
-  "Then he faced the worst danger of all on that night — A highway!":"Aztán azon az éjszakán szembe kellett néznie a legfőbb veszéllyel: egy országúttal!",
-  "Fast cars!":"Gyors autók!",
-  "Headlights blinding his sight!":"Fényszórók vakítják el!",
-  "He stopped.":"Megállt",
-  "Then he turned.":"Aztán megfordult.",
-  "When he started to go, a car blared its horn, tires screeched, and — OH, NO!":"Amikor elindult, egy autó dudált, a gumik felsikoltottak, ésÓ, ne!",
-  "The car quickly stopped; someone opened the door.":"Az autó hirtelen megállt; valaki kinyitotta az ajtót.",
-  "The pup froze!":"A kölyök megdermedt!",
-  "Could he possibly take anymore?":"Vajon képes lenne még többet elviselni?",
-  "Then a lady stepped out.":"Aztán egy hölgy lépett ki.",
-  "Little Buddy! she cried.":"Kis pajtás!kiáltotta.",
-  "Are you lost?":"Eltévedtél?", "Are you hurt?":"Megsérültél?", "Let me get you inside!":"Hadd vigyelek be!",
-  "He was glad to be rescued and happy to find a friend who could help him — someone who was kind.":"Örült, hogy megmentették, és boldog volt, hogy talált egy barátot, aki segíthetett nekivalakit, aki kedves volt.",
-  "The little pup loved his first ride in a car 'til the lady said, Buddy, get up!":"A kis kutyus imádta az első autózását, egészen addig, amíg a hölgy azt nem mondta: „Pajtás, kelj fel!”",
-  "Here we are!":"Megérkeztünk!",
-
-
+ // *** Rescue pup *** TAGOLT ***
+ "On the far edge of town":"A város szélétől távol,",
+ "in the thick of the woods curved a long winding road":"az erdő sűrűjében kanyargott egy hosszú, tekervényes út,",
+ "where a tiny house stood.":"amely mellett egy apró ház állt.",
+ "All alone in that house sat":"Abban a házban magányosan ült",
+ "a pup who was sad.":"egy szomorú kiskutya.",
+ "While he waited and watched for the door to unlock,":"Miközben várakozott, és azt figyelte, mikor nyílik ki az ajtó,",
+ "it grew dark in the house":"besötétedett házban.",
   // *** rescue kitty fordítás ***
   "on a warm summer night right outside my backdoor shadows passed green eyes flashed":"Egy meleg nyári éjszakán, közvetlenül a hátsó ajtóm előtt árnyak suhantak el, és zöld szemek villantak fel.",
   "On a warm summer night":"Egy meleg nyári éjszakán",
@@ -247,17 +190,12 @@ const HU_DICT = {
 "You got it!":"Így van! / Pontosan!",
 "He got it!":"Megszerezte!",
 "He get it!":"Érti, érti a dolgot",
-"I gotta go home!":"Haza kell mennem! (szleng)",
-"I'm gonna go home.":"Hazamegyek (szleng)",
 "I should have known better.":"Jobban tudhattam volna.",
-"If only I had known better.":"Bárcsak jobban tudtam volna.",
 "I should have known.":"Tudhattam volna.",
 "He should have known.":"Tudnia kellett volna.",
 "She should have known.":"Tudnia kellett volna.",
 "You should have known.":"Tudnod kellett volna.",
 "They should have known.":"Tudniuk kellett volna.",
-
-
 
 // *** tagolva **
 "Would you, please,":"Tudnál, kérlek,",
@@ -269,7 +207,7 @@ const HU_DICT = {
 "to help you.":"segítek neked. (segítek)",
 "Of course.":"Természetesen",
 //Személyes névmások
-"I":"– én",
+"I":"– én - és az Angol abc betűje (aɪ)",
 "You":"– te",
 "He":"– ő (férfi)",
 "She":"– ő (nő)",
@@ -371,10 +309,21 @@ const HU_DICT = {
 "Second":"másodperc",
  // *** The Cursed Princess elátkozott királykisasszony ***
  // MONDATOK EGYBEN
+ 
+ "Eleven o'clock arrives; all sorts of people gather here, dressed in their finest attire, yet he did not even glance at them.":"Elérkezik a tizenegy óra; mindenféle ember gyűlik itt össze, a legszebb ruhájába öltözve, ő mégsem vetett rájuk egyetlen pillantást sem.",
+ 
+ 
+ 
+ "The princess leaves, the dragoon is left alone; he lights the candle, places the book before him, and reads.":"A hercegnő távozik, a dragonyos magára marad; meggyújtja a gyertyát, maga elé helyezi a könyvet, és olvasni kezd.",
+ 
+ 
 "There was once a widowed queen who issued a decree that anyone who went ten paces ahead or fell ten paces behind the camp was to be shot dead on the spot.":"Volt egyszer egy özvegy királynő, aki rendeletet adott ki: bárkit, aki tíz lépéssel a tábor előtt haladt, vagy tíz lépéssel mögötte lemaradt, azonnal lőjék agyon.",
 "A green dragoon could hold out no longer; finding himself in dire need, he decided to stay behind—regardless of whatever punishment might await him—so he dismounted and remained there for seventy-seven years.":"Egy zöld dragonyos már nem bírta tovább; mivel nagy bajba került, úgy döntött, hogy hátramarad – függetlenül attól, milyen büntetés várhat rá –, ezért leszállt a lováról, és hetvenhét évig ott is maradt.",
+
 "Indeed, the widowed queen, who had marched with her army to strike at the enemy, was so thoroughly defeated that she was even driven out of her own city.":"Csakugyan az özvegy királyné, aki táborával az ellenségre ütött, meggyőzetett oly annyira, hogy még lakó városából is kinyomatott.",
+
 "And the queen had a beautiful daughter; so the queen cast a spell upon the princess and her royal palace, decreeing that no one could reach her without first passing three great trials.":"A királynénak volt egy gyönyörű lánya; varázslattal vette hát körül a hercegnőt és a királyi palotát, és elrendelte, hogy senki sem közelítheti meg a lányt anélkül, hogy előbb három nagy próbát kiállna.",
+
 "After seventy-seven years, the poor dragoon came to his senses and entered the royal city—which lay under a curse—and went into a tavern; he asked for a measure of wine and prepared to pay, for he did indeed have money on him, yet it was the very coin he had received when they first marched off to war, and so it was no longer valid currency.":"Hetvenhét esztendő elteltével a szegény dragonyos észhez tért, bement az átok sújtotta királyi városba, és betért egy fogadóba; bort kért, és fizetni készült – hiszen volt nála pénz –, ám éppen azt az érmét nyújtotta át, amelyet még a háborúba induláskor kapott,",
 "The innkeeper told him that the money was no longer accepted in the land, as it bore the image of the queen who had lost her kingdom seventy-seven years prior.":"A fogadós elmondta neki, hogy a pénzt már nem fogadják el az országban, mivel azon annak a királynénak az arcképe szerepelt, aki hetvenhét évvel korábban elveszítette királyságát.",
 "The innkeeper explained that the princess—along with the royal seat itself—was under a curse; seeing that the green dragoon was a man of proven mettle—for he had recounted his experiences— the innkeeper suggested he try his luck at breaking the spell.":"A fogadós elmagyarázta, hogy a hercegnő – s vele együtt maga a királyi székhely is – átok alatt áll; látván, hogy a zöldruhás dragonyos bizonyítottan bátor ember – hiszen elmesélte kalandjait –, a fogadós azt tanácsolta neki, próbáljon szerencsét az átok megtörésében.",
@@ -387,9 +336,16 @@ const HU_DICT = {
 "Everything he thought would be nice sprang up to his liking; that is how he spent the day.":"Minden, amit jónak vélt, kedve szerint szökkent szárba; így töltötte a napot.",
 
 "Evening falls; the princess arrives, bringing a candle, a book, and a black kerchief, and places them before him, saying:  I ask only this—do not be startled, do not be afraid; simply light this candle and—here is the book—read. No matter who enters, do not look at them, nor speak.":"Leszáll az este; megérkezik a hercegnő, gyertyát, könyvet és fekete kendőt hozva, s eléjük helyezi ezeket e szavakkal: „Csak annyit kérek: ne ijedj meg, ne félj; egyszerűen gyújtsd meg ezt a gyertyát, és – íme a könyv – olvass. Bárki lépjen is be, ne nézz rá, és ne szólalj meg.”",
+"The princess leaves, the dragoon is left alone; he lights the candle,":"A hercegnő távozik, a dragonyos magára marad; meggyújtja a gyertyát,",
+ "places the book before him, and reads.":"maga elé helyezi a könyvet, és olvasni kezd.",
+ 
+ "Eleven o'clock arrives; all sorts of people gather here,":"Elérkezik a tizenegy óra; mindenféle ember gyűlik itt össze,",
+ "dressed in their finest attire,":"a legszebb ruhájába öltözve,",
+ "yet he did not even glance at them.":"ő mégsem vetett rájuk egyetlen pillantást sem.",
 // MONDATOK TAGOLVA
 
 // "who had marched with her army to strike at the enemy,":"aki táborával az ellenségre ütött",
+
 "nor speak.":"és ne szólalj meg.",
 "No matter who enters, do not look at them,":"Bárki lépjen is be, ne nézz rá,",
 "simply light this candle and—here is the book—read.":"egyszerűen gyújtsd meg ezt a gyertyát, és – íme a könyv – olvass.",
@@ -446,11 +402,55 @@ const HU_DICT = {
 //  *** rövid mondatok tagolása ***
 "I would like to travel":"Szeretnék elutazni",
 
-
+// ANGOL ÁBC
+"A":"eɪ  -(abc) -A",
+"B":"bi: -B",
+"C":"si: -C",
+"D":"di: -D",
+"E":"i:- E",
+"F":"ef -F",
+"G":"dʒiː -G",
+"H":"eɪtʃ -H",
+"I":"aɪ -I",
+"J":"dʒeɪ -J",
+"K":"keɪ -K",
+"L":"el -L",
+"M":"em -M",
+"N":"en -N",
+"O":"əʊ/ - brit /oʊ/ - amerikai -O",
+"P":"piː -P",
+"Q":"kjuː -Q",
+"R":"(ɑːr - amerikai), - (ɑː-brit/) -R",
+"S ":"es -(abc) -S",
+"T":"tiː -T",
+"U":"juː -U",
+"V":"viː -V",
+"W":"ˈdʌbljuː -W",
+"X":"eks -X",
+"Y":"waɪ -Y",
+"Z":"ziː- amerikai /zed  - brit  - Z ",
 
  // *** SZAVAK ***
- "pleasure":"öröm, örömet okoz",
- "pleasures":"örömök",
+  "pleasure":"öröm, örömet okoz",
+  "attire":"viselet",
+  "dressed":"öltözött",
+  "finest":"legkiválóbb",
+  "gather":"gyűlik",
+  "sorts":"fajta",
+  "o'clock":"óra",
+  "Eleven":"tinenegy",
+  "simply":"egyszerűen",
+  "arrives":"megérkezik",
+  "lights":"fények",
+  "light":"világít",
+  "reads":"olvas",
+  "read":"olvas(ni)",
+  "candle":"gyertya",
+  "before":"elé",
+  "places":"helyek",
+  "place":"hely, elhelyez",
+  "told":"mondta",
+  "pleasures":"örömök",
   "widowed":"megözvegyült",
   "known":"ismert, tudott",
   "somewhere":"valahol, valahová",
@@ -640,7 +640,8 @@ const HU_DICT = {
   "choose":"választ, kiválszt",
   "got":"kapott, vált valamilyenné",
   "We've":"nekünk van, voltunk",
-  "anymore":"többé",
+  "anymore":"már nem (US)",
+  "any more":"még több, van-e még",
   "viewing":"megtekintés",
   "sightings":"észlelések",
   "optimum":"optimális, legjobb, legkedvezőbb",
@@ -789,7 +790,7 @@ const HU_DICT = {
   "opined":"véleményt nyilvánított",
   "fan":"legyez, hűsít, legyező, szellőző",
   "teacher":"tanár(nő), tanító(nő)",
-  "'s":"-é, ezé, azé, valakinek(-minek a tulajdona, része",
+  "'s":"-é, ezé, azé, valakinek(-minek a tulajdona, része, (abc betűje)",
   "such":"ilyen, olyan, hasonló",
   "school":"iskola",
   "wasn’t":"nem volt",
@@ -1208,7 +1209,7 @@ const HU_DICT = {
   "yes" : "igen",
   "me" : "nekem, engem",
   "i'm" : "én vagyok, vagyok",
-  "i" : "én",
+  "i" : "én / - és az angol abc betűje (aɪ)",
   "i am": "én vagyok, vagyok",
   "what is": "mi a",
   "what's" : "mi a",
@@ -1253,7 +1254,7 @@ const HU_DICT = {
   "tiny": "apró",
   "house": "ház",
   "stood": "állt",
-  "a" : "egy",
+  "a" : "egy / határozatlan névelő - és az Angol abc első betűje (eɪ) A",
   "the": "a, az (névelő)",
   "sat": "ült",
   "who": "ki, kik, kicsoda, aki, akik",
@@ -1325,7 +1326,6 @@ const HU_DICT = {
   "pup":"kiskutya, kölyökkutya",
   "couldn't":"nem tudott",
   "any":"bármilyen, valamilyen, valami, valamennyire, valamivel",
-  "any more":"többé",
   "so":"így, úgy, úgyhogy,tehát, olyan, ilyen",
   "clawed":"karom",
   "at":"-nál -nél -kor, -on -en -ön -ban",
@@ -1418,4 +1418,21 @@ const HU_DICT = {
   "dress-up?":"jelmezes öltözködés",
   "with":"-val -vel -nál -nél noha, ",
   "-get well soon-":"Jobbulást kívánok!"
+  
 };
+function loadJS(f){
+  let s=document.createElement("script");
+  s.src=f;
+  document.head.appendChild(s);
+}
+loadJS("data/hogyan.js");
+function loadJS_sync(file) {
+  document.write('<script src="' + file + '"><\/script>');
+}
+loadJS_sync("js/hogyan.js");
+loadJS_sync("js/Rescue pup.js");
+
+
+
+
+
