@@ -1430,7 +1430,7 @@ function loadJS_sync(file) {
   document.write('<script src="' + file + '"><\/script>');
 }
 loadJS_sync("js/hogyan.js");
-loadJS_sync("js/Rescue pup.js");
+loadJS_sync("js/Rescue_pup.js");
 
 
 
