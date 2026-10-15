@@ -43,12 +43,6 @@ Object.assign(HU_DICT, {
   "she is hungry and thin.":"éhes és sovány.",
   "I'm not sure where she came from,":"Nem tudom biztosan, honnan jött",
   "or where she has been.":"vagy hol járt.",
-  
-  
-  
-  
-  
-  
   "I remembered the eyes, so I gazed all around.":"Emlékeztem a szemekre, ezért körbepillantottam.",
   "Sure enough on the woodpile a cat hunkered down.":"És valóban, a farakáson egy macska kuporgott.",
   "I gasped!":"Felevegő után kaptam!",
