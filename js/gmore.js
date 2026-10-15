@@ -1,0 +1,56 @@
+ Object.assign(HU_DICT, {
+  //**********The Hunt for H.G. Growmore *****
+  "The Hunt for H G Growmore.":"H.G. Growmore nyomában",
+  "This is awful, muttered Isabella in a low, wobbly voice.":"– Ez borzalmas mormogta Isabella halk, remegő hangon.",
+  "Behind her on the only bed in the room Kay did not react.":"Mögötte, a szoba egyetlen ágyán Kay nem reagált.",
+  "The half-length mirror in front of Isabella showed him clearl, lying on her pillows, absentmindedly rubbing his upper lip with a finger.":"Az Isabella előtti félalakos tükör tisztán mutatta őt, amint a párnáin fekve, szétszórtan az ujjával dörzsölgette a felső ajkát.",
+  "His eyes did not leave the page facing him - a funny-looking picture of some sort of aliens was on the book cover.":"Nem vette le a szemét az előtte lévő oldalról; a könyvborítón valamilyen földönkívülieket ábrázoló, mókás kinézetű kép volt.",
+  "Aliens Humph":"Földönkívüliek. Hmph!",
+  "“It’s really, really dreadful,” she added hopefully, sneaking a look at him over one shoulder.":"– Ez igazán, de igazán borzalmastette hozzá reménykedve, miközben félvállról odapillantott rá.",
+  "What on earth was so fascinating about visitors from another world?":"Mi a csudáért voltak annyira lenyűgözőek a más világból érkező látogatók?",
+  "She opined, that Bella in JSS 3 that nose of hers looks like it always wants to tell everyone what to do and how to do it too!":"Úgy vélte -Az a Bella a JSS 3-ból... az orra olyan, mintha folyton meg akarná mondani mindenkinek, mit tegyensőt, még azt is, hogyan!",
+  "Right at the moment, however, Isabella’s nose was the last thing on her mind.":"Ebben a pillanatban azonban Isabella orra volt az utolsó dolog, amire gondolt.",
+  "Even his eyes didn’t blink now":"Még a szeme sem rezzent meg most.",
+  "fascinating about visitors from another world":"lenyűgözőek a más világból érkező látogatók?",
+  "what about people from this planet":"Mi a helyzet az e bolygóról származó emberekkel?",
+  "like his kid sister for instance":"Például a húga.",
+  "The book fell from his hands.":"Kiesett a könyv a kezéből.",
+  "smacking a palm on the mirror for good measure":"biztonság kedvéért tenyérrel rácsapva a tükörre",
+  
+  "Isabella yelled, smacking a palm on the mirror for good measure, making Kay jump two feet off the bed":"Isabella felkiáltott, és nyomatékosításképpen tenyérrel rácsapott a tükörre, amitől Kay majdnem kiugrott a bőréből.",
+  "the smile vanished like her pocket money halfway through the month":"A mosoly úgy tűnt el, mint a zsebpénze a hónap közepén.",
+  "i don't believe this":"Ezt nem hiszem el!",
+  "just unthinkable!":"Egyszerűen elképzelhetetlen!",
+  "she moaned staring with wide eyes at her reflection in the mirror":"felsóhajtott, miközben tágra nyílt szemmel bámulta a tükörben látható tükörképét.",
+  "the image that stared back eyes alarmed long wispy hair all awry was that of a pubescent female skin like the sunset of a day spent on the beach much too tall for her age with a perky slightly upturned nose adorning a decidedly pretty face":"A visszanéző arcriadt szemekkel és kócos vékony szálú hajjalegy serdülőkorú lányé volt bőre a tengerparton töltött naplementét idézte termete korához képest túl magas volt csinos arcát pedig pisze kissé felfelé kunkorodó orr tette bájossá.",
+  "Mommy said Isabella’s nose was her most visible facial feature; walking nose first, she termed it, shaking her head with indulgent pride.":"Anya azt mondta, Isabella orra a legszembetűnőbb vonása; „orrát előretolva közlekedik”így jellemezte, miközben elnéző büszkeséggel csóválta a fejét.",
+  "darkness":"sötétség","he gaped at isabella in astonishment quite speechless":"Ámulva bámult Isabellára, teljesen szótlanul.",
+  "there much better isabella started to smile then caught a glimpse of herself in the mirror":"Ott, sokkal jobban, Isabella mosolyogni kezdett, majd megpillantotta magát a tükörben.","kay seemed carved from stone":"Kay mintha kőből lett volna faragva.","even his eyes didnt blink now":"Még a szeme sem rezzent meg most.",
+  "its really really dreadful":"Ez tényleg nagyon szörnyű",
+  "she added hopefully sneaking a look at him over one shoulder":"– tette hozzá reménykedve, miközben válla fölött lopva rápillantott.",
+  "Teacher Ngozi at school wasn’t such a fan, though.":"Az iskolában azonban Ngozi tanárnő nem volt annyira oda érte.",
+  "And what could she do?":"És mit tehetett volna?",
+  "The funny thing was, this was absolutely the worst day to feel awful about anything.":"Az volt az egészben a vicces, hogy ez volt a lehető legrosszabb nap arra, hogy az ember bármi miatt is pocsékul érezze magát.",
+  "To start with, outside, the July sun blazed happily on a world filled with singing birds and happy, playing children.":"Először is, kint a júliusi nap boldogan tűzött egy világra, amely tele éneklő madarakkal és boldog, játszó gyerekekkel.",
+	 "Up and down the street in this residential Estate in Kaduna City, one could almost touch the palpable euphoria in the air.":"Kaduna városának ebben a lakónegyedében az utcán szinte kézzel fogható volt a levegőben vibráló eufória.","And with reason too.":"És nem is ok nélkül.",
+	 "This was the first day of the long holidays, the long vac as school kids all over the country called it.":"Ez volt a hosszú szünet első napjaahogy az ország minden táján a diákok nevezték: a „nagy szünet”.",
+	 "They were the height of every Nigerian Kid’s year, looked forward to with ever-mounting excitement as they slowly approached.":"Minden nigériai gyerek számára ezek jelentették az év csúcspontját, amelyek közeledtével egyre fokozódó izgalommal telt meg a szívük.",
+	 "7 glorious school-free weeks!":"7 csodálatos, iskolamentes hét!",
+	 "With absolutely nothing or everything to do, depending on one’s personal energy level.":"Amikor az embernek vagy semmi dolga sincsvagy épp ellenkezőleg: rengeteg –, attól függően, mennyi energia lakozik benne.",
+	"The air fairly hummed with plans being made, even if they were just thoughts of lazing around the house, bedroom, beach, garden, poolside, or stream, watching tiktoks, glued in front of a tv screen, with a fav book or movie, or absolutely nothing at all.":"A levegő szinte vibrált a készülő tervektőlmég ha azok csupán arról szóltak is, hogy az ember otthon, a hálószobában, a strandon, a kertben, a medence partján vagy a patak mellett henyéljen; TikTok-videókat nézzen, a tévé képernyője elé szegeződjön, kedvenc könyvét vagy filmjét élvezze, vagy éppenséggel ne csináljon semmit a világon.",
+ "Whatever chilled your ice cream.":"Bármi is hűtötte a fagylaltot.",
+ "Kids everywhere were in holiday heaven.":"A gyerekek mindenütt az ünnepi boldogság csúcsán érezték magukat.",
+ "However, Isabella was not thinking about the holidays either.":"Isabella azonban nem az ünnepekre gondolt.",
+ "She gasped as she ran a long comb through her hair once more.":"Felszisszent, miközben még egyszer végighúzta fésűjét a hosszú haján.",
+ "Several fine strands came away with the comb.":"Néhány vékony hajszál kijött a fésűvel.",
+ "Others floated softly to the floor.":"Néhány lágyan a padlóra hullott.",
+ "Now she groaned, staggering back to flop into a pretty daffodil-covered armchair by the window.":"Ekkor felnyögött, és tántorogva visszahanyatlott az ablak melletti, csinos, nárc-mintás karosszékbe.",
+ "The bedroom was Barbie recommended pink, violet, and white.":"A hálószobában a Barbie által ajánlott rózsaszín, ibolyakék és fehér színek domináltak.",
+ "Pictures of animated heroines, ballet dancers, singers, and actresses decorated the walls.":"Animációs filmek hősnőiről, balett-táncosokról, énekesnőkről és színésznőkről készült képek díszítették a falakat.",
+ 
+  
+  
+  
+  });
+
+ 
