@@ -1,113 +1,7 @@
-
 const HU_DICT = {
- //**********The Hunt for H.G. Growmore *****
-  "The Hunt for H G Growmore.":"H.G. Growmore nyomában",
-  "This is awful, muttered Isabella in a low, wobbly voice.":"– Ez borzalmas mormogta Isabella halk, remegő hangon.",
-  "Behind her on the only bed in the room Kay did not react.":"Mögötte, a szoba egyetlen ágyán Kay nem reagált.",
-  "The half-length mirror in front of Isabella showed him clearl, lying on her pillows, absentmindedly rubbing his upper lip with a finger.":"Az Isabella előtti félalakos tükör tisztán mutatta őt, amint a párnáin fekve, szétszórtan az ujjával dörzsölgette a felső ajkát.",
-  "His eyes did not leave the page facing him - a funny-looking picture of some sort of aliens was on the book cover.":"Nem vette le a szemét az előtte lévő oldalról; a könyvborítón valamilyen földönkívülieket ábrázoló, mókás kinézetű kép volt.",
-  "Aliens Humph":"Földönkívüliek. Hmph!",
-  "“It’s really, really dreadful,” she added hopefully, sneaking a look at him over one shoulder.":"– Ez igazán, de igazán borzalmastette hozzá reménykedve, miközben félvállról odapillantott rá.",
-  "What on earth was so fascinating about visitors from another world?":"Mi a csudáért voltak annyira lenyűgözőek a más világból érkező látogatók?",
-  "She opined, that Bella in JSS 3 that nose of hers looks like it always wants to tell everyone what to do and how to do it too!":"Úgy vélte -Az a Bella a JSS 3-ból... az orra olyan, mintha folyton meg akarná mondani mindenkinek, mit tegyensőt, még azt is, hogyan!",
-  "Right at the moment, however, Isabella’s nose was the last thing on her mind.":"Ebben a pillanatban azonban Isabella orra volt az utolsó dolog, amire gondolt.",
-  "Even his eyes didn’t blink now":"Még a szeme sem rezzent meg most.",
-  "fascinating about visitors from another world":"lenyűgözőek a más világból érkező látogatók?",
-  "what about people from this planet":"Mi a helyzet az e bolygóról származó emberekkel?",
-  "like his kid sister for instance":"Például a húga.",
-  "The book fell from his hands.":"Kiesett a könyv a kezéből.",
-  "smacking a palm on the mirror for good measure":"biztonság kedvéért tenyérrel rácsapva a tükörre",
-  "showed":"mutatott, megmutatta","Isabella yelled, smacking a palm on the mirror for good measure, making Kay jump two feet off the bed":"Isabella felkiáltott, és nyomatékosításképpen tenyérrel rácsapott a tükörre, amitől Kay majdnem kiugrott a bőréből.",
-  "the smile vanished like her pocket money halfway through the month":"A mosoly úgy tűnt el, mint a zsebpénze a hónap közepén.",
-  "i don't believe this":"Ezt nem hiszem el!",
-  "just unthinkable!":"Egyszerűen elképzelhetetlen!",
-  "she moaned staring with wide eyes at her reflection in the mirror":"felsóhajtott, miközben tágra nyílt szemmel bámulta a tükörben látható tükörképét.",
-  "the image that stared back eyes alarmed long wispy hair all awry was that of a pubescent female skin like the sunset of a day spent on the beach much too tall for her age with a perky slightly upturned nose adorning a decidedly pretty face":"A visszanéző arcriadt szemekkel és kócos vékony szálú hajjalegy serdülőkorú lányé volt bőre a tengerparton töltött naplementét idézte termete korához képest túl magas volt csinos arcát pedig pisze kissé felfelé kunkorodó orr tette bájossá.",
-  "Mommy said Isabella’s nose was her most visible facial feature; walking nose first, she termed it, shaking her head with indulgent pride.":"Anya azt mondta, Isabella orra a legszembetűnőbb vonása; „orrát előretolva közlekedik”így jellemezte, miközben elnéző büszkeséggel csóválta a fejét.",
-  "darkness":"sötétség","he gaped at isabella in astonishment quite speechless":"Ámulva bámult Isabellára, teljesen szótlanul.",
-  "there much better isabella started to smile then caught a glimpse of herself in the mirror":"Ott, sokkal jobban, Isabella mosolyogni kezdett, majd megpillantotta magát a tükörben.","kay seemed carved from stone":"Kay mintha kőből lett volna faragva.","even his eyes didnt blink now":"Még a szeme sem rezzent meg most.",
-  "its really really dreadful":"Ez tényleg nagyon szörnyű","she added hopefully sneaking a look at him over one shoulder":"– tette hozzá reménykedve, miközben válla fölött lopva rápillantott.",
-  "Teacher Ngozi at school wasn’t such a fan, though.":"Az iskolában azonban Ngozi tanárnő nem volt annyira oda érte.",
-  "And what could she do?":"És mit tehetett volna?",
-  "The funny thing was, this was absolutely the worst day to feel awful about anything.":"Az volt az egészben a vicces, hogy ez volt a lehető legrosszabb nap arra, hogy az ember bármi miatt is pocsékul érezze magát.",
-  "To start with, outside, the July sun blazed happily on a world filled with singing birds and happy, playing children.":"Először is, kint a júliusi nap boldogan tűzött egy világra, amely tele éneklő madarakkal és boldog, játszó gyerekekkel.",
-	 "Up and down the street in this residential Estate in Kaduna City, one could almost touch the palpable euphoria in the air.":"Kaduna városának ebben a lakónegyedében az utcán szinte kézzel fogható volt a levegőben vibráló eufória.","And with reason too.":"És nem is ok nélkül.",
-	 "This was the first day of the long holidays, the long vac as school kids all over the country called it.":"Ez volt a hosszú szünet első napjaahogy az ország minden táján a diákok nevezték: a „nagy szünet”.",
-	 "They were the height of every Nigerian Kid’s year, looked forward to with ever-mounting excitement as they slowly approached.":"Minden nigériai gyerek számára ezek jelentették az év csúcspontját, amelyek közeledtével egyre fokozódó izgalommal telt meg a szívük.",
-	 "7 glorious school-free weeks!":"7 csodálatos, iskolamentes hét!",
-	 "With absolutely nothing or everything to do, depending on one’s personal energy level.":"Amikor az embernek vagy semmi dolga sincsvagy épp ellenkezőleg: rengeteg –, attól függően, mennyi energia lakozik benne.",
-	"The air fairly hummed with plans being made, even if they were just thoughts of lazing around the house, bedroom, beach, garden, poolside, or stream, watching tiktoks, glued in front of a tv screen, with a fav book or movie, or absolutely nothing at all.":"A levegő szinte vibrált a készülő tervektőlmég ha azok csupán arról szóltak is, hogy az ember otthon, a hálószobában, a strandon, a kertben, a medence partján vagy a patak mellett henyéljen; TikTok-videókat nézzen, a tévé képernyője elé szegeződjön, kedvenc könyvét vagy filmjét élvezze, vagy éppenséggel ne csináljon semmit a világon.",
- "Whatever chilled your ice cream.":"Bármi is hűtötte a fagylaltot.",
- "Kids everywhere were in holiday heaven.":"A gyerekek mindenütt az ünnepi boldogság csúcsán érezték magukat.",
- "However, Isabella was not thinking about the holidays either.":"Isabella azonban nem az ünnepekre gondolt.",
- "She gasped as she ran a long comb through her hair once more.":"Felszisszent, miközben még egyszer végighúzta fésűjét a hosszú haján.",
- "Several fine strands came away with the comb.":"Néhány vékony hajszál kijött a fésűvel.",
- "Others floated softly to the floor.":"Néhány lágyan a padlóra hullott.",
- "Now she groaned, staggering back to flop into a pretty daffodil-covered armchair by the window.":"Ekkor felnyögött, és tántorogva visszahanyatlott az ablak melletti, csinos, nárc-mintás karosszékbe.",
- "The bedroom was Barbie recommended pink, violet, and white.":"A hálószobában a Barbie által ajánlott rózsaszín, ibolyakék és fehér színek domináltak.",
- "Pictures of animated heroines, ballet dancers, singers, and actresses decorated the walls.":"Animációs filmek hősnőiről, balett-táncosokról, énekesnőkről és színésznőkről készült képek díszítették a falakat.",
- 
- // *** Rescue pup *** TAGOLT ***
- "On the far edge of town":"A város szélétől távol,",
- "in the thick of the woods curved a long winding road":"az erdő sűrűjében kanyargott egy hosszú, tekervényes út,",
- "where a tiny house stood.":"amely mellett egy apró ház állt.",
- "All alone in that house sat":"Abban a házban magányosan ült",
- "a pup who was sad.":"egy szomorú kiskutya.",
- "While he waited and watched for the door to unlock,":"Miközben várakozott, és azt figyelte, mikor nyílik ki az ajtó,",
- "it grew dark in the house":"besötétedett házban.",
-  // *** rescue kitty fordítás ***
-  "on a warm summer night right outside my backdoor shadows passed green eyes flashed":"Egy meleg nyári éjszakán, közvetlenül a hátsó ajtóm előtt árnyak suhantak el, és zöld szemek villantak fel.",
-  "On a warm summer night":"Egy meleg nyári éjszakán",
-  "right outside my backdoor":"közvetlenül a hátsó ajtóm előtt",
-  "shadows passed":"árnyak suhantak el",
-  "Then I saw them no more.":"Aztán többé nem láttam őket.",
-  "so I ran to the bushes":"Így hát a bokrokhoz rohantam,",
-  "and yanked them apart":"és szét rángattam az ágakat,",
-  "but whatever it was shot off like a dart.":"de bármi is volt az, nyílvesszőként lőtt ki onnan.",
-  "had i seen a red fox a possom an owl":"Vajon vörös rókát, oposszumot, baglyot láttam?",
-  "maybe something nocturnal was out on the prowl":"Talán valami éjszakai állat ólálkodott a közelben?",
-  "maybe something":"Talán valami",
-  "nocturnal was out on the prowl":"éjszakai állat ólálkodott a közelben?",
-  "green eyes flashed":"és zöld szemek villantak fel.",
-  "Mom called from the house, ”Luis, it is late!":"Anya hívott a házból: „Luis, késő van!”",
-  "Mom called from the house":"Anya hívott a házból:",
-  "Luis, it is late!":"Luis, késő van!",
-  "The mystery creature":"A rejtélyes lénynek",
-  "would just have to wait":"várnia kellett",
-  "When the sun poked its head on the very next day":"Amikor másnap reggel előbukkant a nap",
-  "I flew out of bed to run outside and play":"kiugrottam az ágyból, hogy kiszaladjak játszani",
-  "The mystery creature would just have to wait.":"A rejtélyes lénynek várnia kellett.", 
-  "When the sun poked its head on the very next day, I flew out of bed to run outside and play!":"Amikor másnap reggel előbukkant a nap, kiugrottam az ágyból, hogy kiszaladjak játszani.",
-  "I remembered the eyes,":"Emlékeztem a szemekre,",
-  "so I gazed all around":"ezért körbepillantottam",
-  "Sure enough":"És valóban",
-  "on the woodpile a cat hunkered down":"a farakáson egy macska kuporgott",
-  "I called, Here Kitty Kitty,":"Hívogattam: „Cic-cic!",
-  "but with one graceful push":"ám egyetlen kecses mozdulattal elrugaszkodott a magasabb helyről",
-  "she leaped from her perch and was lost in the bush":"és eltűnt a bokrok között",
-  
-  
-  
-  "I remembered the eyes, so I gazed all around.":"Emlékeztem a szemekre, ezért körbepillantottam.",
-  "Sure enough on the woodpile a cat hunkered down.":"És valóban, a farakáson egy macska kuporgott.",
-  "I gasped!":"Felevegő után kaptam!",
-  "Then I froze.":"Aztán megdermedtem.",
-  "We locked eyes, and I stared.":"Összefonódott a tekintetünk, és én meredten bámultam.",
-  "I could see she was feeling uneasy and scared.":"Láttam rajta, hogy nyugtalan és fél.",
-  "I called, Here Kitty Kitty, but with one graceful push, she leaped from her perch and was lost in the bush.":"Hívogattam: „Cic-cic!”, ám egyetlen kecses mozdulattal elrugaszkodott a magasabb helyről, és eltűnt a bokrok között.",
-  "I hunted and hunted; no cat was in sight.":"Kerestem, kerestem; sehol sem látszott macska.",
-  "I hoped she'd come back, and I thought she just might.":"Reméltem, hogy visszajön, és úgy gondoltam, talán meg is teszi.",
-  "She surprised me again curled up on the mat.":"Ismét meglepett, ahogy a szőnyegen összegömbölyödve feküdt.",
-  "Oh, I had to tell Mom about Cally-co cat.":"Ó, mesélnem kellett anyunak a háromszínű macskáról.",
-  "Mom said, This cat is frail; she is hungry and thin.":"Anya azt mondta: „Ez a macska gyenge; éhes és sovány.”",
-  "I'm not sure where she came from, or where she has been.":"Nem vagyok biztos benne, honnan jött, vagy hol járt.",
-  "But it's time someone cared, for she needs a good meal.":"De ideje, hogy valaki törődjön vele, mert szüksége van egy jó ételre.",
-  "With those scratches and cuts, she could use time to heal.":"Azokkal a karcolásokkal és vágásokkal ráférne egy kis idő a gyógyulásra.",
-  "So we filled up a pan with fresh milk and chow.":"Így hát megtöltöttünk egy tálat friss tejjel és eleséggel.",
-  "After gulping it down, she sang friendly meows.":"Miután gyorsan lenyelte, barátságos nyávogásba kezdett.",
-  "We invited her in, but she lingered outside.":"Hívtuk be, de ő kint maradt.",
-  "We wondered if Cally had something to hide.":"Azon tűnődtünk, vajon Cally rejteget-e valamit.",
 
+ 
+ 
   "Right at the moment, however, Isabella’s nose was the last thing on her mind":"Ebben a pillanatban azonban Isabella orra volt az utolsó dolog, amire gondolt.",
   "Are you on the phone":"Telefonálsz?","She really couldn’t bear it":"Egyszerűen nem tudta elviselni.",
   "It was a totally awful, awful thing to be happening!":"Egészen szörnyű, szörnyű dolog volt ez!",
@@ -342,10 +236,26 @@ const HU_DICT = {
  "Eleven o'clock arrives; all sorts of people gather here,":"Elérkezik a tizenegy óra; mindenféle ember gyűlik itt össze,",
  "dressed in their finest attire,":"a legszebb ruhájába öltözve,",
  "yet he did not even glance at them.":"ő mégsem vetett rájuk egyetlen pillantást sem.",
+ "They asked him enough what he was doing here; but he didn't say anything; what are you talking about, one of them said, but pick him up and throw him to me.":"Eleget kérdezgették tőle, hogy mit keres itt; de nem szólt semmit; miről beszélsz, mondta az egyikük, de kapd fel és dobd ide nekem.",
+ "And so one threw it to the other; the clock struck twelve, they all left, only the dragoon remained, but he was already helpless with himself.":"És így az egyik dobta a másiknak; az óra tizenkettőt ütött, mindannyian elmentek, csak a dragonyos maradt, de ő már tehetetlen volt magával.",
+ "The princess comes in the morning in a clean red dress, anoints him, and immediately there is nothing wrong with him.":"Reggel Jött a hercegnő tiszta, piros ruhában, bekengeti, és azonnal semmi baja sincs.",
+ "Again the princess says: you have already spent one night fortunately, endure two more nights; whatever they do to you, fear nothing; your health will come again.":"A hercegnő ismét azt mondja: egy éjszakát már szerencsésen eltöltöttél, tűrd ki még kettőt; bármit is tegyenek veled, ne félj semmitől; az egészséged visszajön majd.",
+ "The young lady departed, he had, as both he and the dragoon wished, everything to eat and drink; he walked from one room to another, thus he spent the whole day.":"A kisasszony elment, miután a fiúnak, ahogy mind ő, mind a dragonyos kívánta, volt mit ennie és innia; egyik szobából a másikba járkált, és így töltötte az egész napot.",
 // MONDATOK TAGOLVA
 
 // "who had marched with her army to strike at the enemy,":"aki táborával az ellenségre ütött",
-
+"Again the princess says:":"A hercegnő ismét azt mondja:",
+"you have already spent one night fortunately, endure two more nights;":"egy éjszakát már szerencsésen eltöltöttél, tűrd ki még kettőt;",
+"whatever they do to you, fear nothing; your health will come again.":"bármit is tegyenek veled, ne félj semmitől; az egészséged visszajön majd.",
+"The princess comes in the morning in a clean red dress,":"Reggel jött a hercegnő tiszta, piros ruhában,",
+"anoints him, and immediately there is nothing wrong with him.":"bekengeti, és azonnal semmi baja sincs.",
+"And so one threw it to the other;":"És így az egyik dobta a másiknak;",
+"the clock struck twelve, they all left,":"az óra tizenkettőt ütött, mindannyian elmentek,",
+"only the dragoon remained, but he was already helpless with himself.":"csak a dragonyos maradt, de ő már tehetetlen volt magával.",
+"but pick him up and throw him to me.":"de kapd fel és dobd ide nekem.",
+"what are you talking about, one of them said,":"miről beszélsz, mondta az egyikük,",
+"but he didn't say anything;":"de nem szólt semmit;",
+"They asked him enough what he was doing here;":"Eleget kérdezgették tőle, hogy mit keres itt;",
 "nor speak.":"és ne szólalj meg.",
 "No matter who enters, do not look at them,":"Bárki lépjen is be, ne nézz rá,",
 "simply light this candle and—here is the book—read.":"egyszerűen gyújtsd meg ezt a gyertyát, és – íme a könyv – olvass.",
@@ -360,7 +270,8 @@ const HU_DICT = {
 "or fell ten paces behind the camp was ":"vagy tíz lépéssel mögötte lemaradt, ",
 "to be shot dead on the spot":"azonnal lőjék agyon.",
 "A green dragoon could hold out no longer;":"Egy zöld dragonyos már nem bírta tovább;",
-"finding himself in dire need, he decided to stay behind":"mivel nagy bajba került, úgy döntött, hogy hátramarad",
+"finding himself in dire need,":"mivel nagy bajba került,",
+"he decided to stay behind":"úgy döntött, hogy hátramarad",
 "regardless of whatever punishment might await him":"függetlenül attól, milyen büntetés várhat rá",
 "so he dismounted and remained there for seventy-seven years":"ezért leszállt a lováról, és hetvenhét évig ott is maradt",
 "Indeed, the widowed queen":"Csakugyan az özvegy királyné,",
@@ -432,6 +343,32 @@ const HU_DICT = {
 
  // *** SZAVAK ***
   "pleasure":"öröm, örömet okoz",
+  "says":"mondja",
+  "health":"egészség",
+  "fortunately":"szerencsésen",
+  "endure":"elviselni",
+  "dress":"ruha",
+  "clean":"tiszta",
+  "comes":"jön",
+  "wrong":"rossz",
+  "immediately":"azonnal, rögtön",
+  "anoints":"felken",
+  "twelve":"tizenkettő",
+  "threw":"dobta",
+  "clock":"óra,",
+  "struck":"ütött",
+  "helpless":"tehetetlen, gyámoltalan",
+  "already":"már",
+  "say":"mondd, beszél",
+  "talking":"beszélés",
+  "throw":"dobás",
+  "no matter":"nem számít, mindegy",
+  "leaves":"he, she, it leaves (elmegy, otthagy -ige) / (fa levélek -főnév)",
+  "matter":"anyag",
+  "leave":"hagy, elmegy, otthagy",
+  "yet":"még, sőt még, mégis",
+  "glance":"pillant, pillantás",
+  "speak":"beszél, szól",
   "attire":"viselet",
   "dressed":"öltözött",
   "finest":"legkiválóbb",
@@ -1091,7 +1028,7 @@ const HU_DICT = {
   "hopefully":"remélhető, remélhetőleg",
   "shoulder":"váll, vállára vesz,)",
   "look":"tekintet, nézés, néz",
-  "Like":"tetszik, mint, ahogy, hasonló, ahogy, kedvel, ugyanolyan",
+  "like":"tetszik, mint, ahogy, hasonló, ahogy, kedvel, ugyanolyan",
   "instance":"példány",
   "sneaking":"alatomos",
   "low":"alacsony,(halk)",
@@ -1263,7 +1200,7 @@ const HU_DICT = {
   "all": "teljesen, minden, valamennyi, összes, összesen mindegyik",
   "alone": "egyedül",
   "there": "ott, oda, amott",
-  "no": "nem, nincs, semmilyen, semmiféle",
+  "no": "ne, nem, nincs, semmilyen, semmiféle",
   "one": "egy, egyik, ember, valaki",
   "there was no one": "Nem volt senki",
   "to play": "játszani",
@@ -1417,7 +1354,8 @@ const HU_DICT = {
   "play":"játszik",
   "dress-up?":"jelmezes öltözködés",
   "with":"-val -vel -nál -nél noha, ",
-  "-get well soon-":"Jobbulást kívánok!"
+  "-get well soon-":"Jobbulást kívánok!",
+  "showed":"mutatott, megmutatta"
   
 };
 function loadJS(f){
@@ -1426,11 +1364,16 @@ function loadJS(f){
   document.head.appendChild(s);
 }
 loadJS("js/hogyan.js");
+loadJS("js/Rescue_pup.js");
+loadJS("js/gmore.js");
+loadJS("js/resckitty.js");
 function loadJS_sync(file) {
   document.write('<script src="' + file + '"><\/script>');
 }
 loadJS_sync("js/hogyan.js");
 loadJS_sync("js/Rescue_pup.js");
+loadJS_sync("js/gmore.js");
+loadJS_sync("js/resckitty.js");
 
 
 
