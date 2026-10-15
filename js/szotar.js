@@ -238,7 +238,7 @@ const HU_DICT = {
  "And so one threw it to the other; the clock struck twelve, they all left, only the dragoon remained, but he was already helpless with himself.":"És így az egyik dobta a másiknak; az óra tizenkettőt ütött, mindannyian elmentek, csak a dragonyos maradt, de ő már tehetetlen volt magával.",
  "The princess comes in the morning in a clean red dress, anoints him, and immediately there is nothing wrong with him.":"Reggel Jött a hercegnő tiszta, piros ruhában, bekengeti, és azonnal semmi baja sincs.",
  "Again the princess says: you have already spent one night fortunately, endure two more nights; whatever they do to you, fear nothing; your health will come again.":"A hercegnő ismét azt mondja: egy éjszakát már szerencsésen eltöltöttél, tűrd ki még kettőt; bármit is tegyenek veled, ne félj semmitől; az egészséged visszajön majd.",
- "The young lady departed, he had, as both he and the dragoon wished, everything to eat and drink; he walked from one room to another, thus he spent the whole day.":"A kisasszony elment, miután a fiúnak, ahogy mind ő, mind a dragonyos kívánta, volt mit ennie és innia; egyik szobából a másikba járkált, és így töltötte az egész napot.",
+ "The young lady departed, he had, as both he and the dragoon wished, everything to eat and drink; he walked from one room to another, thus he spent the whole day.":"A kisasszony elment, miután, ahogy mind ő, mind a dragonyos kívánta, volt mit ennie és innia; egyik szobából a másikba járkált, és így töltötte az egész napot.",
 // MONDATOK TAGOLVA
 
 // "who had marched with her army to strike at the enemy,":"aki táborával az ellenségre ütött",
