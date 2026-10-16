@@ -249,13 +249,24 @@ const HU_DICT = {
  "They asked him enough questions about what he wanted; but he just kept reading, they got tired of always asking him questions, they got it: they pulled him from the table and cut a belt from his back.":"Eleget kérdezősködtek tőle arról, hogy mit akar; de ő csak olvasott tovább, megunták az állandó kérdezősködést, és megkapták: elrántották az asztaltól, és szíjat szabnak a hátából.",
  "When the fourth one is cut, the clock strikes twelve and they leave it at that.":"Amikor a negyediket levágják, az óra tizenkettőt üt és ennyiben hagyják.",
  "The dragoon could not even get up because of the pain, but remained in the place where he was being tortured until morning.":"A dragonyos a fájdalomtól fel sem tudott kelni, hanem reggelig azon a helyen maradt, ahol kínozták.",
+ "The princess comes again in a blue dress, hugs the dragoon, anoints him, and he gets better again.":"A hercegnő ismét eljön kék ruhában, megöleli a dragonyost, bekeni, és az újra jobban lesz.",
+ "The princess asks him again to spend this night here and then everything will be fine.":"A hercegnő ismét arra kéri, hogy töltse itt ezt az éjszakát, és akkor minden rendben lesz.",
 // MONDATOK TAGOLVA
 
 // "who had marched with her army to strike at the enemy,":"aki táborával az ellenségre ütött",
+
+
+
+
+
+
+
+"The princess asks him again to spend this night here":"A hercegnő ismét arra kéri, hogy töltse itt ezt az éjszakát,",
+"and then everything will be fine.":"és akkor minden rendben lesz.",
+"The princess comes again in a blue dress,":"A hercegnő ismét eljön kék ruhában,",
+"hugs the dragoon, anoints him, and he gets better again.":"megöleli a dragonyost, bekeni, és az újra jobban lesz.",
 "The dragoon could not even get up because of the pain,":"A dragonyos a fájdalomtól fel sem tudott kelni,",
 "but remained in the place where he was being tortured until morning.":"hanem reggelig azon a helyen maradt, ahol kínozták.",
-
-
 "When the fourth one is cut, the clock strikes twelve":"Amikor a negyediket levágják, az óra tizenkettőt üt",
 "and they leave it at that.":"és ennyiben hagyják.",
 "They asked him enough questions about what he wanted;":"Eleget kérdezősködtek tőle arról, hogy mit akar;",
@@ -373,6 +384,8 @@ const HU_DICT = {
 "Z":"ziː- amerikai /zed  - brit  - Z ",
 
  // *** SZAVAK ***
+  "gets":"kap",
+  "spend":"tölt, költ",
   "pleasure":"öröm, örömet okoz",
   "until":"-ig, míg, amíg",
   "because":"mert, mivel",
@@ -406,7 +419,7 @@ const HU_DICT = {
   "comes":"jön",
   "wrong":"rossz",
   "immediately":"azonnal, rögtön",
-  "anoints":"felken",
+  "anoints":"felken, beken, leken",
   "twelve":"tizenkettő",
   "threw":"dobta",
   "clock":"óra,",
@@ -804,7 +817,7 @@ const HU_DICT = {
   "tall":"magas",
   "beach":"strand, tengerpart",
   "beaches":"strandok",
-  "spent":"költött",
+  "spent":"töltött,költött",
   "skin":"bőr, megnyúz",
   "pubescent":"serdülő",
   "female":"nő, női",
@@ -900,7 +913,7 @@ const HU_DICT = {
   "zone":"zóna, övezet, terület, égöv",
   "begin":"kezd, kezdődik",
   "Station":"állomás, állomásoztat",
-  "will":"akar, akarat, szándék, végrendelet, végrendelkezik",
+  "will":"fog,(majd), akar, akarat, szándék, végrendelet, végrendelkezik",
   "opportunity":"lehetőség, alkalmas idő, alkalomszerűség",
   "sighting":"irányzék",
   "Space":"tér, hely, űr",
