@@ -341,7 +341,7 @@ const HU_DICT = {
 "P":"piː -P",
 "Q":"kjuː -Q",
 "R":"(ɑːr - amerikai), - (ɑː-brit/) -R",
-"S ":"es -(abc) -S -(birtokos és többeszám jelző)",
+"S ":"es -(abc) -S -([ 's  -birtokos ]  és [ többesszám jelző pl. window(s) / ablak(ok) ])",
 "T":"tiː -T",
 "U":"juː -U",
 "V":"viː -V",
