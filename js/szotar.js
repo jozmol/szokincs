@@ -1,5 +1,7 @@
 const HU_DICT = {
 
+ 
+ 
   "Right at the moment, however, Isabella’s nose was the last thing on her mind":"Ebben a pillanatban azonban Isabella orra volt az utolsó dolog, amire gondolt.",
   "Are you on the phone":"Telefonálsz?","She really couldn’t bear it":"Egyszerűen nem tudta elviselni.",
   "It was a totally awful, awful thing to be happening!":"Egészen szörnyű, szörnyű dolog volt ez!",
@@ -238,10 +240,19 @@ const HU_DICT = {
  "And so one threw it to the other; the clock struck twelve, they all left, only the dragoon remained, but he was already helpless with himself.":"És így az egyik dobta a másiknak; az óra tizenkettőt ütött, mindannyian elmentek, csak a dragonyos maradt, de ő már tehetetlen volt magával.",
  "The princess comes in the morning in a clean red dress, anoints him, and immediately there is nothing wrong with him.":"Reggel Jött a hercegnő tiszta, piros ruhában, bekengeti, és azonnal semmi baja sincs.",
  "Again the princess says: you have already spent one night fortunately, endure two more nights; whatever they do to you, fear nothing; your health will come again.":"A hercegnő ismét azt mondja: egy éjszakát már szerencsésen eltöltöttél, tűrd ki még kettőt; bármit is tegyenek veled, ne félj semmitől; az egészséged visszajön majd.",
- "The young lady departed, he had, as both he and the dragoon wished, everything to eat and drink; he walked from one room to another, thus he spent the whole day.":"A kisasszony elment, miután, ahogy mind ő, mind a dragonyos kívánta, volt mit ennie és innia; egyik szobából a másikba járkált, és így töltötte az egész napot.",
+ "The young lady leaves, he had, as both he and the dragoon wished, everything to eat and drink; he walked from one room to another, thus he spent the whole day.":"A kisasszony elment, miután a dragonyosnak, ahogy mind ő, mind a dragonyos kívánta, volt mit ennie és innia; egyik szobából a másikba járkált, és így töltötte az egész napot.",
+ 
+ "The second night comes, the princess comes again, brings a candle, a book and a red scarf, and places it in front of the dragoon, saying the same thing as yesterday: light the candle, read the book, and whoever comes, no matter what questions they have, should not answer anything, just read.":"Eljön a második éjszaka, a királylány újra jön, hoz egy gyertyát, egy könyvet és egy piros sálat, és a dragonyos elé helyezi, ugyanazt mondva, mint tegnap: gyújtsd meg a gyertyát, olvassa a könyvet, és bárki jön, bármilyen kérdése is van, ne válaszoljon semmire, csak olvasson.",
 // MONDATOK TAGOLVA
 
 // "who had marched with her army to strike at the enemy,":"aki táborával az ellenségre ütött",
+"The second night comes, the princess comes again, brings a candle, a book and a red scarf":"Eljön a második éjszaka, a királylány újra jön, hoz egy gyertyát, egy könyvet és egy piros sálat,",
+"and places it in front of the dragoon, saying the same thing as yesterday:":"és a dragonyos elé helyezi, ugyanazt mondva, mint tegnap:",
+"light the candle, read the book, and whoever comes,":"gyújtsd meg a gyertyát, olvassa a könyvet, és bárki jön,",
+"no matter what questions they have, should not answer anything, just read.":"bármilyen kérdése is van, ne válaszoljon semmire, csak olvasson.",
+
+"The young lady leaves, he had, as both he and the dragoon wished,":"A kisasszony elment, miután a dragonyosnak, ahogy mind ő, mind a dragonyos kívánta,",
+"everything to eat and drink; he walked from one room to another, thus he spent the whole day.":"volt mit ennie és innia; egyik szobából a másikba járkált, és így töltötte az egész napot.",
 "Again the princess says:":"A hercegnő ismét azt mondja:",
 "you have already spent one night fortunately, endure two more nights;":"egy éjszakát már szerencsésen eltöltöttél, tűrd ki még kettőt;",
 "whatever they do to you, fear nothing; your health will come again.":"bármit is tegyenek veled, ne félj semmitől; az egészséged visszajön majd.",
@@ -330,7 +341,7 @@ const HU_DICT = {
 "P":"piː -P",
 "Q":"kjuː -Q",
 "R":"(ɑːr - amerikai), - (ɑː-brit/) -R",
-"S ":"es -(abc) -S",
+"S ":"es -(abc) -S -(birtokos és többeszám jelző)",
 "T":"tiː -T",
 "U":"juː -U",
 "V":"viː -V",
@@ -341,6 +352,18 @@ const HU_DICT = {
 
  // *** SZAVAK ***
   "pleasure":"öröm, örömet okoz",
+  "well":"jól",
+  "answer":"válasz, felelet",
+  "questions":"kérdések",
+  "whoever":"bárki",
+  "saying":"mond, mondás",
+  "scarf":"sál",
+  "brings":"hoz",
+  "wished":"kívánt",
+  "eat":"eszik",
+  "walked":"sétált",
+  "thus":"így, ennélfogva",
+  "whole":"egész, teljes",
   "says":"mondja",
   "health":"egészség",
   "fortunately":"szerencsésen",
@@ -566,15 +589,14 @@ const HU_DICT = {
   "powers":"hatalmak, erők",
   "song":"dal, ének",
   "élet":"élet",
-  "ain't":"nem, nem vagyok",
-  "we'll":"fogunk",
-  "we will":"fogunk",
+  "ain't":"nem, nem vagyok /szleng/",
+  "we will":"fogunk /we'll/",
   "we will see":"meglátjuk",
   "we'll see":"meglátjuk",
   "period":"időszak, időtartam",
   "choose":"választ, kiválszt",
   "got":"kapott, vált valamilyenné",
-  "We've":"nekünk van, voltunk",
+  "We've":"nekünk van, voltunk /we have/",
   "anymore":"már nem (US)",
   "any more":"még több, van-e még",
   "viewing":"megtekintés",
@@ -725,7 +747,6 @@ const HU_DICT = {
   "opined":"véleményt nyilvánított",
   "fan":"legyez, hűsít, legyező, szellőző",
   "teacher":"tanár(nő), tanító(nő)",
-  "'s":"-é, ezé, azé, valakinek(-minek a tulajdona, része, (abc betűje)",
   "such":"ilyen, olyan, hasonló",
   "school":"iskola",
   "wasn’t":"nem volt",
@@ -1189,7 +1210,7 @@ const HU_DICT = {
   "tiny": "apró",
   "house": "ház",
   "stood": "állt",
-  "a" : "egy / határozatlan névelő - és az Angol abc első betűje (eɪ) A",
+  "a" : "egy / határozatlan névelő / - az Angol abc első betűje [(eɪ) A]",
   "the": "a, az (névelő)",
   "sat": "ült",
   "who": "ki, kik, kicsoda, aki, akik",
@@ -1353,7 +1374,8 @@ const HU_DICT = {
   "dress-up?":"jelmezes öltözködés",
   "with":"-val -vel -nál -nél noha, ",
   "-get well soon-":"Jobbulást kívánok!",
-  "showed":"mutatott, megmutatta"  
+  "showed":"mutatott, megmutatta"
+  
 };
 function loadJS(f){
   let s=document.createElement("script");
