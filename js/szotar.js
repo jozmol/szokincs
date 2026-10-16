@@ -242,14 +242,14 @@ const HU_DICT = {
  "Again the princess says: you have already spent one night fortunately, endure two more nights; whatever they do to you, fear nothing; your health will come again.":"A hercegnő ismét azt mondja: egy éjszakát már szerencsésen eltöltöttél, tűrd ki még kettőt; bármit is tegyenek veled, ne félj semmitől; az egészséged visszajön majd.",
  "The young lady leaves, he had, as both he and the dragoon wished, everything to eat and drink; he walked from one room to another, thus he spent the whole day.":"A kisasszony elment, miután a dragonyosnak, ahogy mind ő, mind a dragonyos kívánta, volt mit ennie és innia; egyik szobából a másikba járkált, és így töltötte az egész napot.",
  
- "The second night comes, the princess comes again, brings a candle, a book and a red scarf, and places it in front of the dragoon, saying the same thing as yesterday: light the candle, read the book, and whoever comes, no matter what questions they have, should not answer anything, just read.":"Eljön a második éjszaka, a királylány újra jön, hoz egy gyertyát, egy könyvet és egy piros sálat, és a dragonyos elé helyezi, ugyanazt mondva, mint tegnap: gyújtsd meg a gyertyát, olvassa a könyvet, és bárki jön, bármilyen kérdése is van, ne válaszoljon semmire, csak olvasson.",
+ "The second night comes, the princess comes again, brings a candle, a book and a red scarf, and places it in front of the dragoon, saying the same thing as yesterday: light the candle, read the book, and whoever comes, no matter what questions they have, should not answer anything, just read.":"Eljön a második éjszaka, a királylány újra jön, hoz egy gyertyát, egy könyvet és egy piros sálat, és a dragonyos elé helyezi, ugyanazt mondva, mint tegnap: gyújtsd meg a gyertyát, olvasd a könyvet, és bárki jön, bármilyen kérdése is van, ne válaszoljon semmire, csak olvass.",
 // MONDATOK TAGOLVA
 
 // "who had marched with her army to strike at the enemy,":"aki táborával az ellenségre ütött",
 "The second night comes, the princess comes again, brings a candle, a book and a red scarf":"Eljön a második éjszaka, a királylány újra jön, hoz egy gyertyát, egy könyvet és egy piros sálat,",
 "and places it in front of the dragoon, saying the same thing as yesterday:":"és a dragonyos elé helyezi, ugyanazt mondva, mint tegnap:",
-"light the candle, read the book, and whoever comes,":"gyújtsd meg a gyertyát, olvassa a könyvet, és bárki jön,",
-"no matter what questions they have, should not answer anything, just read.":"bármilyen kérdése is van, ne válaszoljon semmire, csak olvasson.",
+"light the candle, read the book, and whoever comes,":"gyújtsd meg a gyertyát, olvasd a könyvet, és bárki jön,",
+"no matter what questions they have, should not answer anything, just read.":"bármilyen kérdése is van, ne válaszoljon semmire, csak olvass.",
 
 "The young lady leaves, he had, as both he and the dragoon wished,":"A kisasszony elment, miután a dragonyosnak, ahogy mind ő, mind a dragonyos kívánta,",
 "everything to eat and drink; he walked from one room to another, thus he spent the whole day.":"volt mit ennie és innia; egyik szobából a másikba járkált, és így töltötte az egész napot.",
