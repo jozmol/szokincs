@@ -1,11 +1,8 @@
 const HU_DICT = {
-
- 
- 
-  "Right at the moment, however, Isabella’s nose was the last thing on her mind":"Ebben a pillanatban azonban Isabella orra volt az utolsó dolog, amire gondolt.",
+	"Right at the moment, however, Isabella’s nose was the last thing on her mind":"Ebben a pillanatban azonban Isabella orra volt az utolsó dolog, amire gondolt.",
   "Are you on the phone":"Telefonálsz?","She really couldn’t bear it":"Egyszerűen nem tudta elviselni.",
   "It was a totally awful, awful thing to be happening!":"Egészen szörnyű, szörnyű dolog volt ez!",
-  "So I ran to the bushes and yanked them apart, but whatever it was shot off like a dart.":"Így hát a bokrokhoz rohantam, és széttéptem az ágakat, de bármi is volt az, 	nyílvesszőként lőtt ki onnan.",
+  "So I ran to the bushes and yanked them apart, but whatever it was shot off like a dart.":"Így hát a bokrokhoz rohantam, és széttéptem az ágakat, de bármi is volt az, nyílvesszőként lőtt ki onnan.",
   
 "In the late afternoon, winds blew in from the West.":"Késő délután nyugat felől feltámadt a szél.",
 "Raindrops pelted the ground.":"Esőcseppek doboltak a földön.",
@@ -252,15 +249,7 @@ const HU_DICT = {
  "The princess comes again in a blue dress, hugs the dragoon, anoints him, and he gets better again.":"A hercegnő ismét eljön kék ruhában, megöleli a dragonyost, bekeni, és az újra jobban lesz.",
  "The princess asks him again to spend this night here and then everything will be fine.":"A hercegnő ismét arra kéri, hogy töltse itt ezt az éjszakát, és akkor minden rendben lesz.",
 // MONDATOK TAGOLVA
-
 // "who had marched with her army to strike at the enemy,":"aki táborával az ellenségre ütött",
-
-
-
-
-
-
-
 "The princess asks him again to spend this night here":"A hercegnő ismét arra kéri, hogy töltse itt ezt az éjszakát,",
 "and then everything will be fine.":"és akkor minden rendben lesz.",
 "The princess comes again in a blue dress,":"A hercegnő ismét eljön kék ruhában,",
@@ -349,12 +338,8 @@ const HU_DICT = {
 "Everything he thought would be nice sprang up to his liking;":"Minden, amit jónak vélt, kedve szerint szökkent szárba;",
 "that is how he spent the day.":"így töltötte a napot.",
 
-
-
-
 //  *** rövid mondatok tagolása ***
 "I would like to travel":"Szeretnék elutazni",
-
 // ANGOL ÁBC
 "A":"eɪ  -(abc) -A",
 "B":"bi: -B",
@@ -382,7 +367,6 @@ const HU_DICT = {
 "X":"eks -X",
 "Y":"waɪ -Y",
 "Z":"ziː- amerikai /zed  - brit  - Z ",
-
  // *** SZAVAK ***
   "gets":"kap",
   "spend":"tölt, költ",
@@ -1420,8 +1404,7 @@ const HU_DICT = {
   "dress-up?":"jelmezes öltözködés",
   "with":"-val -vel -nál -nél noha, ",
   "-get well soon-":"Jobbulást kívánok!",
-  "showed":"mutatott, megmutatta"
-  
+  "showed":"mutatott, megmutatta"  
 };
 function loadJS(f){
   let s=document.createElement("script");
