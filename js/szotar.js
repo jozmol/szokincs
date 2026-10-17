@@ -1,8 +1,11 @@
 const HU_DICT = {
-	"Right at the moment, however, Isabella’s nose was the last thing on her mind":"Ebben a pillanatban azonban Isabella orra volt az utolsó dolog, amire gondolt.",
+
+ 
+ 
+  "Right at the moment, however, Isabella’s nose was the last thing on her mind":"Ebben a pillanatban azonban Isabella orra volt az utolsó dolog, amire gondolt.",
   "Are you on the phone":"Telefonálsz?","She really couldn’t bear it":"Egyszerűen nem tudta elviselni.",
   "It was a totally awful, awful thing to be happening!":"Egészen szörnyű, szörnyű dolog volt ez!",
-  "So I ran to the bushes and yanked them apart, but whatever it was shot off like a dart.":"Így hát a bokrokhoz rohantam, és széttéptem az ágakat, de bármi is volt az, nyílvesszőként lőtt ki onnan.",
+  "So I ran to the bushes and yanked them apart, but whatever it was shot off like a dart.":"Így hát a bokrokhoz rohantam, és széttéptem az ágakat, de bármi is volt az, 	nyílvesszőként lőtt ki onnan.",
   
 "In the late afternoon, winds blew in from the West.":"Késő délután nyugat felől feltámadt a szél.",
 "Raindrops pelted the ground.":"Esőcseppek doboltak a földön.",
@@ -247,9 +250,52 @@ const HU_DICT = {
  "When the fourth one is cut, the clock strikes twelve and they leave it at that.":"Amikor a negyediket levágják, az óra tizenkettőt üt és ennyiben hagyják.",
  "The dragoon could not even get up because of the pain, but remained in the place where he was being tortured until morning.":"A dragonyos a fájdalomtól fel sem tudott kelni, hanem reggelig azon a helyen maradt, ahol kínozták.",
  "The princess comes again in a blue dress, hugs the dragoon, anoints him, and he gets better again.":"A hercegnő ismét eljön kék ruhában, megöleli a dragonyost, bekeni, és az újra jobban lesz.",
+ 
  "The princess asks him again to spend this night here and then everything will be fine.":"A hercegnő ismét arra kéri, hogy töltse itt ezt az éjszakát, és akkor minden rendben lesz.",
+ "The dragoon accepted, and after that the young lady left him alone, so he spent the day just eating, drinking, and thinking.":"A dragonyos elfogadta, és ezután a fiatal hölgy magára hagyta, így a dragonyos csak evett, ivott és gondolkodott.",
+ 
+ "The evening is comes again; the princess comes; she again brings with her a candle, a book, and a blue handkerchief, saying that she would do the same thing now as she had done two nights ago, that she would light the candle and read the book and not speak to or look at anyone.":"Eljön újra az este; jön a hercegnő; ismét magával hoz egy gyertyát, egy könyvet és egy kék zsebkendőt, mondván, hogy most is tegye ugyanazt, mint két nappal ezelőtt, hogy meggyújtja a gyertyát, elolvassa a könyvet, és senkihez sem szól, senkire sem néz.",
+ "The dragoon said that he would do everything; with that the princess left him there.":"A dragonyos azt mondta, hogy mindent megtesz; ezzel otthagyta a hercegnő.",
+ "Eleven o'clock struck again; there was an even louder rumble in the palace, but the dragoon paid no attention to it.":"Újra tizenegyet ütött az óra; még hangosabb dübörgés hallatszott a palotában, de a dragonyos ügyet sem vetett rá.",
+ "They come into the room where he was, they lounge about there, make a lot of noise, and tell him to get out, since he has no call to be here.":"Bejönnek a szobába, ahol volt, ácsorognak ott, majd nagy zajt csapnak, és azt mondják neki, hogy menjen ki, mivel nincs itt semmi keresnivalója.",
+ "The dragoon just kept quiet no matter what they asked; he didn't answer -then they said; let's catch him! he wants to be a great lord here.":"A dragonyos csak hallgatott bármit is kérdeztek; nem válaszolt; aztán azt mondták: fogjuk el! nagy úr akar lenni itt.",
+ "So they caught him and took him to the kitchen, where a huge fire was burning and the spit was ready.":"Így hát elkapták és bevitték a konyhába, ahol hatalmas tűz égett, és a nyárs készen állt.",
+ 
+ "Here they caught him, and immediately put him on a spit; and they roasted him, and turned him on the spit, when the clock struck twelve: they immediately scattered; but the princess, who was freed from the curse, ran down at once, and took her deliverer from the fire and the spit; and the dragoon was almost dead; but the princess anointed him, after which he got better, but still he lay in a sickbed for three days, and after that he had no more trouble.":"Itt elkapták, és azonnal nyársra tették; sütötték, majd forgatták a nyárson, amikor az óra tizenkettőt ütött; azonnal szétszéledtek; de a hercegnő, akit megszabadult az átok alól, azonnal lerohant, és levette megmentőjét a tűzről és a nyársról; és a dragonyos már majdnem halott volt; de a hercegnő megkente, mire jobban lett, de még három napig betegágyban feküdt, és azután már semmi baja nem volt.",
+ 
 // MONDATOK TAGOLVA
 // "who had marched with her army to strike at the enemy,":"aki táborával az ellenségre ütött",
+"Here they caught him, and immediately put him on a spit;":"Itt elkapták, és azonnal nyársra tették;",
+"and they roasted him, and turned him on the spit,":"sütötték, majd forgatták a nyárson,",
+"when the clock struck twelve: they immediately scattered;":"amikor az óra tizenkettőt ütött; azonnal szétszéledtek;",
+"but the princess, who was freed from the curse,":"de a hercegnő, akit megszabadult az átok alól",
+"ran down at once, and took her deliverer from the fire and the spit;":"azonnal lerohant, és levette megmentőjét a tűzről és a nyársról;",
+"and the dragoon was almost dead; but the princess anointed him,":"és a dragonyos már majdnem halott volt; de a hercegnő megkente,",
+"after which he got better, but still he lay in a sickbed for three days,":"mire jobban lett, de még három napig betegágyban feküdt,",
+"and after that he had no more trouble.":"és azután már semmi baja nem volt.",
+
+"So they caught him and took him to the kitchen,":"Így hát elkapták és bevitték a konyhába,",
+"where a huge fire was burning":"ahol hatalmas tűz égett,",
+"and the spit was ready.":"és a nyárs készen állt.",
+"The dragoon just kept quiet no matter what they asked":"A dragonyos csak hallgatott, bármit is kérdeztek;",
+"he didn't answer -then they said;":"nem válaszolt; aztán azt mondták:",
+"let's catch him! he wants to be a great lord here.":"fogjuk el! nagy úr akar lenni itt.",
+
+"They come into the room where he was,":"Bejönnek a szobába, ahol volt,",
+"they lounge about there, make a lot of noise,":"ácsorognak ott, majd nagy zajt csapnak,",
+"and tell him to get out, since he has no call to be here.":"és mondják neki, menjen ki, mivel nincs itt semmi keresnivalója.",
+
+"Eleven o'clock struck again;":"Újra tizenegyet ütött az óra;",
+"there was an even louder rumble in the palace,":"még hangosabb dübörgés hallatszott a palotában,",
+"but the dragoon paid no attention to it.":"de a dragonyos ügyet sem vetett rá.",
+"The dragoon said that he would do everything;":"A dragonyos azt mondta, hogy mindent megtesz;",
+"with that the princess left him there.":"ezzel otthagyta a hercegnő.",
+"The evening is comes again;  the princess comes;":"Eljön újra az este; jön a hercegnő;",
+"she again brings with her a candle, a book, and a blue handkerchief,":"ismét magával hoz egy gyertyát, egy könyvet és egy kék zsebkendőt,",
+"saying that she would do the same thing now as she had done two nights ago,":"mondván, hogy most is tegye ugyanazt, mint két nappal ezelőtt,",
+"that she would light the candle and read the book and not speak to or look at anyone.":"hogy meggyújtja a gyertyát, elolvassa a könyvet, és senkihez sem szól, senkire sem néz.",
+"The dragoon accepted, and after that the young lady left him alone,":"A dragonyos elfogadta, és ezután a fiatal hölgy magára hagyta,",
+"so he spent the day just eating, drinking, and thinking.":"így a dragonyos csak evett, ivott és gondolkodott.",
 "The princess asks him again to spend this night here":"A hercegnő ismét arra kéri, hogy töltse itt ezt az éjszakát,",
 "and then everything will be fine.":"és akkor minden rendben lesz.",
 "The princess comes again in a blue dress,":"A hercegnő ismét eljön kék ruhában,",
@@ -338,8 +384,12 @@ const HU_DICT = {
 "Everything he thought would be nice sprang up to his liking;":"Minden, amit jónak vélt, kedve szerint szökkent szárba;",
 "that is how he spent the day.":"így töltötte a napot.",
 
+
+
+
 //  *** rövid mondatok tagolása ***
 "I would like to travel":"Szeretnék elutazni",
+
 // ANGOL ÁBC
 "A":"eɪ  -(abc) -A",
 "B":"bi: -B",
@@ -367,8 +417,33 @@ const HU_DICT = {
 "X":"eks -X",
 "Y":"waɪ -Y",
 "Z":"ziː- amerikai /zed  - brit  - Z ",
+
  // *** SZAVAK ***
+ "lord":"úr",
+ "deliverer":"szállító, (megmentő, szabadító (régiesebb kifejezés))",
+ "sickbed":"betegágy",
+ "trouble":"baj",
+ "still":"még mindig, mozdulatlan",
+ "roasted":"sült",
+ "took":"vitt, elvitt, vett, elvett",
+ "ready":"kész",
+ "spit":"nyárs",
+ "burning":"égő, égés",
+ "huge":"hatalmas",
+ "catch":"elkap, megfog",
+ "louder":"hangosabb",
+ "quiet":"csendes",
+ "make":"készít, csinál",
+ "lounge":"ácsorog",
+ "since":"mivel",
+ "lot":"sok",
+ "attention":"figyelem, figyelmesség",
+ "paid":"fizetett",
+ "rumble":"moraj",
   "gets":"kap",
+  "drink":"ital, ivás, iszik",
+  "eating":"evés, étkezési",
+  "drinking":"ivás",
   "spend":"tölt, költ",
   "pleasure":"öröm, örömet okoz",
   "until":"-ig, míg, amíg",
@@ -434,7 +509,6 @@ const HU_DICT = {
   "reads":"olvas",
   "read":"olvas(ni)",
   "candle":"gyertya",
-  "before":"elé",
   "places":"helyek",
   "place":"hely, elhelyez",
   "told":"mondta",
@@ -612,7 +686,8 @@ const HU_DICT = {
   "belong":"tartozik, tartozik valakihez, valamihez, valakié",
   "us":"minket, nekünk, bennünket",
   "lose":"veszít, elveszít, elveszteget, vereséget szenved",
-  "'cause":"ok, okoz, előidéz",
+  "cause":"ok, okoz, előidéz",
+  "'cause":"mert",
   "destiny":"sors, végzet",
   "pick":"csákány, csipked, fogvájó",
   "fight":"harc, harcol, verekszik",
@@ -686,7 +761,7 @@ const HU_DICT = {
   "of course":"természetesen",
   "please":"kérem, örömöt szerez, tetszik vkinek,kedvére tesz vkinek",
   "can":"tud, képes",
-  "excuse":"elnézést, menteget",
+  "excuse":"kifogás, menteget",
   "bedroom":"hálószoba",
   "floor":"padló, parketta, padlózat, emelet",
   "daffodil-covered":"nárciszokkal borított",
@@ -1133,9 +1208,9 @@ const HU_DICT = {
   "more":"több, nagyobb, inkább",
   "I saw":"láttam",
   "red":"vörös, piros",
-  "had I seen":"láttam volna",
+  "had I seen":"láttam volna?",
   "possom":"oposszum",
-  "an":"egy", 
+  "an":"egy / határozatlan névelő /", 
   "owl":"bagoly",
   "I ran":"futottam",
   "bushes":"bokrok",
@@ -1203,7 +1278,7 @@ const HU_DICT = {
   "phone": "telefon",
   "your": "tied, tiéd, öné, tietek, önöké (Névmás)",
   "number":"szám",
-  "what":"mi",
+  "what":"mi, mit, amit, amiket, amit",
   "Are you on the phone?": "Telefonálsz?",
   "Good bye.":"Viszlát.",
   "How are you?":"Hogy vagy?",
@@ -1312,7 +1387,7 @@ const HU_DICT = {
   "pup":"kiskutya, kölyökkutya",
   "couldn't":"nem tudott",
   "any":"bármilyen, valamilyen, valami, valamennyire, valamivel",
-  "so":"így, úgy, úgyhogy,tehát, olyan, ilyen",
+  "so":"így, úgy, úgyhogy, tehát, olyan, ilyen",
   "clawed":"karom",
   "at":"-nál -nél -kor, -on -en -ön -ban",
   "windows":"ablakok","window":"ablak",
@@ -1382,15 +1457,13 @@ const HU_DICT = {
   "lady":"hölgy",
   "'til":"amíg",
   "here we are":"itt vagyunk, megérkeztünk",
-  "buddy, get up!":"pajti kelj fel!",
   "quickly":"gyorsan",
   "stopped":"megállt",
   "opened":"kinyitott",
   "possibly":"esetleg, talán",
   "take anymore":"többet elviselni",
-  "Could he possibly take anymore?":"Vajon képes lenne még többet elviselni?",
-  "cried":"kiáltott fel",
-  "Buddy, get up! Here we are!":"Pajti kelj fel megérkeztünk!",
+  "cried":"sírt",
+  "cried out":"felkiáltott",
   "hole":"lyuk, kilyukaszt, rés, átfúr",
   "kept":"tartotta",
   "might":"hatalom",
@@ -1404,7 +1477,8 @@ const HU_DICT = {
   "dress-up?":"jelmezes öltözködés",
   "with":"-val -vel -nál -nél noha, ",
   "-get well soon-":"Jobbulást kívánok!",
-  "showed":"mutatott, megmutatta"  
+  "showed":"mutatott, megmutatta"
+  
 };
 function loadJS(f){
   let s=document.createElement("script");
