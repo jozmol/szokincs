@@ -17,8 +17,7 @@
  #storyBox{
  border-radius:20px;
  border:4px solid #d6d7c7;
- padding:20px;
- font-size:18px;
+ padding:20px;font-size:18px;
  line-height:2;white-space:pre-wrap;
  min-height:200px;
  max-height:250px;
@@ -34,9 +33,9 @@
  .word.active{
  background:#91e9f7;
  /*font-style:italic;*/
- font-weight:600 !important;
+/* font-weight:600 !important; */
  color:#47369b !important;
- font-size: 17px;
+ font-size: 18px;
  text-decoration:underline dotted
  }
  .controls{
@@ -63,12 +62,12 @@
  .controls button.active-accent{background:#ffeb3b}
  
  select{
- width:90%;
+ width:85%;
  padding:8px;
  margin-top:30px;
  margin-bottom:10px;
  border-radius:10px;
- font-size:15px}
+ font-size:17px}
  
  #status{margin:8px 0;
  color:#555;
@@ -89,7 +88,7 @@
  z-index:50}
  
  #dictSearch{
- width:90%;
+ width:85%;
  padding:10px;margin:10px 0;
  border-radius:10px;
  border:2px solid #e8efaf;
@@ -175,12 +174,14 @@ isPausedForDict=false,
 fullText='',
 isManualPause=false,
 sentences=[];
+
 function normalizeKey(s){return s.toLowerCase().replace(/['’`]/g,'').replace(/[-–—]/g,' ').replace(/[^a-z\s]/g,' ').replace(/\s+/g,' ').trim();}
 const NORM_DICT={}; 
 Object.entries(HU_DICT).forEach(([k,v])=>{NORM_DICT[normalizeKey(k)]=v;
 });
 
-function findPhraseAt(i,max=5){for(let len=max;len>=1; 
+function findPhraseAt(i,max=5){
+for(let len=max;len>=1; 
 len--){for(let st=Math.max(0,i-len+1); 
 st<=i;st++){if(st+len>words.length)continue; 
 let sl=words.slice(st,st+len).map(w=>w.clean).join(' '); 
@@ -202,7 +203,8 @@ let re=/\S+/g,m; while((m=re.exec(tf))!==null){
 let orig=text.substring(m.index,m.index+m[0].length); 
 let cl=normalizeKey(m[0]); 
 if(cl)words.push({
-text:orig,start:m.index,end:m.index+m[0].length,clean:cl});} 
+text:orig,start:m.index,end:m.index+m[0].length,clean:cl});}
+
 let sr=/[^.!?]+[.!?]+/g,sm; 
 while((sm=sr.exec(text))!==null){
 sentences.push({text:sm[0],start:sm.index,end:sm.index+sm[0].length,norm:normalizeKey(sm[0])});
@@ -235,11 +237,16 @@ spans=storyBox.querySelectorAll('.word');
   clearActive(); 
   if(!f){showSent(idx); 
   spans[idx].classList.add('active');
+  
   }else
+  
   {for(let k=f.start;k<=f.end;k++)spans[k].classList.add('active'); 
   let t=typeof f.data==='string'?f.data:f.data.map(v=>v.hu).join(' | '); 
-  resultBox.innerHTML = `${f.phrase}</i><br><b style="color:#2f33d3"><i>${t}</b></i>`;}
-  //resultBox.textContent=f.phrase+' [ ' +t+ ' ]';} 
+  let originalPhrase = [];
+    for(let k=f.start;k<=f.end;k++) originalPhrase.push(spans[k].textContent);
+    originalPhrase = originalPhrase.join(' ').replace(/\s+([.,!?;:])/g,'$1');
+    
+    resultBox.innerHTML = `${originalPhrase}</i><br><b style="color:#2f33d3"><i>${t}</b></i>`;}
   if(speechSynthesis.speaking){speechSynthesis.cancel(); 
   isPausedForDict=true; pausedAtIndex=f?f.start:idx;}});
   
@@ -259,7 +266,8 @@ function showSent(i){
   let cp=words[i]?.start??0; let sent=sentences.find(s=>cp>=s.start&&cp<s.end); if(!sent) return;
   let idxClean=words[i]?.clean; let huSent=NORM_DICT[sent.norm];
   if(!huSent){ // fallback?- miatt
-    let best=""; let sNorm=sent.norm;
+    let best=""; 
+    let sNorm=sent.norm;
     for(let k in NORM_DICT){ if(k.length>30 && (sNorm.includes(k) || k.includes(sNorm))){ if(k.length>best.length) best=k; } }
     if(best) huSent=NORM_DICT[best];
   }
@@ -374,7 +382,7 @@ window.onload = () => {
 document.addEventListener('contextmenu', function(event) {
     // Megakadályozza az esemény alapértelmezett cselekvését (pl. contextmenü megjelenítése)
     event.preventDefault(); 
-    // console.log("A jobb klikk le lett tiltva ezen a weboldalon.");
+    console.log("A jobb klikk le lett tiltva ezen a weboldalon.");
 	alert("😭 😭 😭 😭");
 	window.close()
 
