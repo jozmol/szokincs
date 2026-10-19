@@ -49,7 +49,7 @@ select{padding:10px 14px;border-radius:10px;border:2px solid #d1d5db;font-size:1
 <div id="info" style="margin-top:18px;line-height:1.6"></div>
 </div>
 
-<script src="js/ang_magy.js"></script>
+<script src="ang_magy.js"></script>
 <script>
 function normalize(s){return s.toLowerCase().trim().replace(/’/g,"'").replace(/\s+/g,' ');}
 function getAnswers(s){return s.split(/[,/|;]+/).map(x=>x.replace(/^\-+/,'').replace(/\[.*?\]/g,'').trim()).map(x=>normalize(x)).filter(x=>x);}
