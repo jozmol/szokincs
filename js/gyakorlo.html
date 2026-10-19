@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<title>Quiz 20000</title>
+<style>
+body{font-family:system-ui;max-width:650px;margin:30px auto;padding:16px;background:#f6f7ff}
+.card{background:#fff;padding:26px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+#en{font-size:36px;font-weight:900;margin:16px 0;word-break:break-word}
+input{width:100%;padding:14px;font-size:19px;border:2px solid #d1d5db;border-radius:12px;box-sizing:border-box}
+input.correct{border-color:#16a34a;background:#f0fdf4}
+input.wrong{border-color:#dc2626;background:#fef2f2}
+button{padding:12px 18px;border:0;border-radius:10px;background:#2f33d3;color:#fff;cursor:pointer;margin:8px 6px 0 0;font-size:16px}
+button.sec{background:#6b7280}
+#bar{height:12px;background:#2f33d3;width:0%;transition:.3s}
+select{padding:10px 14px;border-radius:10px;border:2px solid #d1d5db;font-size:16px;margin-left:8px}
+</style>
+</head>
+<body>
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+  <div style="display:flex;align-items:center">Darab: 
+    <select id="countSelect">
+      <option value="15">15 szó</option>
+      <option value="30">30 szó</option>
+      <option value="50">50 szó</option>
+      <option value="100">100 szó</option>
+      <option value="200">200 szó</option>
+      <option value="300">300 szó</option>
+      <option value="400">400 szó</option>
+      <option value="15" selected>15 szó</option>
+      <option value="all">Összes szó</option>
+    </select>
+  </div>
+  <span id="score" style="font-weight:700">Pont: 0</span>
+</div>
+
+<div style="display:flex;justify-content:space-between;margin-top:8px;font-weight:600"><span id="pText">0 / 0</span><span id="percentText"></span></div>
+<div style="height:12px;background:#e5e7ff;border-radius:10px;margin:12px 0;overflow:hidden"><div id="bar"></div></div>
+
+<div id="en">...</div>
+<input id="huInput" placeholder="magyar jelentés + Enter">
+<div>
+<button id="checkBtn">Ellenőrzés</button>
+<button id="nextBtn" style="display:none">Következő →</button>
+<button id="finishBtn" class="sec">🏁 Befejezés most</button>
+<button onclick="window.open('../hangos_konyv_2.12.html', '_self')" class="sec">📖 Olvasás</button>
+</div>
+<div id="info" style="margin-top:18px;line-height:1.6"></div>
+</div>
+
+<script src="js/ang_magy.js"></script>
+<script>
+function normalize(s){return s.toLowerCase().trim().replace(/’/g,"'").replace(/\s+/g,' ');}
+function getAnswers(s){return s.split(/[,/|;]+/).map(x=>x.replace(/^\-+/,'').replace(/\[.*?\]/g,'').trim()).map(x=>normalize(x)).filter(x=>x);}
+function getLevel(score){
+  if(score<500) return  "A1 Kezdő (500 alatt)";
+  if(score<1200) return "A2 Alapfok (~1000 szó)";
+  if(score<2500) return "B1 Középfok alsó (~2000 szó)";
+  if(score<4500) return "B2 Középfok (~4000 szó)";
+  if(score<9000) return "C1 Felsőfok (~8000 szó)";
+  return "C2 Anyanyelvi közeli (8000+ szó)";
+}
+
+let fullList = Object.entries(HU_DICT).map(([en,hu])=>({en,hu}));
+let list = [];
+let order = [];
+let idx = 0, score = 0, answered = 0;
+
+function initGame(){
+  let sel = document.getElementById('countSelect').value;
+  let count = sel==="all" ? fullList.length : parseInt(sel);
+  // keverés és vágás
+  let shuffled = [...Array(fullList.length).keys()].sort(()=>Math.random()-0.5);
+  order = shuffled.slice(0, count);
+  list = order.map(i=>fullList[i]);
+  idx=0; score=0; answered=0;
+  document.getElementById('huInput').style.display='block';
+  document.getElementById('checkBtn').style.display='inline-block';
+  document.getElementById('finishBtn').style.display='inline-block';
+  show();
+}
+
+function show(){
+  if(idx>=list.length){ finish(); return; }
+  let it = list[idx];
+  document.getElementById('en').textContent = it.en;
+  document.getElementById('pText').textContent = (idx+1)+" / "+list.length+" szó";
+  document.getElementById('percentText').textContent = Math.round((idx/list.length)*100)+"%";
+  document.getElementById('score').textContent = "Pont: "+score;
+  document.getElementById('bar').style.width = ((idx/list.length)*100)+"%";
+  let inp=document.getElementById('huInput');
+  inp.value=''; inp.className=''; inp.focus();
+  document.getElementById('checkBtn').style.display='inline-block';
+  document.getElementById('nextBtn').style.display='none';
+  document.getElementById('info').innerHTML = `<small>Megválaszolva: ${answered} | Helyes: ${score}</small>`;
+}
+
+function check(){
+  let it=list[idx];
+  let ans=getAnswers(it.hu);
+  let u=normalize(document.getElementById('huInput').value);
+  if(!u) return;
+  answered++;
+  if(ans.includes(u)){
+    score++;
+    document.getElementById('huInput').className='correct';
+    document.getElementById('info').innerHTML=`✅ Jó! <b>${ans.join(' | ')}</b>`;
+  } else {
+    document.getElementById('huInput').className='wrong';
+    document.getElementById('info').innerHTML=`❌ Jó: <b>${ans.join(' | ')}</b><br><small>${it.hu}</small>`;
+  }
+  document.getElementById('checkBtn').style.display='none';
+  document.getElementById('nextBtn').style.display='inline-block';
+  document.getElementById('score').textContent="Pont: "+score;
+}
+
+function finish(){
+  let percent = answered?Math.round(score/answered*100):0;
+  let szint = getLevel(score);
+  document.getElementById('en').innerHTML="🏁 Eredmény";
+  document.getElementById('bar').style.width="100%";
+  document.getElementById('pText').textContent = list.length+" szavas kvíz";
+  document.getElementById('percentText').textContent = "";
+  document.getElementById('info').innerHTML=`
+  <div style="background:#eef2ff;padding:18px;border-radius:12px">
+    <b>${list.length} szóból:</b><br>
+    Megválaszolva: ${answered}<br>
+    Helyes: ${score} (${percent}%)<br><br>
+    <div style="font-size:21px;color:#2f33d3"><b>${szint}</b></div><br>
+    <div style="font-size:13px;color:#555;line-height:1.6">
+      A1 0-500: kezdő<br>
+      A2 500-1200: alap társalgás<br>
+      B1 1200-2500: középfok alsó<br>
+      B2 2500-4500: középfok, filmek érthetők<br>
+      C1 4500-9000: felsőfok<br>
+      C2 9000+: anyanyelvi közeli
+    </div>
+    <br>
+    <button onclick="initGame()" style="background:#16a34a">Új kvíz ugyanezzel</button>
+    <button onclick="document.getElementById('countSelect').focus()" class="sec">Másik mennyiség</button>
+  </div>`;
+  document.getElementById('huInput').style.display='none';
+  document.getElementById('checkBtn').style.display='none';
+  document.getElementById('nextBtn').style.display='none';
+}
+
+document.getElementById('countSelect').addEventListener('change', initGame);
+document.getElementById('checkBtn').onclick=check;
+document.getElementById('nextBtn').onclick=()=>{idx++; show();};
+document.getElementById('finishBtn').onclick=finish;
+document.getElementById('huInput').onkeydown=e=>{if(e.key==='Enter')check();};
+
+initGame();
+</script>
+</body>
+</html>
