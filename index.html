@@ -41,7 +41,7 @@
  .controls{
  position:fixed;
  top:15px;
- left:50%;
+ left:45%;
  transform:translateX(-50%);
  background:#222;
  padding:10px;
@@ -103,7 +103,7 @@
     }
   }
 </style>
-	<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.json">
 </head>
 <body>
 <h3><center><br><br>Hangos Könyv</center></br></h3>
@@ -118,7 +118,7 @@
 <button id="gbBtn" class="active-accent">GB</button>
 <button id="usBtn">US</button>
 <button id="auBtn">Aus</button>
-<button onclick="window.open('js/gyakorlo.html', '_self')" class="sec">🔗 Gyakorlás</button><</div>
+<button onclick="window.open('js/gyakorlo.html', '_self')" class="sec">🔗 Gyakorlás</button></div>
 
 <script src="js/stories.js"></script>
 <script src="js/szotar.js"></script>
@@ -382,19 +382,19 @@ window.onload = () => {
   document.documentElement.requestFullscreen().catch(()=>{});
 }
 document.addEventListener('contextmenu', function(event) {
-    // Megakadályozza a contextmenü megjelenítése
+    // Megakadályozza az esemény alapértelmezett cselekvését (pl. contextmenü megjelenítése)
     event.preventDefault(); 
-    console.log("A jobb klikk le lett tiltva ezen a weboldalon.");
+    //console.log("A jobb klikk le lett tiltva ezen a weboldalon.");
 	alert("😭 😭 😭 😭");
 	window.close()
 
 });
 </script>
-	<script>
+<script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js')
-      //.then(reg => console.log('SW OK', reg.scope))
-      .catch(err => console.log('SW hiba', err));
+     // .then(reg => console.log('SW OK', reg.scope))
+     // .catch(err => console.log('SW hiba', err));
   }
 </script>
 </body>
