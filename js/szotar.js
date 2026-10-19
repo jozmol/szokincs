@@ -562,6 +562,7 @@ const HU_DICT = {
 "catch":"elkap, megfog",
 "caught":"elkapott",
 "cause":"ok, okoz, előidéz",
+"'cause":"mert /because rövid alakja",
 "chase":"üldöz, vadászik, elkerget",
 "chased":"üldözött",
 "check":"ellenőriz, csekk, sakkban tart, sakkot ad",
