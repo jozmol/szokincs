@@ -1,6 +1,4 @@
 const HU_DICT = {
-
- 
  
 "Right at the moment, however, Isabella’s nose was the last thing on her mind":"Ebben a pillanatban azonban Isabella orra volt az utolsó dolog, amire gondolt.",
 "Are you on the phone":"Telefonálsz?","She really couldn’t bear it":"Egyszerűen nem tudta elviselni.",
