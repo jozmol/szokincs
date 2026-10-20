@@ -759,7 +759,7 @@ const HU_DICT = {
 "scatter":"szétszóródás, szétszór, elterjeszt, kiszór",
 "scattered":"elszórt",
 "school":"iskola",
-"school-free":"iskolamentes",
+"school-free":"iskolamentes, iskola szünet",
 "scooping":"mérés",
 "scooter":"roller, robogó",
 "scooters":"robogók",
