@@ -2,7 +2,7 @@
 <html lang="hu">
 <head>
 <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GYAKORLÁS</title>
 <style>
 body{font-family:system-ui;max-width:650px;margin:30px auto;padding:16px;background:#f6f7ff}
@@ -25,7 +25,7 @@ select{padding:10px 14px;border-radius:10px;border:2px solid #d1d5db;font-size:1
 <body>
 <div class="card">
 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-  <div style="display:flex;align-items:center">Darab: 
+  <div style="display:flex;align-items:center">Szavak száma: 
     <select id="countSelect">
       <option value="15">15 szó</option>
       <option value="30">30 szó</option>
@@ -34,7 +34,8 @@ select{padding:10px 14px;border-radius:10px;border:2px solid #d1d5db;font-size:1
       <option value="200">200 szó</option>
       <option value="300">300 szó</option>
       <option value="400">400 szó</option>
-      <option value="15" selected>15 szó</option>
+      <option value="500">500 szó</option>
+      <option value="600">600 szó</option>
       <option value="all">Összes szó</option>
     </select>
   </div>
@@ -50,7 +51,7 @@ select{padding:10px 14px;border-radius:10px;border:2px solid #d1d5db;font-size:1
 <button id="checkBtn">Ellenőrzés</button>
 <button id="nextBtn" style="display:none">Következő →</button>
 <button id="finishBtn" class="sec">🏁 Befejezés most</button>
-<button onclick="window.open('../index.html', '_self')" class="sec">📖 Olvasás</button>
+<button onclick="window.open('../hangos_konyv_2.12.html', '_self')" class="sec">📖 Olvasás</button>
 </div>
 <div id="info" style="margin-top:18px;line-height:1.6"></div>
 </div>
@@ -99,7 +100,7 @@ function show(){
   inp.value=''; inp.className=''; inp.focus();
   document.getElementById('checkBtn').style.display='inline-block';
   document.getElementById('nextBtn').style.display='none';
-  document.getElementById('info').innerHTML = `<small>Megválaszolva: ${answered} | Helyes: ${score}</small>`;
+  document.getElementById('info').innerHTML = `<small>Próbálkozás: ${answered} | Helyes válasz: ${score}</small>`;
 }
 
 function check(){
@@ -114,7 +115,7 @@ function check(){
     document.getElementById('info').innerHTML=`✅ Jó! <b>${ans.join(' | ')}</b>`;
   } else {
     document.getElementById('huInput').className='wrong';
-    document.getElementById('info').innerHTML=`❌ Jó: <b>${ans.join(' | ')}</b><br><small>${it.hu}</small>`;
+    document.getElementById('info').innerHTML=`❌ Rossz: <b>${ans.join(' | ')}</b><br><small>${it.hu}</small>`;
   }
   document.getElementById('checkBtn').style.display='none';
   document.getElementById('nextBtn').style.display='inline-block';
@@ -131,8 +132,8 @@ function finish(){
   document.getElementById('info').innerHTML=`
   <div style="background:#eef2ff;padding:18px;border-radius:12px">
     <b>${list.length} szóból:</b><br>
-    Megválaszolva: ${answered}<br>
-    Helyes: ${score} (${percent}%)<br><br>
+    Próbálkozás: ${answered}<br>
+    Helyes válasz: ${score} (${percent}%)<br><br>
     <div style="font-size:21px;color:#2f33d3"><b>${szint}</b></div><br>
     <div style="font-size:13px;color:#555;line-height:1.6">
       A1 0-500: kezdő<br>
@@ -143,8 +144,8 @@ function finish(){
       C2 9000+: anyanyelvi közeli
     </div>
     <br>
-    <button onclick="initGame()" style="background:#16a34a">Új kvíz ugyanezzel</button>
-    <button onclick="document.getElementById('countSelect').focus()" class="sec">Másik mennyiség</button>
+    <button onclick="initGame()" style="background:#16a34a">Új gyakorlat</button>
+   <!-- <button onclick="document.getElementById('countSelect').focus()" class="sec">Másik mennyiség</button> -->
   </div>`;
   document.getElementById('huInput').style.display='none';
   document.getElementById('checkBtn').style.display='none';
