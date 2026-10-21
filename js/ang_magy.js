@@ -190,7 +190,7 @@ const HU_DICT = {
 "cream":"krém, [krēm]",
 "creature":"teremtmény, lény",
 "crept":"lopódzott",
-"crew":"legénység",
+"crew":"legénység, kiszolgáló személyzet, [kro͞o]",
 "cried":"sírt",
 "cried out":"kiáltott,felkiáltott",
 "cries":"sírások, kiáltások",
