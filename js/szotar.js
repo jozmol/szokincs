@@ -61,7 +61,6 @@ const HU_DICT = {
 "I should have known better.":"Jobban tudhattam volna.",
 "I should have known.":"Tudhattam volna.",
 "I would be happy to meet you at your convenience.":"Örömmel találkoznék veled, amikor neked megfelel.",
-"I would be happy to meet you at your convenience.":"Örömmel találkoznék veled, amikor neked megfelel.",
 "I would like to make a purchase!":"Vásárolni szeretnék!",
 "I would like to travel somewhere.":"Szeretnék elutazni valahová.",
 "I’d be happy to help you.":"Örömmel segítek neked.",
@@ -91,8 +90,6 @@ const HU_DICT = {
 "You should have known.":"Tudnod kellett volna.",
 "finding himself in dire need":"szorult helyzetbe kerülve, súlyos szükséghelyzetbe került, súlyos helyzetbe került",
 "so he dismounted and remained there":"Így hát leszállt, és ott maradt, így leszállt a lóról, és ott maradt",
-"vanished like a fart in the fog":"eltűnt, mint fing a ködben",
-"That flower fell out of the fifth-floor window.":"Az a virág kiesett az ötödik emeleti ablakból",
 "he could not fathom":"nem tudta felfogni",
 "what had come over him,":"mi ütött belé",
 
