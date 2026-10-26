@@ -97,13 +97,24 @@
  box-sizing:border-box}
  .hint{color:#777;
  font-size:14px}
-  @media (max-width: 600px){
-    .content { 
-      flex-direction: column;
-		font-weight:bold;
-		/*font-weight:700 !important;*/
-      font-size: 20px; 
-    }
+/*  @media (max-width: 600px){ */
+/*    .content {  */
+/*      flex-direction: column; */
+/*		font-weight:bold; */
+/*		/*font-weight:700 !important;*/
+ /*     font-size: 20px; */
+   /* }  */
+	@media (max-width: 600px){
+  #storyBox {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  #storyBox .word {
+    font-weight: 700;
+    -webkit-text-stroke: 0.35px;
+    text-shadow: 0 0 0.4px currentColor;
+    letter-spacing: -0.1px;
+  }
   }
 </style>
 <link rel="manifest" href="manifest.json">
