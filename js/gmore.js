@@ -1,5 +1,6 @@
  Object.assign(HU_DICT, {
-  //**********The Hunt for H.G. Growmore *****
+  
+	 //**********The Hunt for H.G. Growmore *****
   "The Hunt for H G Growmore.":"H.G. Growmore nyomában",
   "This is awful, muttered Isabella in a low, wobbly voice.":"– Ez borzalmas mormogta Isabella halk, remegő hangon.",
   "Behind her on the only bed in the room Kay did not react.":"Mögötte, a szoba egyetlen ágyán Kay nem reagált.",
