@@ -1,12 +1,8 @@
 const HU_DICT = {
 
- 
- 
-"Right at the moment, however, Isabella’s nose was the last thing on her mind":"Ebben a pillanatban azonban Isabella orra volt az utolsó dolog, amire gondolt.",
-"Are you on the phone":"Telefonálsz?","She really couldn’t bear it":"Egyszerűen nem tudta elviselni.",
+"She really couldn’t bear it":"Egyszerűen nem tudta elviselni.",
 "It was a totally awful, awful thing to be happening!":"Egészen szörnyű, szörnyű dolog volt ez!",
 "So I ran to the bushes and yanked them apart, but whatever it was shot off like a dart.":"Így hát a bokrokhoz rohantam, és széttéptem az ágakat, de bármi is volt az, 	nyílvesszőként lőtt ki onnan.",
-  
 "In the late afternoon, winds blew in from the West.":"Késő délután nyugat felől feltámadt a szél.",
 "Raindrops pelted the ground.":"Esőcseppek doboltak a földön.",
 "Cally acted distressed!":"Cally szomorúnak tűnt!",
@@ -35,6 +31,7 @@ const HU_DICT = {
 	
 	// rövid mondatok ***
 "And you?":"És te?",
+"Are you on the phone":"Telefonálsz?",
 "Are you free to meet this week?":"Ráérsz találkozni ezen a héten?",
 "Are you okay?":"Jól vagy?",
 "Brilliant, thank you.":"Nagyon jól, köszönöm.",
