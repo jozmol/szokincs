@@ -3,7 +3,7 @@
   "The Hunt for H G Growmore.":"H.G. Growmore nyomában",
   "This is awful, muttered Isabella in a low, wobbly voice.":"– Ez borzalmas mormogta Isabella halk, remegő hangon.",
   "Behind her on the only bed in the room Kay did not react.":"Mögötte, a szoba egyetlen ágyán Kay nem reagált.",
-  "The half-length mirror in front of Isabella showed him clearl, lying on her pillows, absentmindedly rubbing his upper lip with a finger.":"Az Isabella előtti félalakos tükör tisztán mutatta őt, amint a párnáin fekve, szétszórtan az ujjával dörzsölgette a felső ajkát.",
+  "The half-length mirror in front of Isabella showed him clearly, lying on her pillows, absentmindedly rubbing his upper lip with a finger.":"Az Isabella előtti félalakos tükör tisztán mutatta őt, amint a párnáin fekve, szétszórtan az ujjával dörzsölgette a felső ajkát.",
   "His eyes did not leave the page facing him - a funny-looking picture of some sort of aliens was on the book cover.":"Nem vette le a szemét az előtte lévő oldalról; a könyvborítón valamilyen földönkívülieket ábrázoló, mókás kinézetű kép volt.",
   "Aliens Humph":"Földönkívüliek. Hmph!",
   "“It’s really, really dreadful,” she added hopefully, sneaking a look at him over one shoulder.":"– Ez igazán, de igazán borzalmastette hozzá reménykedve, miközben félvállról odapillantott rá.",
