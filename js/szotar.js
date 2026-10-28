@@ -1420,7 +1420,6 @@ const HU_DICT = {
 "your":"tied, tiéd, öné, tietek, önöké (Névmás)",
 "yourself":"magad, saját magad, [yərˈself]",
 "zone":"zóna, övezet, terület, égöv",
- 
 };
 function loadJS(f){
   let s=document.createElement("script");
