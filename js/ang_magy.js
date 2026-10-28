@@ -1,4 +1,3 @@
-//Object.assign(HU_DICT, {
 const HU_DICT = {
 "'cause":"mert /because rövid alakja",
 "a":"egy / határozatlan névelő / - az Angol abc első betűje [(eɪ) A]",
