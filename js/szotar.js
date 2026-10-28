@@ -1440,4 +1440,4 @@ loadJS_sync("js/Rescue_pup.js");
 loadJS_sync("js/gmore.js");
 loadJS_sync("js/resckitty.js");
 loadJS_sync("js/elatkozott.js");
-//loadJS_sync("js/ang_magy.js");
+loadJS_sync("js/ang_magy.js");
