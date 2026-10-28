@@ -1,5 +1,4 @@
 const HU_DICT = {
-"'cause":"mert, (-because rövid alakja)",
 "a":"egy / határozatlan névelő / - az Angol abc első betűje [(eɪ) A]",
 "about":"-ról -ről, miatt, körülbelül",
 "above":"fent, felül, fölé",
@@ -81,7 +80,7 @@ const HU_DICT = {
 "bearskin":"medvebőr",
 "beautiful":"csodás, szép, gyönyörű",
 "became":"vált, lett valami, vált valamivé",
-"because":"mert, mivel",
+"because":"mert, mivel, -'cause - mert, (-because rövid alakja)",
 "bed":"ágy, beágyaz",
 "bedroom":"hálószoba",
 "been":"volt",
