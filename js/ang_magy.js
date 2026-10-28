@@ -1,4 +1,4 @@
-const HU_DICT = {
+Object.assign(HU_DICT, {
 "'cause":"mert, (-because rövid alakja)",
 "a":"egy / határozatlan névelő / - az Angol abc első betűje [(eɪ) A]",
 "about":"-ról -ről, miatt, körülbelül",
