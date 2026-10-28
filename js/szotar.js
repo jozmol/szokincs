@@ -245,7 +245,6 @@ const HU_DICT = {
 "Z":"ziː- / amerikai / / zed  - brit /  - Z ",
 
  // *** SZAVAK ***
-"'cause":"mert, -(because rövid alakja)",
 "a":"egy / határozatlan névelő / - az Angol abc első betűje [(eɪ) A]",
 "about":"-ról -ről, miatt, körülbelül",
 "above":"fent, felül, fölé",
@@ -327,7 +326,7 @@ const HU_DICT = {
 "bearskin":"medvebőr",
 "beautiful":"csodás, szép, gyönyörű",
 "became":"vált, lett valami, vált valamivé",
-"because":"mert, mivel",
+"because,":"mert, mivel, 'cause -mert, -(because rövid alakja)",
 "bed":"ágy, beágyaz",
 "bedroom":"hálószoba",
 "been":"volt",
@@ -1420,6 +1419,7 @@ const HU_DICT = {
 "your":"tied, tiéd, öné, tietek, önöké (Névmás)",
 "yourself":"magad, saját magad, [yərˈself]",
 "zone":"zóna, övezet, terület, égöv",
+ 
 };
 function loadJS(f){
   let s=document.createElement("script");
@@ -1431,7 +1431,7 @@ loadJS("js/Rescue_pup.js");
 loadJS("js/gmore.js");
 loadJS("js/resckitty.js");
 loadJS("js/elatkozott.js");
-loadJS("js/ang_magy.js");
+//loadJS("js/ang_magy.js");
 function loadJS_sync(file) {
   document.write('<script src="' + file + '"><\/script>');
 }
@@ -1440,4 +1440,4 @@ loadJS_sync("js/Rescue_pup.js");
 loadJS_sync("js/gmore.js");
 loadJS_sync("js/resckitty.js");
 loadJS_sync("js/elatkozott.js");
-loadJS_sync("js/ang_magy.js");
+//loadJS_sync("js/ang_magy.js");
