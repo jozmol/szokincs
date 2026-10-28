@@ -1167,4 +1167,4 @@ const HU_DICT = {
 "yourself":"magad, saját magad, [yərˈself]",
 "zone":"zóna, övezet, terület, égöv",
 
-});
+};
