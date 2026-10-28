@@ -1431,7 +1431,7 @@ loadJS("js/Rescue_pup.js");
 loadJS("js/gmore.js");
 loadJS("js/resckitty.js");
 loadJS("js/elatkozott.js");
-//loadJS("js/ang_magy.js");
+loadJS("js/ang_magy.js");
 function loadJS_sync(file) {
   document.write('<script src="' + file + '"><\/script>');
 }
