@@ -1,13 +1,12 @@
  Object.assign(HU_DICT, {
-  
-	 //**********The Hunt for H.G. Growmore *****
+  //**********The Hunt for H.G. Growmore *****
   "The Hunt for H G Growmore.":"H.G. Growmore nyomában",
   "This is awful, muttered Isabella in a low, wobbly voice.":"– Ez borzalmas mormogta Isabella halk, remegő hangon.",
   "Behind her on the only bed in the room Kay did not react.":"Mögötte, a szoba egyetlen ágyán Kay nem reagált.",
   "The half-length mirror in front of Isabella showed him clearly, lying on her pillows, absentmindedly rubbing his upper lip with a finger.":"Az Isabella előtti félalakos tükör tisztán mutatta őt, amint a párnáin fekve, szétszórtan az ujjával dörzsölgette a felső ajkát.",
   "His eyes did not leave the page facing him - a funny-looking picture of some sort of aliens was on the book cover.":"Nem vette le a szemét az előtte lévő oldalról; a könyvborítón valamilyen földönkívülieket ábrázoló, mókás kinézetű kép volt.",
-  "Aliens Humph":"Földönkívüliek. Hmph!",
-  "“It’s really, really dreadful,” she added hopefully, sneaking a look at him over one shoulder.":"– Ez igazán, de igazán borzalmastette hozzá reménykedve, miközben félvállról odapillantott rá.",
+  "It’s really, really dreadful, she added hopefully, sneaking a look at him over one shoulder.":"– Ez igazán, de igazán szörnyű – tette hozzá reménykedve, miközben félvállról odapillantott rá.",
+  
   "What on earth was so fascinating about visitors from another world?":"Mi a csudáért voltak annyira lenyűgözőek a más világból érkező látogatók?",
   "She opined, that Bella in JSS 3 that nose of hers looks like it always wants to tell everyone what to do and how to do it too!":"Úgy vélte -Az a Bella a JSS 3-ból... az orra olyan, mintha folyton meg akarná mondani mindenkinek, mit tegyensőt, még azt is, hogyan!",
   "Right at the moment, however, Isabella’s nose was the last thing on her mind.":"Ebben a pillanatban azonban Isabella orra volt az utolsó dolog, amire gondolt.",
@@ -18,17 +17,18 @@
   "The book fell from his hands.":"Kiesett a könyv a kezéből.",
   "smacking a palm on the mirror for good measure":"biztonság kedvéért tenyérrel rácsapva a tükörre",
   
+  "It’s terrible!":"Ez szörnyű!",
   "Isabella yelled, smacking a palm on the mirror for good measure, making Kay jump two feet off the bed":"Isabella felkiáltott, és nyomatékosításképpen tenyérrel rácsapott a tükörre, amitől Kay majdnem kiugrott a bőréből.",
   "the smile vanished like her pocket money halfway through the month":"A mosoly úgy tűnt el, mint a zsebpénze a hónap közepén.",
   "i don't believe this":"Ezt nem hiszem el!",
   "just unthinkable!":"Egyszerűen elképzelhetetlen!",
   "she moaned staring with wide eyes at her reflection in the mirror":"felsóhajtott, miközben tágra nyílt szemmel bámulta a tükörben látható tükörképét.",
-  "the image that stared back eyes alarmed long wispy hair all awry was that of a pubescent female skin like the sunset of a day spent on the beach much too tall for her age with a perky slightly upturned nose adorning a decidedly pretty face":"A visszanéző arc riadt szemekkel és kócos vékony szálú hajjal egy serdülőkorú lányé volt bőre a tengerparton töltött naplementét idézte termete korához képest túl magas volt csinos arcát pedig pisze kissé felfelé kunkorodó orr tette bájossá.",
+  "the image that stared back eyes alarmed long wispy hair all awry was that of a pubescent female skin like the sunset of a day spent on the beach much too tall for her age with a perky slightly upturned nose adorning a decidedly pretty face":"A visszanéző arcriadt szemekkel és kócos vékony szálú hajjalegy serdülőkorú lányé volt bőre a tengerparton töltött naplementét idézte termete korához képest túl magas volt csinos arcát pedig pisze kissé felfelé kunkorodó orr tette bájossá.",
   "Mommy said Isabella’s nose was her most visible facial feature; walking nose first, she termed it, shaking her head with indulgent pride.":"Anya azt mondta, Isabella orra a legszembetűnőbb vonása; „orrát előretolva közlekedik”így jellemezte, miközben elnéző büszkeséggel csóválta a fejét.",
   "darkness":"sötétség","he gaped at isabella in astonishment quite speechless":"Ámulva bámult Isabellára, teljesen szótlanul.",
   "there much better isabella started to smile then caught a glimpse of herself in the mirror":"Ott, sokkal jobban, Isabella mosolyogni kezdett, majd megpillantotta magát a tükörben.","kay seemed carved from stone":"Kay mintha kőből lett volna faragva.","even his eyes didnt blink now":"Még a szeme sem rezzent meg most.",
   "its really really dreadful":"Ez tényleg nagyon szörnyű",
-  "she added hopefully sneaking a look at him over one shoulder":"– tette hozzá reménykedve, miközben válla fölött lopva rápillantott.",
+  // "she added hopefully sneaking a look at him over one shoulder":"– tette hozzá reménykedve, miközben válla fölött lopva rápillantott.",
   "Teacher Ngozi at school wasn’t such a fan, though.":"Az iskolában azonban Ngozi tanárnő nem volt annyira oda érte.",
   "And what could she do?":"És mit tehetett volna?",
   "The funny thing was, this was absolutely the worst day to feel awful about anything.":"Az volt az egészben a vicces, hogy ez volt a lehető legrosszabb nap arra, hogy az ember bármi miatt is pocsékul érezze magát.",
@@ -48,10 +48,31 @@
  "Now she groaned, staggering back to flop into a pretty daffodil-covered armchair by the window.":"Ekkor felnyögött, és tántorogva visszahanyatlott az ablak melletti, csinos, nárc-mintás karosszékbe.",
  "The bedroom was Barbie recommended pink, violet, and white.":"A hálószobában a Barbie által ajánlott rózsaszín, ibolyakék és fehér színek domináltak.",
  "Pictures of animated heroines, ballet dancers, singers, and actresses decorated the walls.":"Animációs filmek hősnőiről, balett-táncosokról, énekesnőkről és színésznőkről készült képek díszítették a falakat.",
- 
-  
-  
-  
+ "She really couldn’t bear it":"Egyszerűen nem tudta elviselni.",
+"It was a totally awful,":"Egészen szörnyű,",
+"awful thing to be happening!":"szörnyű dolog volt ez!",
+// **************************************
+ // *** mondatok tagolva ***
+// **************************************
+"sneaking a look at him over one shoulder.":"miközben félvállról odapillantott rá.",
+"she added hopefully,":"tette hozzá reménykedve,",
+"Aliens Humph":"Földönkívüliek. Hmph!",
+
+"His eyes did not leave the page facing him":"Nem vette le a szemét az előtte lévő oldalról;",
+"- a funny-looking picture of some sort of aliens was on the book cover.":"a könyvborítón valamilyen földönkívülieket ábrázoló, mókás kinézetű kép volt.",
+ "The half-length mirror in front of Isabella showed him clearly,":"Az Isabella előtti félalakos tükör tisztán mutatta őt",
+ "lying on her pillows,":"amint a párnáin fekve,",
+ "absentmindedly rubbing his upper lip with a finger.":"szétszórtan az ujjával dörzsölgette a felső ajkát.",
+ "Behind her on the only bed in the room":"Mögötte, a szoba egyetlen ágyán",
+ "Kay did not react.":"Kay nem reagált.",
+ "This is awful, muttered Isabella in a low,":"– Ez borzalmas mormogta Isabella halk,",
+ " wobbly voice.":" remegő hangon.",
+ "The Image that stared back,":"A visszanéző alak",
+"eyes alarmed, long wispy hair all awry,":"– riadt szemekkel, kócos, vékony szálú hajjal – ",
+"was that of a pubescent female,":"egy serdülőkorú lány volt;",
+"skin like the sunset of a day spent on the beach,":"bőre olyan színű, mint a tengerparton töltött nap utáni naplemente,",
+"much too tall for her age,":"korához képest feltűnően magas,",
+"with a perky, slightly upturned nose adorning a decidedly pretty face.":"csinos arcát pedig pisze, enyhén felfelé kunkorodó orr díszítette.", 
   });
 
  
