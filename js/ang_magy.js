@@ -1,4 +1,4 @@
-Object.assign(stores, {
+Object.assign(STORIES, {
 "'cause":"mert, (-because rövid alakja)",
 "a":"egy / határozatlan névelő / - az Angol abc első betűje [(eɪ) A]",
 "about":"-ról -ről, miatt, körülbelül",
