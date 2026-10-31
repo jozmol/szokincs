@@ -77,7 +77,40 @@ document.getElementById('b').onclick = ()=>{
 }
 </script>
 <!-- TESZT SCRIPT VÉGE -->
+<!-- HANGERŐ TESZT KEZDETE -->
+<DIV>
+<button id="b">🎤 Hangerő teszt</button>
+<div id="bar" style="height:30px;width:0%;background:lime"></div>
+<pre id="log"></pre>
+</DIV>
+<script>
+document.getElementById('b').onclick = async () => {
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: {
+    echoCancellation: false,
+    autoGainControl: false,
+    noiseSuppression: false
+  }});
+  
+  const ctx = new AudioContext();
+  const src = ctx.createMediaStreamSource(stream);
+  const analyser = ctx.createAnalyser();
+  analyser.fftSize = 256;
+  src.connect(analyser);
+  
+  const data = new Uint8Array(analyser.frequencyBinCount);
+  
+  function loop(){
+    analyser.getByteFrequencyData(data);
+    let vol = Math.max(...data);
+    document.getElementById('bar').style.width = vol + "%";
+    document.getElementById('log').textContent = "Hangerő: " + vol + " (beszélj hangosan, 0-255 közt kell mozogjon)";
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+</script>
 
+<!-- HANGERŐ TESZT VÉGE -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 // --- WORD DICTIONARIES ---
