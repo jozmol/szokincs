@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Többnyelvú beszéd gyakorló</title>
 <style>
   body {
@@ -22,6 +23,15 @@
   }
   #result { font-size: 1.2rem; margin-top: 20px; font-weight: bold; }
   #spoken { color: #555; margin-top: 5px; }
+  @media (max-width: 500px){
+  .content {
+    flex-direction: column; 
+    font-size: 17px;
+    font-weight: 500;
+    text-shadow: 0 0 0.4px currentColor;
+    letter-spacing: -0.1px;
+  }
+}
 </style>
 </head>
 <body>
