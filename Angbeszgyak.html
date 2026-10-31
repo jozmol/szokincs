@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Multilingual Pronunciation Practice</title>
+<style>
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f5f7fa;
+    text-align: center;
+    margin-top: 60px;
+    color: #222;
+  }
+  select, button {
+    font-size: 1rem;
+    padding: 10px 15px;
+    margin: 8px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+  }
+  #result { font-size: 1.2rem; margin-top: 20px; font-weight: bold; }
+  #spoken { color: #555; margin-top: 5px; }
+</style>
+</head>
+<body>
+
+<h1>🌐 Multilingual Pronunciation Practice</h1>
+
+<div>
+  <label for="langSelect">Choose language:</label>
+  <select id="langSelect">
+    <option value="en-US">English</option>
+    <option value="hu-HU">Hungarian</option>
+    <option value="de-DE">German</option>
+  </select>
+</div>
+
+<div>
+  <label for="wordSelect">Choose a word:</label>
+  <select id="wordSelect"></select>
+</div>
+
+<button id="nextBtn">➡️ Next Word</button>
+<button id="playBtn">🔊 Play Word</button>
+<button id="recordBtn">🎤 Speak Now</button>
+
+<div id="result"></div>
+<div id="spoken"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+// --- WORD DICTIONARIES ---
+const dictionaries = {
+  "en-US": {
+    "training": ["training", "treining"],
+    "house": ["house", "hous"],
+    "father": ["father", "faadher"],
+    "think": ["think", "thingk"],
+    "measure": ["measure", "mezher"],
+    "school": ["school", "skuul"],
+    "water": ["water", "wotter"],
+    "computer": ["computer", "kompyuter"],
+    "music": ["music", "myuzik"],
+    "teacher": ["teacher", "tiicher"],
+    "'cause":["kaus","coz"]
+
+  },
+  "hu-HU": {
+    "edzés": ["edzés"],
+    "tanár": ["tanár"],
+    "autó": ["autó"],
+    "ház": ["ház"],
+    "szék": ["szék"],
+    "asztal": ["asztal"],
+    "iskola": ["iskola"],
+    "kutya": ["kutya"],
+    "macska": ["macska"],
+    "barát": ["barát"]
+  },
+  "de-DE": {
+    "haus": ["haus"],
+    "schule": ["schule", "shule"],
+    "lehrer": ["lehrer", "lehrrer"],
+    "vater": ["vater", "faater"],
+    "wasser": ["wasser"],
+    "computer": ["computer"],
+    "musik": ["musik", "muziik"],
+    "freund": ["freund", "froint"],
+    "katze": ["katze"],
+    "hund": ["hund"]
+  }
+};
+
+// --- DOM elements ---
+const langSelect = document.getElementById("langSelect");
+const wordSelect = document.getElementById("wordSelect");
+const playBtn = document.getElementById("playBtn");
+const recordBtn = document.getElementById("recordBtn");
+const nextBtn = document.getElementById("nextBtn");
+const resultDiv = document.getElementById("result");
+const spokenDiv = document.getElementById("spoken");
+
+// --- Speech setup ---
+const synth = window.speechSynthesis;
+const ut = new SpeechSynthesisUtterance();
+ut.rate = 0.9;
+
+// --- Recognition setup ---
+const recog = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+recog.interimResults = false;
+recog.maxAlternatives = 1;
+let recognizing = false;
+
+// --- Similarity ---
+function similarity(a, b) {
+  if (!a.length || !b.length) return 0;
+  const matrix = Array(a.length + 1).fill(null).map(() => Array(b.length + 1).fill(null));
+  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,
+        matrix[i][j - 1] + 1,
+        matrix[i - 1][j - 1] + cost
+      );
+    }
+  }
+  const distance = matrix[a.length][b.length];
+  return 1 - distance / Math.max(a.length, b.length);
+}
+
+// --- Update word list ---
+function updateWordList() {
+  const lang = langSelect.value;
+  const dict = dictionaries[lang];
+  wordSelect.innerHTML = "";
+  for (let w in dict) {
+    const opt = document.createElement("option");
+    opt.value = w;
+    opt.textContent = w;
+    wordSelect.appendChild(opt);
+  }
+  wordSelect.selectedIndex = 0;
+  recog.lang = lang;
+  ut.lang = lang;
+}
+updateWordList(); // run once after DOM loaded
+
+// --- Change language ---
+langSelect.onchange = updateWordList;
+
+// --- Play word ---
+playBtn.onclick = () => {
+  const word = wordSelect.value;
+  ut.text = word;
+  synth.speak(ut);
+};
+
+// --- Random word ---
+nextBtn.onclick = () => {
+  const dict = dictionaries[langSelect.value];
+  const keys = Object.keys(dict);
+  const random = keys[Math.floor(Math.random() * keys.length)];
+  wordSelect.value = random;
+  resultDiv.textContent = "";
+  spokenDiv.textContent = "";
+};
+
+// --- Record ---
+recordBtn.onclick = () => {
+  if (recognizing) {
+    recog.stop();
+    recognizing = false;
+    return;
+  }
+  recognizing = true;
+  resultDiv.textContent = "🎙️ Listening...";
+  recog.start();
+};
+
+// --- Recognition result ---
+recog.onresult = (event) => {
+  recognizing = false;
+  const word = wordSelect.value;
+  const spoken = event.results[0][0].transcript.toLowerCase().trim();
+  const variants = dictionaries[langSelect.value][word];
+  let best = 0;
+  for (let v of variants) {
+    const s = similarity(spoken, v);
+    if (s > best) best = s;
+  }
+  spokenDiv.textContent = `You said: "${spoken}"`;
+  if (best < 0.5) {
+    resultDiv.innerHTML = `❌ Low similarity (${(best * 100).toFixed(1)}%) — try again!`;
+  } else {
+    resultDiv.innerHTML = `✅ Match ${(best * 100).toFixed(1)}%`;
+  }
+};
+
+// --- Error handling ---
+recog.onerror = (e) => {
+  recognizing = false;
+  resultDiv.textContent = "⚠️ Error: " + e.error;
+};
+});
+</script>
+
+</body>
+</html>
