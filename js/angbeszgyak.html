@@ -242,7 +242,6 @@ const dictionaries = {
     "hund": ["hund"]
   }
 };
-
 // --- DOM elements ---
 const langSelect = document.getElementById("langSelect");
 const wordSelect = document.getElementById("wordSelect");
@@ -252,18 +251,36 @@ const nextBtn = document.getElementById("nextBtn");
 const resultDiv = document.getElementById("result");
 const spokenDiv = document.getElementById("spoken");
 
+// --- Lang mapper (ez oldja meg Realme-t) ---
+function toSpeechLang(code){
+  code = code.toLowerCase();
+  if(code.includes("hu")) return "hu-HU";
+  if(code.includes("en")) return "en-US";
+  if(code.includes("de") || code.includes("német")) return "de-DE";
+  return code; // ha már jó formában van
+}
+
 // --- Speech setup ---
 const synth = window.speechSynthesis;
 const ut = new SpeechSynthesisUtterance();
 ut.rate = 0.9;
 
-// --- Recognition setup ---
-const recog = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-recog.interimResults = false;
-recog.maxAlternatives = 1;
+// --- Recognition setup (Huawei védelemmel) ---
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recog = null;
 let recognizing = false;
 
-// --- Similarity ---
+if (!SR) {
+  resultDiv.textContent = "Ezen a készüléken a pontozás nem elérhető, de felolvasással gyakorolhatsz.";
+  recordBtn.disabled = true;
+} else {
+  recog = new SR();
+  recog.interimResults = false;
+  recog.maxAlternatives = 1;
+  recog.continuous = false;
+}
+
+// --- Similarity (a tied, tökéletes) ---
 function similarity(a, b) {
   if (!a.length || !b.length) return 0;
   const matrix = Array(a.length + 1).fill(null).map(() => Array(b.length + 1).fill(null));
@@ -272,11 +289,7 @@ function similarity(a, b) {
   for (let i = 1; i <= a.length; i++) {
     for (let j = 1; j <= b.length; j++) {
       const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      matrix[i][j] = Math.min(
-        matrix[i - 1][j] + 1,
-        matrix[i][j - 1] + 1,
-        matrix[i - 1][j - 1] + cost
-      );
+      matrix[i][j] = Math.min(matrix[i - 1][j] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j - 1] + cost);
     }
   }
   const distance = matrix[a.length][b.length];
@@ -295,10 +308,13 @@ function updateWordList() {
     wordSelect.appendChild(opt);
   }
   wordSelect.selectedIndex = 0;
-  recog.lang = lang;
-  ut.lang = lang;
+  
+  if(recog){
+    recog.lang = toSpeechLang(lang); // JAVÍTVA
+    ut.lang = toSpeechLang(lang);   // JAVÍTVA
+  }
 }
-updateWordList(); // run once after DOM loaded
+updateWordList();
 
 // --- Change language ---
 langSelect.onchange = updateWordList;
@@ -322,6 +338,7 @@ nextBtn.onclick = () => {
 
 // --- Record ---
 recordBtn.onclick = () => {
+  if (!recog) return;
   if (recognizing) {
     recog.stop();
     recognizing = false;
@@ -329,35 +346,39 @@ recordBtn.onclick = () => {
   }
   recognizing = true;
   resultDiv.textContent = "🎙️ Listening...";
-  recog.start();
+  try { recog.start(); } catch(e){ recognizing = false; }
 };
 
 // --- Recognition result ---
-recog.onresult = (event) => {
-  recognizing = false;
-  const word = wordSelect.value;
-  const spoken = event.results[0][0].transcript.toLowerCase().trim();
-  const variants = dictionaries[langSelect.value][word];
-  let best = 0;
-  for (let v of variants) {
-    const s = similarity(spoken, v);
-    if (s > best) best = s;
-  }
-  spokenDiv.textContent = `You said: "${spoken}"`;
-  if (best < 0.5) {
-    resultDiv.innerHTML = `❌ Low similarity (${(best * 100).toFixed(1)}%) — try again!`;
-  } else {
-    resultDiv.innerHTML = `✅ Match ${(best * 100).toFixed(1)}%`;
-  }
-};
+if(recog){
+  recog.onresult = (event) => {
+    recognizing = false;
+    const word = wordSelect.value;
+    const spoken = event.results[0][0].transcript.toLowerCase().trim();
+    const variants = dictionaries[langSelect.value][word];
+    let best = 0;
+    for (let v of variants) {
+      const s = similarity(spoken, v.toLowerCase());
+      if (s > best) best = s;
+    }
+    spokenDiv.textContent = `You said: "${spoken}"`;
+    if (best < 0.5) {
+      resultDiv.innerHTML = `❌ Low similarity (${(best * 100).toFixed(1)}%) — try again!`;
+    } else {
+      resultDiv.innerHTML = `✅ Match ${(best * 100).toFixed(1)}%`;
+    }
+  };
 
-// --- Error handling ---
-recog.onerror = (e) => {
-  recognizing = false;
-  resultDiv.textContent = "⚠️ Error: " + e.error;
-};
-});
-</script>
+  recog.onerror = (e) => {
+    recognizing = false;
+    resultDiv.textContent = "⚠️ Error: " + e.error;
+  };
+  
+  recog.onend = () => {
+    recognizing = false;
+  };
+}
+
 
 </body>
 </html>
