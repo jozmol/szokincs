@@ -59,73 +59,12 @@
 <div id="result"></div>
 <div id="spoken"></div>
   
-<!-- TESZT A BESZÉD FELISMERÉSHEZ -->
 
-<button id="b" style="padding:20px;font-size:20px">START</button>
-<pre id="log" style="background:#000;color:#0f0;padding:10px"></pre>
-<script>
-const log = m => document.getElementById('log').textContent += m+"\n";
-const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-if(!SR){ log("Nincs SpeechRecognition"); }
-
-const r = new SR();
-r.lang = 'hu-HU';
-r.continuous = false;
-r.interimResults = true;
-
-r.onstart = ()=> log("-> onstart: elindult");
-r.onsoundstart = ()=> log("-> hangot érzékel");
-r.onspeechstart = ()=> log("-> beszédet érzékel");
-r.onresult = e => log("-> RESULT: " + e.results[0][0].transcript);
-r.onerror = e => log("-> ERROR: "+ e.error);
-r.onend = ()=> log("-> onend: leállt");
-r.onnomatch = ()=> log("-> no match");
-
-document.getElementById('b').onclick = ()=>{
-  log("Gomb megnyomva, indítom...");
-  r.start();
-}
-</script>
-<!-- TESZT SCRIPT VÉGE -->
-<!-- HANGERŐ TESZT KEZDETE -->
-<DIV>
-<button id="b">🎤 Hangerő teszt</button>
-<div id="bar" style="height:30px;width:0%;background:lime"></div>
-<pre id="log"></pre>
-</DIV>
-<script>
-document.getElementById('b').onclick = async () => {
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: {
-    echoCancellation: false,
-    autoGainControl: false,
-    noiseSuppression: false
-  }});
-  
-  const ctx = new AudioContext();
-  const src = ctx.createMediaStreamSource(stream);
-  const analyser = ctx.createAnalyser();
-  analyser.fftSize = 256;
-  src.connect(analyser);
-  
-  const data = new Uint8Array(analyser.frequencyBinCount);
-  
-  function loop(){
-    analyser.getByteFrequencyData(data);
-    let vol = Math.max(...data);
-    document.getElementById('bar').style.width = vol + "%";
-    document.getElementById('log').textContent = "Hangerő: " + vol + " (beszélj hangosan, 0-255 közt kell mozogjon)";
-    requestAnimationFrame(loop);
-  }
-  loop();
-}
-</script>
-
-<!-- HANGERŐ TESZT VÉGE -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-// --- WORD DICTIONARIES ---
-const dictionaries = {
-    "en-US": {
+  // --- WORD DICTIONARIES (a te feltöltött szótárad) ---
+  const dictionaries = {
+     "en-US": {
     "training": ["training", "treining"],
     "house": ["house", "hous"],
     "father": ["father", "faadher"],
@@ -242,142 +181,111 @@ const dictionaries = {
     "hund": ["hund"]
   }
 };
-// --- DOM elements ---
-const langSelect = document.getElementById("langSelect");
-const wordSelect = document.getElementById("wordSelect");
-const playBtn = document.getElementById("playBtn");
-const recordBtn = document.getElementById("recordBtn");
-const nextBtn = document.getElementById("nextBtn");
-const resultDiv = document.getElementById("result");
-const spokenDiv = document.getElementById("spoken");
 
-// --- Lang mapper (ez oldja meg Realme-t) ---
-function toSpeechLang(code){
-  code = code.toLowerCase();
-  if(code.includes("hu")) return "hu-HU";
-  if(code.includes("en")) return "en-US";
-  if(code.includes("de") || code.includes("német")) return "de-DE";
-  return code; // ha már jó formában van
-}
 
-// --- Speech setup ---
-const synth = window.speechSynthesis;
-const ut = new SpeechSynthesisUtterance();
-ut.rate = 0.9;
+  // --- DOM elements ---
+  const langSelect = document.getElementById("langSelect");
+  const wordSelect = document.getElementById("wordSelect");
+  const playBtn = document.getElementById("playBtn");
+  const recordBtn = document.getElementById("recordBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const resultDiv = document.getElementById("result");
+  const spokenDiv = document.getElementById("spoken");
 
-// --- Recognition setup (Huawei védelemmel) ---
-const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-let recog = null;
-let recognizing = false;
+  const synth = window.speechSynthesis;
+  const ut = new SpeechSynthesisUtterance();
+  ut.rate = 0.9;
 
-if (!SR) {
-  resultDiv.textContent = "Ezen a készüléken a pontozás nem elérhető, de felolvasással gyakorolhatsz.";
-  recordBtn.disabled = true;
-} else {
-  recog = new SR();
-  recog.interimResults = false;
-  recog.maxAlternatives = 1;
-  recog.continuous = false;
-}
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let recog = null;
+  let recognizing = false;
 
-// --- Similarity (a tied, tökéletes) ---
-function similarity(a, b) {
-  if (!a.length || !b.length) return 0;
-  const matrix = Array(a.length + 1).fill(null).map(() => Array(b.length + 1).fill(null));
-  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
-  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
-  for (let i = 1; i <= a.length; i++) {
-    for (let j = 1; j <= b.length; j++) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      matrix[i][j] = Math.min(matrix[i - 1][j] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j - 1] + cost);
+  if (!SR) {
+    resultDiv.textContent = "Ezen a készüléken a pontozás nem elérhető, de felolvasással gyakorolhatsz.";
+    if(recordBtn) recordBtn.disabled = true;
+  } else {
+    recog = new SR();
+    recog.interimResults = false;
+    recog.maxAlternatives = 1;
+    recog.continuous = false;
+  }
+
+  function similarity(a, b) {
+    if (!a.length || !b.length) return 0;
+    const matrix = Array(a.length + 1).fill(null).map(() => Array(b.length + 1).fill(null));
+    for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+    for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+    for (let i = 1; i <= a.length; i++) {
+      for (let j = 1; j <= b.length; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        matrix[i][j] = Math.min(matrix[i - 1][j] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j - 1] + cost);
+      }
+    }
+    return 1 - matrix[a.length][b.length] / Math.max(a.length, b.length);
+  }
+
+  function updateWordList() {
+    const lang = langSelect.value;
+    const dict = dictionaries[lang];
+    if(!dict) return;
+    wordSelect.innerHTML = "";
+    for (let w in dict) {
+      const opt = document.createElement("option");
+      opt.value = w;
+      opt.textContent = w;
+      wordSelect.appendChild(opt);
+    }
+    wordSelect.selectedIndex = 0;
+    if(recog){
+      recog.lang = lang;
+      ut.lang = lang;
     }
   }
-  const distance = matrix[a.length][b.length];
-  return 1 - distance / Math.max(a.length, b.length);
-}
 
-// --- Update word list ---
-function updateWordList() {
-  const lang = langSelect.value;
-  const dict = dictionaries[lang];
-  wordSelect.innerHTML = "";
-  for (let w in dict) {
-    const opt = document.createElement("option");
-    opt.value = w;
-    opt.textContent = w;
-    wordSelect.appendChild(opt);
-  }
-  wordSelect.selectedIndex = 0;
-  
+  updateWordList();
+  langSelect.onchange = updateWordList;
+
+  playBtn.onclick = () => {
+    ut.text = wordSelect.value;
+    synth.speak(ut);
+  };
+
+  nextBtn.onclick = () => {
+    const dict = dictionaries[langSelect.value];
+    const keys = Object.keys(dict);
+    wordSelect.value = keys[Math.floor(Math.random() * keys.length)];
+    resultDiv.textContent = "";
+    spokenDiv.textContent = "";
+  };
+
+  recordBtn.onclick = () => {
+    if (!recog) return;
+    if (recognizing) { recog.stop(); recognizing = false; return; }
+    recognizing = true;
+    resultDiv.textContent = "🎙️ Listening...";
+    try { recog.start(); } catch(e){ recognizing = false; }
+  };
+
   if(recog){
-    recog.lang = toSpeechLang(lang); // JAVÍTVA
-    ut.lang = toSpeechLang(lang);   // JAVÍTVA
+    recog.onresult = (event) => {
+      recognizing = false;
+      const word = wordSelect.value;
+      const spoken = event.results[0][0].transcript.toLowerCase().trim();
+      const variants = dictionaries[langSelect.value][word];
+      let best = 0;
+      for (let v of variants) {
+        const s = similarity(spoken, v.toLowerCase());
+        if (s > best) best = s;
+      }
+      spokenDiv.textContent = `You said: "${spoken}"`;
+      resultDiv.innerHTML = best < 0.5 ? `❌ Low similarity (${(best * 100).toFixed(1)}%)` : `✅ Match ${(best * 100).toFixed(1)}%`;
+    };
+    recog.onerror = (e) => { recognizing = false; resultDiv.textContent = "⚠️ Error: " + e.error; };
+    recog.onend = () => { recognizing = false; };
   }
-}
-updateWordList();
+});
 
-// --- Change language ---
-langSelect.onchange = updateWordList;
-
-// --- Play word ---
-playBtn.onclick = () => {
-  const word = wordSelect.value;
-  ut.text = word;
-  synth.speak(ut);
-};
-
-// --- Random word ---
-nextBtn.onclick = () => {
-  const dict = dictionaries[langSelect.value];
-  const keys = Object.keys(dict);
-  const random = keys[Math.floor(Math.random() * keys.length)];
-  wordSelect.value = random;
-  resultDiv.textContent = "";
-  spokenDiv.textContent = "";
-};
-
-// --- Record ---
-recordBtn.onclick = () => {
-  if (!recog) return;
-  if (recognizing) {
-    recog.stop();
-    recognizing = false;
-    return;
-  }
-  recognizing = true;
-  resultDiv.textContent = "🎙️ Listening...";
-  try { recog.start(); } catch(e){ recognizing = false; }
-};
-
-// --- Recognition result ---
-if(recog){
-  recog.onresult = (event) => {
-    recognizing = false;
-    const word = wordSelect.value;
-    const spoken = event.results[0][0].transcript.toLowerCase().trim();
-    const variants = dictionaries[langSelect.value][word];
-    let best = 0;
-    for (let v of variants) {
-      const s = similarity(spoken, v.toLowerCase());
-      if (s > best) best = s;
-    }
-    spokenDiv.textContent = `You said: "${spoken}"`;
-    if (best < 0.5) {
-      resultDiv.innerHTML = `❌ Low similarity (${(best * 100).toFixed(1)}%) — try again!`;
-    } else {
-      resultDiv.innerHTML = `✅ Match ${(best * 100).toFixed(1)}%`;
-    }
-  };
-
-  recog.onerror = (e) => {
-    recognizing = false;
-    resultDiv.textContent = "⚠️ Error: " + e.error;
-  };
-  
-  recog.onend = () => {
-    recognizing = false;
-  };
-}
+</script>
 
 
 </body>
